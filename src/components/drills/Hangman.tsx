@@ -35,7 +35,6 @@ export default function Hangman({ drill, onAnswer }: Props) {
     }
   }
 
-  const progress = wrongCount / MAX_WRONG;
   const rocketStage = Math.min(wrongCount, 6);
 
   return (
@@ -43,19 +42,28 @@ export default function Hangman({ drill, onAnswer }: Props) {
       {/* Hint */}
       <div className="flex flex-col items-center gap-1">
         {drill.imageEmoji && <span className="text-7xl">{drill.imageEmoji}</span>}
-        <p className="text-lg text-gray-500 font-medium">{drill.question}</p>
-        {drill.hint && <p className="text-sm text-indigo-400">Hint: starts with <strong>{drill.hint}</strong></p>}
+        <p className="text-lg font-medium text-center" style={{ color: '#6b6b9a' }}>{drill.question}</p>
+        {drill.hint && (
+          <p className="text-sm" style={{ color: '#00f5ff' }}>
+            Hint: starts with <strong style={{ fontFamily: 'Orbitron, sans-serif' }}>{drill.hint.toUpperCase()}</strong>
+          </p>
+        )}
       </div>
 
       {/* Rocket lives */}
-      <div className="flex items-center gap-2 bg-white rounded-2xl px-6 py-3 shadow">
+      <div className="flex items-center gap-3 rounded-2xl px-6 py-3"
+        style={{ background: '#12121a', border: '1px solid rgba(0,245,255,0.18)' }}>
         <span className="text-4xl">{ROCKET_STAGES[rocketStage]}</span>
-        <div className="flex gap-1">
+        <div className="flex gap-1.5">
           {Array.from({ length: MAX_WRONG }).map((_, i) => (
-            <div key={i} className={`w-4 h-4 rounded-full ${i < wrongCount ? 'bg-red-400' : 'bg-green-300'}`} />
+            <div key={i} className="w-4 h-4 rounded-full transition-all"
+              style={{
+                background: i < wrongCount ? '#ff0080' : '#00ff88',
+                boxShadow: i < wrongCount ? '0 0 6px rgba(255,0,128,0.6)' : '0 0 6px rgba(0,255,136,0.6)',
+              }} />
           ))}
         </div>
-        <span className="text-sm text-gray-500">{MAX_WRONG - wrongCount} left</span>
+        <span className="text-sm font-mono" style={{ color: '#6b6b9a' }}>{MAX_WRONG - wrongCount} left</span>
       </div>
 
       {/* Word blanks */}
@@ -67,15 +75,19 @@ export default function Hangman({ drill, onAnswer }: Props) {
                 <motion.span
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  className="text-3xl font-bold text-indigo-700 w-10 text-center"
+                  className="text-3xl font-bold w-10 text-center font-orbitron"
+                  style={{ color: '#00f5ff' }}
                 >
                   {letter}
                 </motion.span>
               ) : (
-                <span className="text-3xl font-bold text-transparent w-10 text-center">_</span>
+                <span className="text-3xl font-bold w-10 text-center" style={{ color: 'transparent' }}>_</span>
               )}
             </AnimatePresence>
-            <div className={`w-10 h-1 rounded-full ${lostGame && !guessed.has(letter) ? 'bg-red-400' : 'bg-indigo-300'}`} />
+            <div className="w-10 h-0.5 rounded-full mt-1"
+              style={{
+                background: lostGame && !guessed.has(letter) ? '#ff0080' : 'rgba(0,245,255,0.4)',
+              }} />
           </div>
         ))}
       </div>
@@ -93,10 +105,12 @@ export default function Hangman({ drill, onAnswer }: Props) {
                 whileTap={{ scale: 0.85 }}
                 onClick={() => guess(letter)}
                 disabled={isGuessed}
-                className={`w-10 h-10 rounded-xl font-bold text-lg transition-all
-                  ${isWrong ? 'bg-red-200 text-red-400 cursor-not-allowed' :
-                    isCorrect ? 'bg-green-200 text-green-600 cursor-not-allowed' :
-                    'bg-indigo-100 text-indigo-700 hover:bg-indigo-200 active:scale-90'}`}
+                className="w-10 h-10 rounded-xl font-bold text-lg transition-all font-orbitron"
+                style={
+                  isWrong ? { background: 'rgba(255,0,128,0.15)', color: '#ff006688', border: '1px solid rgba(255,0,128,0.3)' } :
+                  isCorrect ? { background: 'rgba(0,255,136,0.15)', color: '#00ff88', border: '1px solid rgba(0,255,136,0.4)' } :
+                  { background: 'rgba(0,245,255,0.08)', color: '#00f5ff', border: '1px solid rgba(0,245,255,0.25)' }
+                }
               >
                 {letter}
               </motion.button>
@@ -110,9 +124,10 @@ export default function Hangman({ drill, onAnswer }: Props) {
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            className={`text-2xl font-bold ${wonGame ? 'text-green-500' : 'text-red-500'}`}
+            className="text-2xl font-bold font-orbitron"
+            style={{ color: wonGame ? '#00ff88' : '#ff0080' }}
           >
-            {wonGame ? `🚀 You got it! "${word}"` : `💥 The word was "${word}"`}
+            {wonGame ? `🚀 "${word}" — correct!` : `💥 The word was "${word}"`}
           </motion.div>
         )}
       </AnimatePresence>

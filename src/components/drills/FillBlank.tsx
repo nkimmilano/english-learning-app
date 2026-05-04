@@ -32,17 +32,25 @@ export default function FillBlank({ drill, onAnswer }: Props) {
   return (
     <div className="flex flex-col items-center gap-6 w-full">
       {/* Question card */}
-      <div className="bg-white rounded-3xl p-6 shadow-lg w-full text-center">
-        <p className="text-2xl font-bold text-gray-700 leading-relaxed">
+      <div className="rounded-3xl p-6 w-full text-center"
+        style={{ background: '#12121a', border: '1px solid rgba(0,245,255,0.18)' }}>
+        <p className="text-2xl font-bold leading-relaxed" style={{ color: '#e0e0ff' }}>
           {parts[0]}
           <span
-            className={`inline-block min-w-[130px] border-b-4 mx-2 px-2 transition-all duration-300 ${
-              !revealed
-                ? 'border-indigo-400 text-transparent'
-                : correct
-                ? 'border-green-400 text-green-600'
-                : 'border-red-400 text-red-600'
-            }`}
+            className="inline-block min-w-[130px] mx-2 px-2 rounded-lg transition-all duration-300 font-orbitron"
+            style={!revealed ? {
+              background: 'rgba(0,245,255,0.08)',
+              border: '2px solid rgba(0,245,255,0.4)',
+              color: 'transparent',
+            } : correct ? {
+              background: 'rgba(0,255,136,0.12)',
+              border: '2px solid #00ff88',
+              color: '#00ff88',
+            } : {
+              background: 'rgba(255,0,128,0.12)',
+              border: '2px solid #ff0080',
+              color: '#ff0080',
+            }}
           >
             {revealed ? selected : '?'}
           </span>
@@ -53,21 +61,22 @@ export default function FillBlank({ drill, onAnswer }: Props) {
       {/* Shuffled options */}
       <div className="grid grid-cols-2 gap-4 w-full max-w-lg">
         {options.map(opt => {
-          let bg = 'bg-white border-2 border-indigo-200 text-indigo-700 active:scale-95';
+          let btnStyle: React.CSSProperties = { background: '#1a1a2e', border: '1px solid rgba(0,245,255,0.2)', color: '#e0e0ff' };
           if (revealed && opt === drill.correctAnswer)
-            bg = 'bg-green-100 border-2 border-green-400 text-green-700';
+            btnStyle = { background: 'rgba(0,255,136,0.12)', border: '2px solid #00ff88', color: '#00ff88', boxShadow: '0 0 12px rgba(0,255,136,0.3)' };
           else if (revealed && opt === selected)
-            bg = 'bg-red-100 border-2 border-red-400 text-red-700';
+            btnStyle = { background: 'rgba(255,0,128,0.12)', border: '2px solid #ff0080', color: '#ff0080', boxShadow: '0 0 12px rgba(255,0,128,0.3)' };
 
           return (
             <motion.button
               key={opt}
               whileTap={{ scale: 0.95 }}
               onClick={() => choose(opt)}
-              className={`${bg} rounded-2xl p-4 text-xl font-bold shadow-sm transition-all duration-200`}
+              className="rounded-2xl p-4 text-xl font-bold transition-all duration-200"
+              style={btnStyle}
             >
-              {revealed && opt === drill.correctAnswer && '✅ '}
-              {revealed && opt === selected && opt !== drill.correctAnswer && '❌ '}
+              {revealed && opt === drill.correctAnswer && '✓ '}
+              {revealed && opt === selected && opt !== drill.correctAnswer && '✗ '}
               {opt}
             </motion.button>
           );
@@ -79,9 +88,10 @@ export default function FillBlank({ drill, onAnswer }: Props) {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`text-2xl font-bold ${correct ? 'text-green-500' : 'text-red-500'}`}
+            className="text-2xl font-bold font-orbitron"
+            style={{ color: correct ? '#00ff88' : '#ff0080' }}
           >
-            {correct ? '🎉 Correct!' : `The answer is "${drill.correctAnswer}"`}
+            {correct ? '✓ Correct!' : `Answer: "${drill.correctAnswer}"`}
           </motion.div>
         )}
       </AnimatePresence>

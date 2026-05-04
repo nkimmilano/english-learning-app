@@ -381,7 +381,7 @@ export const LESSONS: Lesson[] = [
       { id: 'd6', type: 'quiz', question: 'Which is a drink?', correctAnswer: 'juice', options: ['juice', 'apple', 'bread', 'cheese'] },
       { id: 'd7', type: 'listening', question: 'Listen and choose.', correctAnswer: 'chocolate', options: ['chocolate', 'cheese', 'chicken', 'cherry'], imageEmoji: '🍫' },
       { id: 'd8', type: 'scramble', question: 'Unscramble!', correctAnswer: 'ORANGE', imageEmoji: '🍊', hint: 'O' },
-      { id: 'd9', type: 'fill-blank', question: 'Chips are my favourite ___.', correctAnswer: 'snack', options: ['snack', 'drink', 'meal', 'fruit'] },
+      { id: 'd9', type: 'fill-blank', question: 'Chips are my favorite ___.', correctAnswer: 'snack', options: ['snack', 'drink', 'meal', 'fruit'] },
       { id: 'd10', type: 'word-image', question: 'Which word matches this food?', correctAnswer: 'egg', options: ['egg', 'milk', 'butter', 'bread'], imageEmoji: '🥚' },
     ],
   },
@@ -450,7 +450,7 @@ export const LESSONS: Lesson[] = [
       { id: 'd7', type: 'quiz', question: 'What is 90 − 35?', correctAnswer: '55', options: ['54', '55', '56', '65'] },
       { id: 'd8', type: 'fill-blank', question: 'Sixty-three minus ___ equals sixty.', correctAnswer: 'three', options: ['three', 'thirty', 'thirteen', 'six'] },
       { id: 'd9', type: 'quiz', question: 'What is eighty minus forty-four?', correctAnswer: '36', options: ['34', '35', '36', '46'] },
-      { id: 'd10', type: 'quiz', question: 'Which word means "take away" in maths?', correctAnswer: 'minus', options: ['minus', 'plus', 'times', 'equals'] },
+      { id: 'd10', type: 'quiz', question: 'Which word means "take away" in math?', correctAnswer: 'minus', options: ['minus', 'plus', 'times', 'equals'] },
     ],
   },
 
@@ -472,7 +472,7 @@ export const LESSONS: Lesson[] = [
       { id: 'd7', type: 'quiz', question: 'What is 9 × 9?', correctAnswer: '81', options: ['79', '80', '81', '82'] },
       { id: 'd8', type: 'fill-blank', question: 'Ten times ten equals ___.', correctAnswer: 'one hundred', options: ['one hundred', 'ten', 'twenty', 'one thousand'] },
       { id: 'd9', type: 'quiz', question: 'What is five times seven?', correctAnswer: '35', options: ['30', '32', '35', '37'] },
-      { id: 'd10', type: 'quiz', question: 'Which word means "multiply" in maths?', correctAnswer: 'times', options: ['times', 'plus', 'minus', 'equals'] },
+      { id: 'd10', type: 'quiz', question: 'Which word means "multiply" in math?', correctAnswer: 'times', options: ['times', 'plus', 'minus', 'equals'] },
     ],
   },
 
@@ -494,7 +494,7 @@ export const LESSONS: Lesson[] = [
       { id: 'd7', type: 'fill-blank', question: 'Eighty ___ eight equals ten.', correctAnswer: 'divided by', options: ['divided by', 'times', 'plus', 'minus'] },
       { id: 'd8', type: 'quiz', question: 'What is sixty-three divided by nine?', correctAnswer: '7', options: ['6', '7', '8', '9'] },
       { id: 'd9', type: 'quiz', question: 'What is 50 ÷ 5?', correctAnswer: '10', options: ['5', '8', '10', '45'] },
-      { id: 'd10', type: 'quiz', question: 'Which word means "share equally" in maths?', correctAnswer: 'divided by', options: ['divided by', 'minus', 'times', 'plus'] },
+      { id: 'd10', type: 'quiz', question: 'Which word means "share equally" in math?', correctAnswer: 'divided by', options: ['divided by', 'minus', 'times', 'plus'] },
     ],
   },
 
@@ -739,7 +739,7 @@ export const LESSONS: Lesson[] = [
         id: 'd1',
         type: 'reading-comprehension',
         question: 'Formula 1 Racing',
-        passage: 'Formula 1 is the fastest form of car racing in the world. The cars can reach speeds of over 350 kilometres per hour. Each car has a very powerful engine and special tyres that grip the road tightly. Drivers wear helmets and fireproof suits to keep them safe.\n\nA Formula 1 season has about 20 races called Grands Prix, which take place in different countries around the world. The driver who earns the most points at the end of the season becomes the World Champion.\n\nLewis Hamilton is one of the most famous Formula 1 drivers. He has won the World Championship seven times, which is a world record. The races are exciting to watch because drivers can overtake each other and pit stops — where mechanics change the tyres very quickly — add to the drama.',
+        passage: 'Formula 1 is the fastest form of car racing in the world. The cars can reach speeds of over 350 kilometers per hour. Each car has a very powerful engine and special tires that grip the road tightly. Drivers wear helmets and fireproof suits to keep them safe.\n\nA Formula 1 season has about 20 races called Grands Prix, which take place in different countries around the world. The driver who earns the most points at the end of the season becomes the World Champion.\n\nLewis Hamilton is one of the most famous Formula 1 drivers. He has won the World Championship seven times, which is a world record. The races are exciting to watch because drivers can overtake each other and pit stops — where mechanics change the tires very quickly — add to the drama.',
         topic: 'cars',
         readingLevel: 'b1',
         wordCount: 128,
@@ -750,14 +750,14 @@ export const LESSONS: Lesson[] = [
             question: 'How fast can Formula 1 cars go?',
             correctAnswer: 'Over 350 km/h',
             options: ['Over 350 km/h', 'About 200 km/h', 'Over 500 km/h', 'Under 100 km/h'],
-            explanation: 'The passage says the cars can reach speeds of over 350 kilometres per hour.',
+            explanation: 'The passage says the cars can reach speeds of over 350 kilometers per hour.',
             questionType: 'literal',
           },
           {
             question: 'What happens during a "pit stop"?',
-            correctAnswer: 'Mechanics change the tyres very quickly',
-            options: ['Mechanics change the tyres very quickly', 'The driver leaves the race', 'The car runs out of fuel', 'A driver gets a penalty'],
-            explanation: 'The passage explains that pit stops are where mechanics change the tyres very quickly.',
+            correctAnswer: 'Mechanics change the tires very quickly',
+            options: ['Mechanics change the tires very quickly', 'The driver leaves the race', 'The car runs out of fuel', 'A driver gets a penalty'],
+            explanation: 'The passage explains that pit stops are where mechanics change the tires very quickly.',
             questionType: 'vocabulary',
           },
           {
@@ -809,7 +809,7 @@ export const LESSONS: Lesson[] = [
           {
             question: 'What does "radioactive" most likely mean?',
             correctAnswer: 'Giving off a type of harmful energy',
-            options: ['Giving off a type of harmful energy', 'Very colourful', 'Extremely fast', 'Belonging to a superhero'],
+            options: ['Giving off a type of harmful energy', 'Very colorful', 'Extremely fast', 'Belonging to a superhero'],
             explanation: 'Radioactive refers to something that gives off energy in the form of radiation, which can change living things.',
             questionType: 'vocabulary',
           },
@@ -833,6 +833,214 @@ export const LESSONS: Lesson[] = [
   },
 
   // ═══════════════════════════════════════════════════════════════════════════
+  // HOMOPHONES (B1)
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'b1-homophones-there',
+    zone: 'b1',
+    category: 'Homophones',
+    title: 'There / Their / They\'re',
+    icon: '🔊',
+    color: 'from-violet-500 to-purple-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: '___ going to the game later.', correctAnswer: "They're", options: ["There", "Their", "They're"], homophoneExplanation: "They're = they are (a contraction). Try replacing with 'they are' — if it works, use they're." },
+      { id: 'd2', type: 'homophone', question: 'I left my bag over ___.', correctAnswer: 'there', options: ['there', 'their', "they're"], homophoneExplanation: "There = a place or location. 'Put it there' points to a spot." },
+      { id: 'd3', type: 'homophone', question: 'The students forgot ___ homework.', correctAnswer: 'their', options: ['there', 'their', "they're"], homophoneExplanation: "Their = belonging to them (possessive). The homework belongs to the students." },
+      { id: 'd4', type: 'homophone', question: '___ not coming to the party.', correctAnswer: "They're", options: ["There", "Their", "They're"], homophoneExplanation: "They're = they are. 'They are not coming to the party.'" },
+      { id: 'd5', type: 'homophone', question: 'The kids rode ___ bikes to school.', correctAnswer: 'their', options: ['there', 'their', "they're"], homophoneExplanation: "Their = belonging to them. The bikes belong to the kids." },
+      { id: 'd6', type: 'homophone', question: 'Is anyone ___?', correctAnswer: 'there', options: ['there', 'their', "they're"], homophoneExplanation: "There = refers to a place or existence. 'Is anyone there?' asks if someone is present." },
+      { id: 'd7', type: 'homophone', question: '___ always late for meetings.', correctAnswer: "They're", options: ["There", "Their", "They're"], homophoneExplanation: "They're = they are. Replace test: 'They are always late for meetings.' ✓" },
+      { id: 'd8', type: 'homophone', question: 'She found ___ missing keys.', correctAnswer: 'their', options: ['there', 'their', "they're"], homophoneExplanation: "Their = belonging to them. The keys belong to those people." },
+    ],
+  },
+
+  {
+    id: 'b1-homophones-to',
+    zone: 'b1',
+    category: 'Homophones',
+    title: 'To / Too / Two',
+    icon: '🔊',
+    color: 'from-violet-500 to-purple-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: 'I want ___ go to the beach.', correctAnswer: 'to', options: ['to', 'too', 'two'], homophoneExplanation: "To = used before a verb (infinitive). 'I want to go.'" },
+      { id: 'd2', type: 'homophone', question: 'Can I come ___?', correctAnswer: 'too', options: ['to', 'too', 'two'], homophoneExplanation: "Too = also / as well. 'Can I come too?' means 'Can I come also?'" },
+      { id: 'd3', type: 'homophone', question: 'She has ___ cats.', correctAnswer: 'two', options: ['to', 'too', 'two'], homophoneExplanation: "Two = the number 2. Example: I have two brothers." },
+      { id: 'd4', type: 'homophone', question: 'This coffee is ___ hot to drink.', correctAnswer: 'too', options: ['to', 'too', 'two'], homophoneExplanation: "Too = excessively / more than enough. 'Too hot' means more than hot enough." },
+      { id: 'd5', type: 'homophone', question: 'We walked ___ the store.', correctAnswer: 'to', options: ['to', 'too', 'two'], homophoneExplanation: "To = toward a destination. 'Walked to the store' shows direction." },
+      { id: 'd6', type: 'homophone', question: 'I bought ___ tickets for the show.', correctAnswer: 'two', options: ['to', 'too', 'two'], homophoneExplanation: "Two = the number 2. 'Two tickets' means 2 tickets." },
+      { id: 'd7', type: 'homophone', question: 'He is ___ tired to work.', correctAnswer: 'too', options: ['to', 'too', 'two'], homophoneExplanation: "Too = excessively. 'Too tired to work' — he is more than tired enough." },
+      { id: 'd8', type: 'homophone', question: 'She gave the book ___ her friend.', correctAnswer: 'to', options: ['to', 'too', 'two'], homophoneExplanation: "To = toward someone. 'Gave the book to her friend' shows the receiver." },
+    ],
+  },
+
+  {
+    id: 'b1-homophones-your',
+    zone: 'b1',
+    category: 'Homophones',
+    title: 'Your / You\'re',
+    icon: '🔊',
+    color: 'from-violet-500 to-purple-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: '___ going to love this game.', correctAnswer: "You're", options: ["Your", "You're"], homophoneExplanation: "You're = you are. Replace test: 'You are going to love this game.' ✓" },
+      { id: 'd2', type: 'homophone', question: 'Is this ___ controller?', correctAnswer: 'your', options: ['your', "you're"], homophoneExplanation: "Your = belonging to you (possessive). The controller belongs to you." },
+      { id: 'd3', type: 'homophone', question: "What's ___ high score?", correctAnswer: 'your', options: ['your', "you're"], homophoneExplanation: "Your = belonging to you. 'Your high score' = the high score that is yours." },
+      { id: 'd4', type: 'homophone', question: '___ the best player on the team.', correctAnswer: "You're", options: ["Your", "You're"], homophoneExplanation: "You're = you are. 'You are the best player on the team.' ✓" },
+      { id: 'd5', type: 'homophone', question: "I can't believe ___ that fast.", correctAnswer: "you're", options: ['your', "you're"], homophoneExplanation: "You're = you are. 'I can't believe you are that fast.' ✓" },
+      { id: 'd6', type: 'homophone', question: 'Put ___ helmet on before the race.', correctAnswer: 'your', options: ['your', "you're"], homophoneExplanation: "Your = belonging to you. The helmet belongs to you." },
+      { id: 'd7', type: 'homophone', question: '___ going to need more practice.', correctAnswer: "You're", options: ["Your", "You're"], homophoneExplanation: "You're = you are. 'You are going to need more practice.' ✓" },
+      { id: 'd8', type: 'homophone', question: "That's ___ best shot yet.", correctAnswer: 'your', options: ['your', "you're"], homophoneExplanation: "Your = belonging to you. 'Your best shot' = the best shot you have made." },
+    ],
+  },
+
+  {
+    id: 'b1-homophones-its',
+    zone: 'b1',
+    category: 'Homophones',
+    title: 'Its / It\'s',
+    icon: '🔊',
+    color: 'from-violet-500 to-purple-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: "___ raining outside.", correctAnswer: "It's", options: ["Its", "It's"], homophoneExplanation: "It's = it is (contraction). Replace test: 'It is raining outside.' ✓" },
+      { id: 'd2', type: 'homophone', question: 'The robot lost ___ power.', correctAnswer: 'its', options: ['its', "it's"], homophoneExplanation: "Its = belonging to it (possessive). The power belongs to the robot." },
+      { id: 'd3', type: 'homophone', question: "___ the fastest car on the track.", correctAnswer: "It's", options: ["Its", "It's"], homophoneExplanation: "It's = it is. Replace test: 'It is the fastest car on the track.' ✓" },
+      { id: 'd4', type: 'homophone', question: 'The spider spun ___ web.', correctAnswer: 'its', options: ['its', "it's"], homophoneExplanation: "Its = belonging to it. The web belongs to the spider." },
+      { id: 'd5', type: 'homophone', question: "___ going to be a great match.", correctAnswer: "It's", options: ["Its", "It's"], homophoneExplanation: "It's = it is. Replace test: 'It is going to be a great match.' ✓" },
+      { id: 'd6', type: 'homophone', question: 'The engine lost ___ power mid-race.', correctAnswer: 'its', options: ['its', "it's"], homophoneExplanation: "Its = belonging to it. The power belongs to the engine." },
+      { id: 'd7', type: 'homophone', question: "___ not over until the final lap.", correctAnswer: "It's", options: ["Its", "It's"], homophoneExplanation: "It's = it is. Replace test: 'It is not over until the final lap.' ✓" },
+      { id: 'd8', type: 'homophone', question: 'The team celebrated ___ victory.', correctAnswer: 'its', options: ['its', "it's"], homophoneExplanation: "Its = belonging to it. The victory belongs to the team." },
+    ],
+  },
+
+  {
+    id: 'b1-homophones-here-hear',
+    zone: 'b1',
+    category: 'Homophones',
+    title: 'Here / Hear',
+    icon: '🔊',
+    color: 'from-violet-500 to-purple-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: 'Come over ___ and look at this.', correctAnswer: 'here', options: ['here', 'hear'], homophoneExplanation: "Here = a place or location. 'Come over here' means come to this place." },
+      { id: 'd2', type: 'homophone', question: 'Can you ___ the crowd cheering?', correctAnswer: 'hear', options: ['here', 'hear'], homophoneExplanation: "Hear = to listen / perceive sound. You use your ears to hear." },
+      { id: 'd3', type: 'homophone', question: 'I can ___ the engine from a mile away.', correctAnswer: 'hear', options: ['here', 'hear'], homophoneExplanation: "Hear = to perceive sound. The engine is loud enough to hear at a distance." },
+      { id: 'd4', type: 'homophone', question: 'The finish line is right ___.', correctAnswer: 'here', options: ['here', 'hear'], homophoneExplanation: "Here = at this place / location. 'Right here' means at this exact spot." },
+      { id: 'd5', type: 'homophone', question: 'Did you ___ what the coach said?', correctAnswer: 'hear', options: ['here', 'hear'], homophoneExplanation: "Hear = to listen. 'Did you hear?' means did you listen and understand." },
+      { id: 'd6', type: 'homophone', question: 'Put the trophy ___ on the shelf.', correctAnswer: 'here', options: ['here', 'hear'], homophoneExplanation: "Here = at this location. 'Put it here' tells someone where to place something." },
+      { id: 'd7', type: 'homophone', question: "I can't ___ you over the noise.", correctAnswer: 'hear', options: ['here', 'hear'], homophoneExplanation: "Hear = to perceive sound. The noise is too loud to hear properly." },
+      { id: 'd8', type: 'homophone', question: "We're almost ___!", correctAnswer: 'here', options: ['here', 'hear'], homophoneExplanation: "Here = at this place. 'Almost here' means almost arrived at the destination." },
+    ],
+  },
+
+  {
+    id: 'b1-homophones-knew-threw',
+    zone: 'b1',
+    category: 'Homophones',
+    title: 'Knew / New + Threw / Through',
+    icon: '🔊',
+    color: 'from-violet-500 to-purple-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: 'She ___ the answer straight away.', correctAnswer: 'knew', options: ['knew', 'new'], homophoneExplanation: "Knew = past tense of know. 'She knew' means she had the knowledge before." },
+      { id: 'd2', type: 'homophone', question: 'He got a ___ superhero costume.', correctAnswer: 'new', options: ['knew', 'new'], homophoneExplanation: "New = not old / recently made or acquired." },
+      { id: 'd3', type: 'homophone', question: 'The pitcher ___ the ball hard.', correctAnswer: 'threw', options: ['threw', 'through'], homophoneExplanation: "Threw = past tense of throw. 'The pitcher threw the ball.'" },
+      { id: 'd4', type: 'homophone', question: 'The car drove ___ the tunnel.', correctAnswer: 'through', options: ['threw', 'through'], homophoneExplanation: "Through = from one side to the other, or all the way inside something." },
+      { id: 'd5', type: 'homophone', question: "Nobody ___ his secret identity.", correctAnswer: 'knew', options: ['knew', 'new'], homophoneExplanation: "Knew = past tense of know. 'Nobody knew' means no one had that knowledge." },
+      { id: 'd6', type: 'homophone', question: 'They installed a ___ engine.', correctAnswer: 'new', options: ['knew', 'new'], homophoneExplanation: "New = recently made or not used before. A brand new engine." },
+      { id: 'd7', type: 'homophone', question: 'She ___ a perfect pass.', correctAnswer: 'threw', options: ['threw', 'through'], homophoneExplanation: "Threw = past tense of throw. 'She threw a perfect pass.'" },
+      { id: 'd8', type: 'homophone', question: 'The rocket flew ___ the atmosphere.', correctAnswer: 'through', options: ['threw', 'through'], homophoneExplanation: "Through = passing from one side to the other. The rocket went through the atmosphere." },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // HOMOPHONES (B2)
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'b2-homophones-affect',
+    zone: 'b2',
+    category: 'Homophones',
+    title: 'Affect / Effect',
+    icon: '🔊',
+    color: 'from-pink-600 to-rose-700',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: 'The rain will ___ the race result.', correctAnswer: 'affect', options: ['affect', 'effect'], homophoneExplanation: "Affect = verb, to have an impact on something. 'Rain affects grip on the track.'" },
+      { id: 'd2', type: 'homophone', question: 'The ___ of the crash was massive.', correctAnswer: 'effect', options: ['affect', 'effect'], homophoneExplanation: "Effect = noun, the result or outcome. 'The effect of the crash was serious.'" },
+      { id: 'd3', type: 'homophone', question: 'How does gravity ___ a spacecraft?', correctAnswer: 'affect', options: ['affect', 'effect'], homophoneExplanation: "Affect = verb. Gravity influences (affects) the path of a spacecraft." },
+      { id: 'd4', type: 'homophone', question: 'The medicine had a powerful ___.', correctAnswer: 'effect', options: ['affect', 'effect'], homophoneExplanation: "Effect = noun. The medicine produced a strong result (effect)." },
+      { id: 'd5', type: 'homophone', question: 'Lack of sleep can ___ your performance.', correctAnswer: 'affect', options: ['affect', 'effect'], homophoneExplanation: "Affect = verb. 'Lack of sleep affects performance' means it impacts it." },
+      { id: 'd6', type: 'homophone', question: 'The special ___ in the movie looked real.', correctAnswer: 'effect', options: ['affect', 'effect'], homophoneExplanation: "Effect = noun. 'Special effects' are the visual results created in films." },
+      { id: 'd7', type: 'homophone', question: 'Will the weather ___ our plans?', correctAnswer: 'affect', options: ['affect', 'effect'], homophoneExplanation: "Affect = verb. The weather may change (affect) our plans." },
+      { id: 'd8', type: 'homophone', question: 'The ___ of training was clear in the final.', correctAnswer: 'effect', options: ['affect', 'effect'], homophoneExplanation: "Effect = noun. The result (effect) of training showed in the performance." },
+    ],
+  },
+
+  {
+    id: 'b2-homophones-complement',
+    zone: 'b2',
+    category: 'Homophones',
+    title: 'Complement / Compliment',
+    icon: '🔊',
+    color: 'from-pink-600 to-rose-700',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: 'That helmet really ___ your racing suit.', correctAnswer: 'complements', options: ['complements', 'compliments'], homophoneExplanation: "Complement = goes well with / completes something. The helmet and suit go well together." },
+      { id: 'd2', type: 'homophone', question: 'He received a huge ___ from his coach.', correctAnswer: 'compliment', options: ['complement', 'compliment'], homophoneExplanation: "Compliment = saying something nice about someone. The coach said something kind." },
+      { id: 'd3', type: 'homophone', question: 'The sauce is the perfect ___ to the dish.', correctAnswer: 'complement', options: ['complement', 'compliment'], homophoneExplanation: "Complement = something that completes or enhances. The sauce enhances the dish." },
+      { id: 'd4', type: 'homophone', question: 'She paid him a ___ on his speed.', correctAnswer: 'compliment', options: ['complement', 'compliment'], homophoneExplanation: "Compliment = a nice remark. 'She paid a compliment' means she said something positive." },
+      { id: 'd5', type: 'homophone', question: 'The turbo ___ the engine perfectly.', correctAnswer: 'complements', options: ['complements', 'compliments'], homophoneExplanation: "Complements = enhances / goes perfectly with. The turbo makes the engine perform better." },
+      { id: 'd6', type: 'homophone', question: 'What a ___ — she said I was gifted!', correctAnswer: 'compliment', options: ['complement', 'compliment'], homophoneExplanation: "Compliment = a nice thing said to someone. 'She said I was gifted' is a kind remark." },
+      { id: 'd7', type: 'homophone', question: "The two players ___ each other's style.", correctAnswer: 'complement', options: ['complement', 'compliment'], homophoneExplanation: "Complement = to go well together. Their playing styles enhance each other." },
+      { id: 'd8', type: 'homophone', question: 'He always ___ his teammates after a win.', correctAnswer: 'compliments', options: ['complements', 'compliments'], homophoneExplanation: "Compliments = says nice things to. He praises his teammates after winning." },
+    ],
+  },
+
+  {
+    id: 'b2-homophones-passed-brake',
+    zone: 'b2',
+    category: 'Homophones',
+    title: 'Passed / Past + Brake / Break',
+    icon: '🔊',
+    color: 'from-pink-600 to-rose-700',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: 'He ___ three cars on the final lap.', correctAnswer: 'passed', options: ['passed', 'past'], homophoneExplanation: "Passed = moved beyond (verb, past tense of pass). He overtook three cars." },
+      { id: 'd2', type: 'homophone', question: 'In the ___, cars had no safety features.', correctAnswer: 'past', options: ['passed', 'past'], homophoneExplanation: "Past = a previous time (noun/adjective). 'In the past' refers to earlier times." },
+      { id: 'd3', type: 'homophone', question: 'Hit the ___ before the sharp corner.', correctAnswer: 'brake', options: ['brake', 'break'], homophoneExplanation: "Brake = device to slow down a vehicle. You press the brake pedal to slow down." },
+      { id: 'd4', type: 'homophone', question: 'I need a ___ after three hours of gaming.', correctAnswer: 'break', options: ['brake', 'break'], homophoneExplanation: "Break = a rest or pause. 'Take a break' means stop for a short rest." },
+      { id: 'd5', type: 'homophone', question: 'She ___ the test with a perfect score.', correctAnswer: 'passed', options: ['passed', 'past'], homophoneExplanation: "Passed = successfully completed (verb). 'She passed the test' means she succeeded." },
+      { id: 'd6', type: 'homophone', question: 'That corner has always been dangerous in the ___.', correctAnswer: 'past', options: ['passed', 'past'], homophoneExplanation: "Past = previous times. 'In the past' means historically / before now." },
+      { id: 'd7', type: 'homophone', question: 'The ___ pads were completely worn out.', correctAnswer: 'brake', options: ['brake', 'break'], homophoneExplanation: "Brake = the stopping mechanism. Brake pads press against the wheel to slow the car." },
+      { id: 'd8', type: 'homophone', question: "Don't ___ the winning streak.", correctAnswer: 'break', options: ['brake', 'break'], homophoneExplanation: "Break = to end or interrupt something. 'Break the streak' means end the run of wins." },
+    ],
+  },
+
+  {
+    id: 'b2-homophones-stationary',
+    zone: 'b2',
+    category: 'Homophones',
+    title: 'Stationary / Stationery + Principal / Principle',
+    icon: '🔊',
+    color: 'from-pink-600 to-rose-700',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: 'The car remained ___ at the starting line.', correctAnswer: 'stationary', options: ['stationary', 'stationery'], homophoneExplanation: "Stationary = not moving, standing still. The car did not move." },
+      { id: 'd2', type: 'homophone', question: 'He bought ___ for the new school year.', correctAnswer: 'stationery', options: ['stationary', 'stationery'], homophoneExplanation: "Stationery = pens, paper, and writing supplies. Bought for school." },
+      { id: 'd3', type: 'homophone', question: 'The ___ of the school gave a speech.', correctAnswer: 'principal', options: ['principal', 'principle'], homophoneExplanation: "Principal = head of a school. Also means 'most important' as an adjective." },
+      { id: 'd4', type: 'homophone', question: "He refused to cheat — it was against his ___.", correctAnswer: 'principle', options: ['principal', 'principle'], homophoneExplanation: "Principle = a moral rule or belief. His principle was to always be honest." },
+      { id: 'd5', type: 'homophone', question: 'Keep the camera ___ for a clear shot.', correctAnswer: 'stationary', options: ['stationary', 'stationery'], homophoneExplanation: "Stationary = not moving. A still (stationary) camera gives a clearer image." },
+      { id: 'd6', type: 'homophone', question: 'She packed her ___ into her school bag.', correctAnswer: 'stationery', options: ['stationary', 'stationery'], homophoneExplanation: "Stationery = writing supplies like pens and notebooks. Packed for school." },
+      { id: 'd7', type: 'homophone', question: 'The ___ reason for the delay was the weather.', correctAnswer: 'principal', options: ['principal', 'principle'], homophoneExplanation: "Principal = main / most important. The principal (main) reason was the weather." },
+      { id: 'd8', type: 'homophone', question: "It's a ___ I always follow: never give up.", correctAnswer: 'principle', options: ['principal', 'principle'], homophoneExplanation: "Principle = a personal rule or belief. 'Never give up' is the principle followed." },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
   // ZONE B2 — Advanced
   // ═══════════════════════════════════════════════════════════════════════════
 
@@ -849,7 +1057,7 @@ export const LESSONS: Lesson[] = [
         id: 'd1',
         type: 'reading-comprehension',
         question: 'The James Webb Space Telescope',
-        passage: 'The James Webb Space Telescope (JWST) is the most powerful space telescope ever built. It was launched on 25 December 2021 and travelled to a point 1.5 million kilometres from Earth. Unlike its famous predecessor, the Hubble Space Telescope, Webb can observe infrared light — a type of light invisible to human eyes. This allows it to see through clouds of dust that block normal light and look much further back in time.\n\nScientists use the JWST to study galaxies that formed shortly after the Big Bang, which happened about 13.8 billion years ago. Because light takes time to travel, looking far away in space means looking far back in time.\n\nIn 2022, the telescope released its first stunning images, showing thousands of galaxies in extraordinary detail. Astronomers hope that Webb will help answer some of the biggest questions in science: How did the universe begin? Are there planets beyond our Solar System that could support life?',
+        passage: 'The James Webb Space Telescope (JWST) is the most powerful space telescope ever built. It was launched on 25 December 2021 and traveled to a point 1.5 million kilometers from Earth. Unlike its famous predecessor, the Hubble Space Telescope, Webb can observe infrared light — a type of light invisible to human eyes. This allows it to see through clouds of dust that block normal light and look much further back in time.\n\nScientists use the JWST to study galaxies that formed shortly after the Big Bang, which happened about 13.8 billion years ago. Because light takes time to travel, looking far away in space means looking far back in time.\n\nIn 2022, the telescope released its first stunning images, showing thousands of galaxies in extraordinary detail. Astronomers hope that Webb will help answer some of the biggest questions in science: How did the universe begin? Are there planets beyond our Solar System that could support life?',
         topic: 'space',
         readingLevel: 'b2',
         wordCount: 152,
@@ -858,9 +1066,9 @@ export const LESSONS: Lesson[] = [
         rcQuestions: [
           {
             question: 'Where is the James Webb Space Telescope located?',
-            correctAnswer: '1.5 million kilometres from Earth',
-            options: ['1.5 million kilometres from Earth', 'On the Moon', 'Orbiting Earth like Hubble', '13.8 billion light-years away'],
-            explanation: 'The passage says Webb travelled to a point 1.5 million kilometres from Earth.',
+            correctAnswer: '1.5 million kilometers from Earth',
+            options: ['1.5 million kilometers from Earth', 'On the Moon', 'Orbiting Earth like Hubble', '13.8 billion light-years away'],
+            explanation: 'The passage says Webb traveled to a point 1.5 million kilometers from Earth.',
             questionType: 'literal',
           },
           {

@@ -7,7 +7,8 @@ export type DrillType =
   | 'listening'
   | 'quiz'
   | 'clock'
-  | 'reading-comprehension';
+  | 'reading-comprehension'
+  | 'homophone';
 
 export type Zone = 'a1' | 'a1plus' | 'a2' | 'b1' | 'b2';
 
@@ -31,6 +32,8 @@ export interface Drill {
   words?: string[];             // sentence-builder tiles
   hours?: number;               // clock drills
   minutes?: number;             // clock drills
+  homophoneExplanation?: string; // shown after homophone answer
+  homophones?: string[];         // alias for options in homophone drills (display hint)
   // Reading comprehension fields
   passage?: string;             // 80–150 word paragraph
   readingLevel?: 'b1' | 'b2';

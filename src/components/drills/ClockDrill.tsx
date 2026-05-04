@@ -33,13 +33,18 @@ export default function ClockDrill({ drill, onAnswer }: Props) {
 
   return (
     <div className="flex flex-col items-center gap-6 w-full">
-      <p className="text-2xl font-bold text-gray-600 text-center">{drill.question}</p>
+      <p className="text-2xl font-bold text-center" style={{ color: '#e0e0ff' }}>{drill.question}</p>
 
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ type: 'spring', stiffness: 200 }}
-        className="bg-white rounded-full shadow-xl p-3"
+        className="rounded-full p-3"
+        style={{
+          background: '#12121a',
+          border: '2px solid rgba(0,245,255,0.3)',
+          boxShadow: '0 0 24px rgba(0,245,255,0.15)',
+        }}
       >
         <ClockFace hours={hours} minutes={minutes} size={200} />
       </motion.div>
@@ -47,21 +52,22 @@ export default function ClockDrill({ drill, onAnswer }: Props) {
       {/* Shuffled text-only buttons */}
       <div className="grid grid-cols-2 gap-4 w-full max-w-lg">
         {options.map(opt => {
-          let bg = 'bg-white border-2 border-indigo-200 text-indigo-700';
+          let btnStyle: React.CSSProperties = { background: '#1a1a2e', border: '1px solid rgba(0,245,255,0.2)', color: '#e0e0ff' };
           if (revealed && opt === drill.correctAnswer)
-            bg = 'bg-green-100 border-2 border-green-400 text-green-700';
+            btnStyle = { background: 'rgba(0,255,136,0.12)', border: '2px solid #00ff88', color: '#00ff88', boxShadow: '0 0 12px rgba(0,255,136,0.3)' };
           else if (revealed && opt === selected)
-            bg = 'bg-red-100 border-2 border-red-400 text-red-700';
+            btnStyle = { background: 'rgba(255,0,128,0.12)', border: '2px solid #ff0080', color: '#ff0080', boxShadow: '0 0 12px rgba(255,0,128,0.3)' };
 
           return (
             <motion.button
               key={opt}
               whileTap={{ scale: 0.95 }}
               onClick={() => choose(opt)}
-              className={`${bg} rounded-2xl p-4 text-lg font-bold shadow-sm transition-all text-center`}
+              className="rounded-2xl p-4 text-lg font-bold transition-all text-center"
+              style={btnStyle}
             >
-              {revealed && opt === drill.correctAnswer && '✅ '}
-              {revealed && opt === selected && opt !== drill.correctAnswer && '❌ '}
+              {revealed && opt === drill.correctAnswer && '✓ '}
+              {revealed && opt === selected && opt !== drill.correctAnswer && '✗ '}
               {opt}
             </motion.button>
           );
@@ -73,9 +79,10 @@ export default function ClockDrill({ drill, onAnswer }: Props) {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`text-2xl font-bold ${correct ? 'text-green-500' : 'text-red-500'}`}
+            className="text-2xl font-bold font-orbitron"
+            style={{ color: correct ? '#00ff88' : '#ff0080' }}
           >
-            {correct ? '🎉 Correct!' : `It's "${drill.correctAnswer}"`}
+            {correct ? '✓ Correct!' : `It's "${drill.correctAnswer}"`}
           </motion.div>
         )}
       </AnimatePresence>

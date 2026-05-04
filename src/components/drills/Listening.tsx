@@ -47,12 +47,18 @@ export default function Listening({ drill, onAnswer }: Props) {
     <div className="flex flex-col items-center gap-6 w-full">
       <div className="flex flex-col items-center gap-3">
         {drill.imageEmoji && <span className="text-7xl">{drill.imageEmoji}</span>}
-        <p className="text-xl font-bold text-gray-600 text-center">{drill.question}</p>
+        <p className="text-xl font-bold text-center" style={{ color: '#e0e0ff' }}>{drill.question}</p>
         <motion.button
           animate={speaking ? { scale: [1, 1.15, 1] } : {}}
           transition={{ repeat: Infinity, duration: 0.6 }}
           onClick={doSpeak}
-          className="bg-blue-500 text-white px-8 py-4 rounded-2xl text-xl font-bold shadow-lg flex items-center gap-3"
+          className="px-8 py-4 rounded-2xl text-xl font-bold flex items-center gap-3"
+          style={{
+            background: speaking ? 'rgba(0,245,255,0.2)' : 'rgba(0,245,255,0.1)',
+            border: `2px solid #00f5ff`,
+            color: '#00f5ff',
+            boxShadow: speaking ? '0 0 20px rgba(0,245,255,0.5)' : '0 0 8px rgba(0,245,255,0.2)',
+          }}
         >
           <span className="text-3xl">🔊</span>
           {speaking ? 'Speaking...' : 'Listen Again'}
@@ -62,18 +68,19 @@ export default function Listening({ drill, onAnswer }: Props) {
       {/* Shuffled options */}
       <div className="grid grid-cols-2 gap-4 w-full max-w-lg">
         {options.map(opt => {
-          let bg = 'bg-white border-2 border-blue-200 text-blue-700';
+          let btnStyle: React.CSSProperties = { background: '#1a1a2e', border: '1px solid rgba(0,245,255,0.2)', color: '#e0e0ff' };
           if (revealed && opt === drill.correctAnswer)
-            bg = 'bg-green-100 border-2 border-green-400 text-green-700';
+            btnStyle = { background: 'rgba(0,255,136,0.12)', border: '2px solid #00ff88', color: '#00ff88', boxShadow: '0 0 12px rgba(0,255,136,0.3)' };
           else if (revealed && opt === selected)
-            bg = 'bg-red-100 border-2 border-red-400 text-red-700';
+            btnStyle = { background: 'rgba(255,0,128,0.12)', border: '2px solid #ff0080', color: '#ff0080', boxShadow: '0 0 12px rgba(255,0,128,0.3)' };
 
           return (
             <motion.button
               key={opt}
               whileTap={{ scale: 0.95 }}
               onClick={() => choose(opt)}
-              className={`${bg} rounded-2xl p-4 text-xl font-bold shadow-sm transition-all duration-200`}
+              className="rounded-2xl p-4 text-xl font-bold transition-all duration-200"
+              style={btnStyle}
             >
               {opt}
             </motion.button>
@@ -86,9 +93,10 @@ export default function Listening({ drill, onAnswer }: Props) {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`text-2xl font-bold ${correct ? 'text-green-500' : 'text-red-500'}`}
+            className="text-2xl font-bold font-orbitron"
+            style={{ color: correct ? '#00ff88' : '#ff0080' }}
           >
-            {correct ? '🎉 Correct!' : `The answer is "${drill.correctAnswer}"`}
+            {correct ? '✓ Correct!' : `Answer: "${drill.correctAnswer}"`}
           </motion.div>
         )}
       </AnimatePresence>

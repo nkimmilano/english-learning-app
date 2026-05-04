@@ -21,6 +21,13 @@ const TOPIC_EMOJI: Record<string, string> = {
   animals: '🐾',
 };
 
+const TYPE_LABEL: Record<RCQuestion['questionType'], string> = {
+  literal: '📖 Reading',
+  vocabulary: '📝 Vocabulary',
+  inference: '🧠 Think!',
+  'true-false-not-given': '✅ True / False',
+};
+
 function QuestionPanel({
   q,
   index,
@@ -35,7 +42,6 @@ function QuestionPanel({
   const [selected, setSelected] = useState<string | null>(null);
   const [revealed, setRevealed] = useState(false);
 
-  // Shuffle this question's options once on mount
   const shuffled = useMemo(() => shuffleOptions(q.options), []); // eslint-disable-line react-hooks/exhaustive-deps
 
   function choose(opt: string) {
@@ -46,45 +52,43 @@ function QuestionPanel({
 
   const correct = selected === q.correctAnswer;
 
-  const typeLabel: Record<RCQuestion['questionType'], string> = {
-    literal: '📖 Reading',
-    vocabulary: '📝 Vocabulary',
-    inference: '🧠 Think!',
-    'true-false-not-given': '✅ True / False',
-  };
-
   return (
     <div className="flex flex-col gap-4 w-full">
       {/* Question header */}
       <div className="flex items-center justify-between">
-        <span className="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm font-bold">
-          {typeLabel[q.questionType]}
+        <span className="px-3 py-1 rounded-full text-sm font-bold font-orbitron"
+          style={{ background: 'rgba(0,245,255,0.1)', color: '#00f5ff', border: '1px solid rgba(0,245,255,0.3)' }}>
+          {TYPE_LABEL[q.questionType]}
         </span>
-        <span className="text-gray-400 font-bold text-sm">
-          {index + 1} / {total}
-        </span>
+        <span className="font-mono text-sm" style={{ color: '#6b6b9a' }}>{index + 1} / {total}</span>
       </div>
 
-      <p className="text-xl font-bold text-gray-700 leading-snug">{q.question}</p>
+      <p className="text-xl font-bold leading-snug" style={{ color: '#e0e0ff' }}>{q.question}</p>
 
       {/* Shuffled options */}
       <div className="grid grid-cols-1 gap-2">
         {shuffled.map((opt, i) => {
           const labels = ['A', 'B', 'C', 'D'];
-          let bg = 'bg-white border-2 border-indigo-100 text-gray-700';
+          let btnStyle: React.CSSProperties = {
+            background: '#1a1a2e',
+            border: '1px solid rgba(0,245,255,0.18)',
+            color: '#e0e0ff',
+          };
           if (revealed && opt === q.correctAnswer)
-            bg = 'bg-green-100 border-2 border-green-400 text-green-700';
+            btnStyle = { background: 'rgba(0,255,136,0.12)', border: '2px solid #00ff88', color: '#00ff88', boxShadow: '0 0 14px rgba(0,255,136,0.3)' };
           else if (revealed && opt === selected)
-            bg = 'bg-red-100 border-2 border-red-400 text-red-700';
+            btnStyle = { background: 'rgba(255,0,128,0.12)', border: '2px solid #ff0080', color: '#ff0080', boxShadow: '0 0 14px rgba(255,0,128,0.3)' };
 
           return (
             <motion.button
               key={opt}
               whileTap={{ scale: 0.98 }}
               onClick={() => choose(opt)}
-              className={`${bg} rounded-2xl p-3 text-base font-semibold shadow-sm transition-all flex items-start gap-3 text-left`}
+              className="rounded-2xl p-3 text-base font-semibold transition-all flex items-start gap-3 text-left"
+              style={btnStyle}
             >
-              <span className="bg-indigo-50 text-indigo-500 w-7 h-7 rounded-lg flex items-center justify-center text-sm font-bold shrink-0 mt-0.5">
+              <span className="w-7 h-7 rounded-lg flex items-center justify-center text-sm font-bold font-orbitron shrink-0 mt-0.5"
+                style={{ background: 'rgba(0,245,255,0.1)', color: '#00f5ff' }}>
                 {labels[i]}
               </span>
               <span className="leading-snug">{opt}</span>
@@ -101,20 +105,23 @@ function QuestionPanel({
             animate={{ opacity: 1, y: 0 }}
             className="flex flex-col gap-3"
           >
-            <div
-              className={`rounded-2xl p-4 text-base font-medium ${
-                correct
-                  ? 'bg-green-50 border border-green-200 text-green-800'
-                  : 'bg-red-50 border border-red-200 text-red-800'
-              }`}
-            >
-              <span className="font-bold">{correct ? '✅ Correct! ' : '❌ Not quite. '}</span>
-              {q.explanation}
+            <div className="rounded-2xl p-4 text-base font-medium"
+              style={correct ? {
+                background: 'rgba(0,255,136,0.08)',
+                border: '1px solid rgba(0,255,136,0.3)',
+                color: '#00ff88',
+              } : {
+                background: 'rgba(255,0,128,0.08)',
+                border: '1px solid rgba(255,0,128,0.3)',
+                color: '#ff8080',
+              }}>
+              <span className="font-bold">{correct ? '✓ Correct! ' : '✗ Not quite. '}</span>
+              <span style={{ color: '#b0b0d0' }}>{q.explanation}</span>
             </div>
             <motion.button
               whileTap={{ scale: 0.97 }}
               onClick={() => onDone(correct)}
-              className="bg-indigo-500 text-white py-3 rounded-2xl font-bold text-lg shadow"
+              className="py-3 rounded-2xl font-bold text-lg cyber-btn"
             >
               {index + 1 < total ? 'Next Question →' : 'Finish Reading ✓'}
             </motion.button>
@@ -150,26 +157,30 @@ export default function ReadingComprehension({ drill, onAnswer }: Props) {
     return (
       <div className="flex flex-col items-center gap-5 w-full max-w-xl">
         <span className="text-7xl">{topicEmoji}</span>
-        <div className="bg-indigo-50 rounded-2xl px-4 py-1 flex items-center gap-2">
-          <span className="text-indigo-500 font-bold text-sm uppercase tracking-wide">
+        <div className="flex items-center gap-2 rounded-2xl px-4 py-1"
+          style={{ background: 'rgba(0,245,255,0.08)', border: '1px solid rgba(0,245,255,0.2)' }}>
+          <span className="font-bold text-sm uppercase tracking-wide font-orbitron" style={{ color: '#00f5ff' }}>
             {drill.readingLevel?.toUpperCase()} Level
           </span>
-          <span className="text-gray-400 text-sm">·</span>
-          <span className="text-gray-500 text-sm">{drill.wordCount} words</span>
-          <span className="text-gray-400 text-sm">·</span>
-          <span className="text-gray-500 text-sm">{questions.length} questions</span>
+          <span style={{ color: '#6b6b9a' }}>·</span>
+          <span className="text-sm" style={{ color: '#6b6b9a' }}>{drill.wordCount} words</span>
+          <span style={{ color: '#6b6b9a' }}>·</span>
+          <span className="text-sm" style={{ color: '#6b6b9a' }}>{questions.length} questions</span>
         </div>
-        <h2 className="text-2xl font-black text-gray-700 text-center">{drill.question}</h2>
+        <h2 className="text-2xl font-black text-center font-orbitron" style={{ color: '#e0e0ff' }}>
+          {drill.question}
+        </h2>
 
-        {/* Passage preview */}
-        <div className="bg-white rounded-3xl p-5 shadow-lg w-full max-h-56 overflow-y-auto">
-          <p className="text-base text-gray-600 leading-relaxed">{drill.passage}</p>
+        {/* Passage */}
+        <div className="rounded-3xl p-5 w-full max-h-56 overflow-y-auto"
+          style={{ background: '#12121a', border: '1px solid rgba(0,245,255,0.18)' }}>
+          <p className="text-base leading-relaxed" style={{ color: '#b0b0d0' }}>{drill.passage}</p>
         </div>
 
         <motion.button
           whileTap={{ scale: 0.97 }}
           onClick={() => setStarted(true)}
-          className="bg-indigo-500 text-white px-10 py-4 rounded-2xl font-black text-xl shadow-lg w-full"
+          className="px-10 py-4 rounded-2xl font-black text-xl w-full cyber-btn"
         >
           Answer Questions 📝
         </motion.button>
@@ -183,12 +194,19 @@ export default function ReadingComprehension({ drill, onAnswer }: Props) {
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
-        className="flex flex-col items-center gap-4 bg-white rounded-3xl p-8 shadow-xl w-full max-w-md text-center"
+        className="flex flex-col items-center gap-4 rounded-3xl p-8 w-full max-w-md text-center"
+        style={{
+          background: '#12121a',
+          border: `2px solid ${score >= 75 ? '#00ff88' : '#ff6b00'}`,
+          boxShadow: `0 0 40px ${score >= 75 ? 'rgba(0,255,136,0.2)' : 'rgba(255,107,0,0.2)'}`,
+        }}
       >
         <span className="text-7xl">{score === 100 ? '🌟' : score >= 75 ? '📚' : '💪'}</span>
-        <h2 className="text-2xl font-black text-indigo-600">Reading Complete!</h2>
-        <p className="text-5xl font-black text-gray-700">{score}%</p>
-        <p className="text-gray-400">{correct}/{questions.length} correct</p>
+        <h2 className="text-2xl font-black font-orbitron" style={{ color: '#00f5ff' }}>Reading Complete!</h2>
+        <p className="text-5xl font-black font-orbitron" style={{ color: score >= 75 ? '#00ff88' : '#ff6b00' }}>
+          {score}%
+        </p>
+        <p style={{ color: '#6b6b9a' }}>{correct}/{questions.length} correct</p>
       </motion.div>
     );
   }
@@ -198,14 +216,16 @@ export default function ReadingComprehension({ drill, onAnswer }: Props) {
   return (
     <div className="flex flex-col gap-4 w-full max-w-xl">
       {/* Collapsible passage */}
-      <div className="bg-white rounded-3xl shadow-sm overflow-hidden">
+      <div className="rounded-3xl overflow-hidden"
+        style={{ background: '#12121a', border: '1px solid rgba(0,245,255,0.18)' }}>
         <button
           onClick={() => setShowPassage(p => !p)}
-          className="w-full flex items-center justify-between px-5 py-3 font-bold text-indigo-600"
+          className="w-full flex items-center justify-between px-5 py-3 font-bold"
+          style={{ color: '#00f5ff' }}
         >
           <span className="flex items-center gap-2">
             <span>{topicEmoji}</span>
-            <span>Read the Passage</span>
+            <span className="font-orbitron text-sm">Read the Passage</span>
           </span>
           <span className="text-xl">{showPassage ? '▲' : '▼'}</span>
         </button>
@@ -217,8 +237,9 @@ export default function ReadingComprehension({ drill, onAnswer }: Props) {
               exit={{ height: 0 }}
               className="overflow-hidden"
             >
-              <div className="px-5 pb-4 max-h-48 overflow-y-auto">
-                <p className="text-sm text-gray-600 leading-relaxed">{drill.passage}</p>
+              <div className="px-5 pb-4 max-h-44 overflow-y-auto"
+                style={{ borderTop: '1px solid rgba(0,245,255,0.1)' }}>
+                <p className="text-sm leading-relaxed mt-3" style={{ color: '#b0b0d0' }}>{drill.passage}</p>
               </div>
             </motion.div>
           )}

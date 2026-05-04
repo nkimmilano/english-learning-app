@@ -23,11 +23,9 @@ export default function WordScramble({ drill, onAnswer }: Props) {
   const [pool, setPool] = useState<Tile[]>([]);
   const [picked, setPicked] = useState<Tile[]>([]);
   const [done, setDone] = useState(false);
-  const [startTime] = useState(Date.now());
 
   useEffect(() => {
-    let tiles = word.split('').map((letter, i) => ({ id: i, letter }));
-    // Ensure shuffle is different from solution
+    const tiles = word.split('').map((letter, i) => ({ id: i, letter }));
     let shuffled = shuffle(tiles);
     while (shuffled.map(t => t.letter).join('') === word) {
       shuffled = shuffle(tiles);
@@ -61,20 +59,25 @@ export default function WordScramble({ drill, onAnswer }: Props) {
     }
   }, [picked]);
 
-  const elapsed = Math.floor((Date.now() - startTime) / 1000);
-
   return (
     <div className="flex flex-col items-center gap-6 w-full">
       {/* Clue */}
       <div className="flex flex-col items-center gap-1">
         {drill.imageEmoji && <span className="text-8xl">{drill.imageEmoji}</span>}
-        <p className="text-xl text-gray-500 font-medium text-center">{drill.question}</p>
-        {drill.hint && <p className="text-sm text-indigo-400">Hint: starts with <strong>{drill.hint}</strong></p>}
+        <p className="text-xl font-medium text-center" style={{ color: '#6b6b9a' }}>{drill.question}</p>
+        {drill.hint && (
+          <p className="text-sm" style={{ color: '#00f5ff' }}>
+            Hint: starts with <strong style={{ fontFamily: 'Orbitron, sans-serif' }}>{drill.hint.toUpperCase()}</strong>
+          </p>
+        )}
       </div>
 
       {/* Picked slots */}
-      <div className="flex gap-2 min-h-[60px] flex-wrap justify-center items-center bg-indigo-50 rounded-2xl px-4 py-3 w-full max-w-md">
-        {picked.length === 0 && <span className="text-gray-400 text-lg">Tap letters below...</span>}
+      <div className="flex gap-2 min-h-[60px] flex-wrap justify-center items-center rounded-2xl px-4 py-3 w-full max-w-md"
+        style={{ background: 'rgba(0,245,255,0.05)', border: '2px dashed rgba(0,245,255,0.25)' }}>
+        {picked.length === 0 && (
+          <span className="text-lg" style={{ color: '#6b6b9a' }}>Tap letters below...</span>
+        )}
         {picked.map(tile => (
           <motion.button
             key={tile.id}
@@ -83,7 +86,12 @@ export default function WordScramble({ drill, onAnswer }: Props) {
             animate={{ scale: 1 }}
             whileTap={{ scale: 0.85 }}
             onClick={() => unpick(tile)}
-            className="w-12 h-12 bg-indigo-500 text-white rounded-xl text-xl font-bold shadow"
+            className="w-12 h-12 rounded-xl text-xl font-bold font-orbitron"
+            style={{
+              background: 'rgba(0,245,255,0.15)',
+              color: '#00f5ff',
+              border: '1px solid rgba(0,245,255,0.4)',
+            }}
           >
             {tile.letter}
           </motion.button>
@@ -100,7 +108,12 @@ export default function WordScramble({ drill, onAnswer }: Props) {
             animate={{ scale: 1 }}
             whileTap={{ scale: 0.85 }}
             onClick={() => pick(tile)}
-            className="w-12 h-12 bg-white border-2 border-purple-300 text-purple-700 rounded-xl text-xl font-bold shadow-sm"
+            className="w-12 h-12 rounded-xl text-xl font-bold font-orbitron"
+            style={{
+              background: 'rgba(180,0,255,0.12)',
+              color: '#b400ff',
+              border: '1px solid rgba(180,0,255,0.35)',
+            }}
           >
             {tile.letter}
           </motion.button>
@@ -112,9 +125,12 @@ export default function WordScramble({ drill, onAnswer }: Props) {
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            className={`text-2xl font-bold ${picked.map(t => t.letter).join('') === word ? 'text-green-500' : 'text-red-500'}`}
+            className="text-2xl font-bold font-orbitron"
+            style={{ color: picked.map(t => t.letter).join('') === word ? '#00ff88' : '#ff0080' }}
           >
-            {picked.map(t => t.letter).join('') === word ? `🎉 "${word}" is correct!` : `The answer was "${word}"`}
+            {picked.map(t => t.letter).join('') === word
+              ? `✓ "${word}" — correct!`
+              : `Answer: "${word}"`}
           </motion.div>
         )}
       </AnimatePresence>

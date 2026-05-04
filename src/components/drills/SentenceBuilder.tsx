@@ -26,7 +26,7 @@ export default function SentenceBuilder({ drill, onAnswer }: Props) {
   const [result, setResult] = useState<boolean | null>(null);
 
   useEffect(() => {
-    let tiles = words.map((w, i) => ({ id: i, word: w }));
+    const tiles = words.map((w, i) => ({ id: i, word: w }));
     let shuffled = shuffle(tiles);
     while (shuffled.map(t => t.word).join(' ') === words.join(' ')) {
       shuffled = shuffle(tiles);
@@ -58,11 +58,17 @@ export default function SentenceBuilder({ drill, onAnswer }: Props) {
 
   return (
     <div className="flex flex-col items-center gap-6 w-full">
-      <p className="text-2xl font-bold text-gray-600 text-center">{drill.question}</p>
+      <p className="text-2xl font-bold text-center" style={{ color: '#e0e0ff' }}>{drill.question}</p>
 
-      {/* Built sentence */}
-      <div className="min-h-[70px] bg-green-50 border-2 border-green-200 rounded-2xl px-4 py-3 w-full max-w-xl flex flex-wrap gap-2 items-center justify-center">
-        {built.length === 0 && <span className="text-gray-400 text-lg">Build your sentence here...</span>}
+      {/* Built sentence zone */}
+      <div className="min-h-[70px] rounded-2xl px-4 py-3 w-full max-w-xl flex flex-wrap gap-2 items-center justify-center"
+        style={{
+          background: 'rgba(0,255,136,0.05)',
+          border: '2px solid rgba(0,255,136,0.25)',
+        }}>
+        {built.length === 0 && (
+          <span className="text-lg" style={{ color: '#6b6b9a' }}>Build your sentence here...</span>
+        )}
         {built.map(tile => (
           <motion.button
             key={tile.id}
@@ -71,7 +77,8 @@ export default function SentenceBuilder({ drill, onAnswer }: Props) {
             animate={{ scale: 1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => unpick(tile)}
-            className="bg-green-400 text-white px-3 py-2 rounded-xl text-lg font-bold shadow"
+            className="px-3 py-2 rounded-xl text-lg font-bold"
+            style={{ background: 'rgba(0,255,136,0.15)', color: '#00ff88', border: '1px solid rgba(0,255,136,0.4)' }}
           >
             {tile.word}
           </motion.button>
@@ -88,7 +95,12 @@ export default function SentenceBuilder({ drill, onAnswer }: Props) {
             animate={{ scale: 1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => pick(tile)}
-            className="bg-white border-2 border-indigo-300 text-indigo-700 px-3 py-2 rounded-xl text-lg font-bold shadow-sm"
+            className="px-3 py-2 rounded-xl text-lg font-bold"
+            style={{
+              background: 'rgba(0,245,255,0.08)',
+              border: '1px solid rgba(0,245,255,0.3)',
+              color: '#00f5ff',
+            }}
           >
             {tile.word}
           </motion.button>
@@ -102,7 +114,7 @@ export default function SentenceBuilder({ drill, onAnswer }: Props) {
           animate={{ scale: 1 }}
           whileTap={{ scale: 0.95 }}
           onClick={checkAnswer}
-          className="bg-indigo-500 text-white px-8 py-3 rounded-2xl text-xl font-bold shadow-lg"
+          className="px-8 py-3 rounded-2xl text-xl font-bold cyber-btn"
         >
           Check ✓
         </motion.button>
@@ -113,9 +125,10 @@ export default function SentenceBuilder({ drill, onAnswer }: Props) {
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
-            className={`text-xl font-bold text-center ${result ? 'text-green-500' : 'text-red-500'}`}
+            className="text-xl font-bold text-center font-orbitron"
+            style={{ color: result ? '#00ff88' : '#ff0080' }}
           >
-            {result ? '🎉 Perfect sentence!' : `Correct: "${words.join(' ')}"`}
+            {result ? '✓ Perfect sentence!' : `Answer: "${words.join(' ')}"`}
           </motion.div>
         )}
       </AnimatePresence>

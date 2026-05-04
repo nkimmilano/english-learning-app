@@ -17,15 +17,15 @@ export default function PracticePage() {
   const notStarted = available.filter(l => !lessonProgress[l.id]?.completed).slice(0, 4);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-50 pb-24">
+    <div className="min-h-screen pb-24" style={{ background: '#0a0a0f' }}>
       <div className="px-4 pt-8 pb-4">
-        <h1 className="text-3xl font-black text-indigo-700 mb-1">Practice 📚</h1>
-        <p className="text-gray-400">Keep learning every day!</p>
+        <h1 className="text-3xl font-black font-orbitron mb-1" style={{ color: '#00f5ff' }}>Practice 📚</h1>
+        <p style={{ color: '#6b6b9a' }}>Keep learning every day!</p>
       </div>
 
       {recent.length > 0 && (
         <section className="px-4 mb-6">
-          <h2 className="text-xl font-black text-gray-600 mb-3">Continue Learning</h2>
+          <h2 className="text-xl font-black mb-3" style={{ color: '#e0e0ff' }}>Continue Learning</h2>
           <div className="space-y-3">
             {recent.map((lesson, i) => {
               const prog = lessonProgress[lesson.id];
@@ -62,7 +62,7 @@ export default function PracticePage() {
 
       {notStarted.length > 0 && (
         <section className="px-4">
-          <h2 className="text-xl font-black text-gray-600 mb-3">Try Next</h2>
+          <h2 className="text-xl font-black mb-3" style={{ color: '#e0e0ff' }}>Try Next</h2>
           <div className="grid grid-cols-2 gap-3">
             {notStarted.map((lesson, i) => (
               <motion.button
@@ -72,12 +72,13 @@ export default function PracticePage() {
                 transition={{ delay: i * 0.07 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => navigate(`/lesson/${lesson.id}`)}
-                className="bg-white border-2 border-gray-100 rounded-2xl p-4 text-left shadow-sm"
+                className="rounded-2xl p-4 text-left"
+                style={{ background: '#12121a', border: '1px solid rgba(0,245,255,0.15)' }}
               >
                 <span className="text-4xl">{lesson.icon}</span>
-                <p className="font-bold text-gray-700 mt-2">{lesson.title}</p>
-                <p className="text-xs text-gray-400 mt-0.5">{lesson.category}</p>
-                <p className="text-xs text-indigo-400 mt-1">{lesson.drills.length} exercises</p>
+                <p className="font-bold mt-2" style={{ color: '#e0e0ff' }}>{lesson.title}</p>
+                <p className="text-xs mt-0.5" style={{ color: '#6b6b9a' }}>{lesson.category}</p>
+                <p className="text-xs mt-1 font-mono" style={{ color: '#00f5ff' }}>{lesson.drills.length} exercises</p>
               </motion.button>
             ))}
           </div>

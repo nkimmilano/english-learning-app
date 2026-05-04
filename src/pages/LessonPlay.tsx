@@ -13,6 +13,7 @@ import Listening from '../components/drills/Listening';
 import QuickQuiz from '../components/drills/QuickQuiz';
 import ClockDrill from '../components/drills/ClockDrill';
 import ReadingComprehension from '../components/drills/ReadingComprehension';
+import HomophoneDrill from '../components/drills/HomophoneDrill';
 import Confetti from '../components/layout/Confetti';
 import LevelUpModal from '../components/ui/LevelUpModal';
 
@@ -39,20 +40,27 @@ function DrillRenderer({
     case 'quiz':           return <QuickQuiz drill={drill} onAnswer={handleQuiz} questionNumber={idx + 1} total={total} />;
     case 'clock':          return <ClockDrill drill={drill} onAnswer={onAnswer} />;
     case 'reading-comprehension': return <ReadingComprehension drill={drill} onAnswer={onAnswer} />;
+    case 'homophone':      return <HomophoneDrill drill={drill} onAnswer={onAnswer} />;
     default:               return null;
   }
 }
 
 const DRILL_TYPE_NAMES: Record<string, string> = {
-  'fill-blank': 'Fill in the Blank',
-  'word-image': 'Word Match',
-  'hangman': 'Rocket Spelling',
-  'scramble': 'Word Scramble',
+  'fill-blank':    'Fill in the Blank',
+  'word-image':    'Word Match',
+  'hangman':       'Rocket Spelling',
+  'scramble':      'Word Scramble',
   'sentence-builder': 'Build a Sentence',
-  'listening': 'Listening',
-  'quiz': 'Quick Quiz',
-  'clock': 'Tell the Time',
+  'listening':     'Listening',
+  'quiz':          'Quick Quiz',
+  'clock':         'Tell the Time',
   'reading-comprehension': 'Reading',
+  'homophone':     'Homophones',
+};
+
+// Zone → neon color map
+const ZONE_NEON: Record<string, string> = {
+  a1: '#00ff88', a1plus: '#00f5ff', a2: '#b400ff', b1: '#ff6b00', b2: '#ff0080',
 };
 
 export default function LessonPlay() {
@@ -71,17 +79,20 @@ export default function LessonPlay() {
   const [newBadges, setNewBadges] = useState<string[]>([]);
   const [key, setKey] = useState(0);
 
+  // suppress unused callback warning
+  void useCallback;
+
   if (!lesson) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-2xl text-gray-500">Lesson not found</p>
+      <div className="min-h-screen flex items-center justify-center" style={{ background: '#0a0a0f' }}>
+        <p className="text-2xl" style={{ color: '#6b6b9a' }}>Lesson not found</p>
       </div>
     );
   }
 
   const drills = lesson.drills;
   const currentDrill = drills[currentIdx];
-  const progress = ((currentIdx) / drills.length) * 100;
+  const neon = ZONE_NEON[lesson.zone] ?? '#00f5ff';
 
   function handleAnswer(isCorrect: boolean) {
     completeDrill(lesson!.id, isCorrect, currentDrill.type);
@@ -95,9 +106,6 @@ export default function LessonPlay() {
         setNewBadges(result.newBadges);
         setFinished(true);
         setShowConfetti(true);
-        if (result.xpEarned > 0) {
-          // check if level up happened
-        }
       } else {
         setCurrentIdx(i => i + 1);
         setKey(k => k + 1);
@@ -108,34 +116,39 @@ export default function LessonPlay() {
   const finalScore = Math.round((correct / drills.length) * 100);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-indigo-50 to-purple-50 flex flex-col">
+    <div className="min-h-screen flex flex-col" style={{ background: '#0a0a0f' }}>
       {showConfetti && <Confetti count={50} />}
       {leveledUp && <LevelUpModal level={newLevel} onClose={() => setLeveledUp(false)} />}
 
       {/* Header */}
-      <div className="bg-white shadow-sm px-4 pt-safe-top pt-6 pb-4">
+      <div className="px-4 pt-safe-top pt-6 pb-4"
+        style={{ background: 'rgba(10,10,15,0.95)', borderBottom: `1px solid ${neon}33` }}>
         <div className="flex items-center gap-3 mb-3">
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => navigate(-1)}
-            className="bg-gray-100 rounded-xl p-2 text-xl"
+            className="rounded-xl p-2 text-xl"
+            style={{ background: '#1a1a2e', color: '#e0e0ff' }}
           >
             ←
           </motion.button>
           <span className="text-2xl">{lesson.icon}</span>
           <div className="flex-1">
-            <p className="font-black text-lg text-gray-800">{lesson.title}</p>
-            <p className="text-sm text-gray-400">{lesson.category}</p>
+            <p className="font-black text-lg" style={{ color: '#e0e0ff' }}>{lesson.title}</p>
+            <p className="text-sm font-orbitron" style={{ color: neon }}>{lesson.zone.toUpperCase()} · {lesson.category}</p>
           </div>
           {!finished && (
-            <span className="text-gray-500 font-bold text-lg">{currentIdx + 1}/{drills.length}</span>
+            <span className="font-mono text-sm" style={{ color: '#6b6b9a' }}>
+              {currentIdx + 1}/{drills.length}
+            </span>
           )}
         </div>
 
         {!finished && (
-          <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
+          <div className="h-2 rounded-full overflow-hidden" style={{ background: 'rgba(0,245,255,0.08)' }}>
             <motion.div
-              className={`h-full bg-gradient-to-r ${lesson.color} rounded-full`}
+              className="h-full rounded-full"
+              style={{ background: `linear-gradient(90deg, #00f5ff, ${neon})` }}
               animate={{ width: `${((currentIdx + 1) / drills.length) * 100}%` }}
               transition={{ duration: 0.4 }}
             />
@@ -155,7 +168,8 @@ export default function LessonPlay() {
               transition={{ duration: 0.25 }}
               className="w-full max-w-xl flex flex-col items-center gap-4"
             >
-              <div className="bg-indigo-100 text-indigo-600 px-3 py-1 rounded-full text-sm font-bold">
+              <div className="px-3 py-1 rounded-full text-sm font-bold font-orbitron"
+                style={{ background: `${neon}18`, color: neon, border: `1px solid ${neon}44` }}>
                 {DRILL_TYPE_NAMES[currentDrill.type] ?? currentDrill.type}
               </div>
               <DrillRenderer
@@ -171,26 +185,33 @@ export default function LessonPlay() {
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: 'spring', stiffness: 250 }}
-              className="bg-white rounded-3xl p-8 shadow-xl w-full max-w-md flex flex-col items-center gap-5 text-center"
+              className="rounded-3xl p-8 w-full max-w-md flex flex-col items-center gap-5 text-center"
+              style={{
+                background: '#12121a',
+                border: `2px solid ${finalScore >= 70 ? '#00ff88' : '#ff6b00'}`,
+                boxShadow: `0 0 40px ${finalScore >= 70 ? 'rgba(0,255,136,0.2)' : 'rgba(255,107,0,0.2)'}`,
+              }}
             >
               <span className="text-8xl">
                 {finalScore === 100 ? '🌟' : finalScore >= 70 ? '😄' : '💪'}
               </span>
-              <h2 className="text-3xl font-black text-indigo-600">
+              <h2 className="text-3xl font-black font-orbitron" style={{ color: finalScore >= 70 ? '#00ff88' : '#ff6b00' }}>
                 {finalScore === 100 ? 'Perfect!' : finalScore >= 70 ? 'Great job!' : 'Keep trying!'}
               </h2>
-              <p className="text-5xl font-black text-gray-700">{finalScore}%</p>
-              <p className="text-gray-400">
-                {correct} out of {drills.length} correct
-              </p>
+              <p className="text-5xl font-black font-orbitron" style={{ color: '#00f5ff' }}>{finalScore}%</p>
+              <p style={{ color: '#6b6b9a' }}>{correct} out of {drills.length} correct</p>
 
-              <div className="bg-yellow-50 border border-yellow-200 rounded-2xl px-6 py-3 w-full">
-                <p className="text-lg font-bold text-yellow-600">+{xpEarned} XP earned! ⚡</p>
+              <div className="rounded-2xl px-6 py-3 w-full"
+                style={{ background: 'rgba(0,245,255,0.06)', border: '1px solid rgba(0,245,255,0.2)' }}>
+                <p className="text-lg font-bold font-mono" style={{ color: '#00f5ff' }}>
+                  +{xpEarned} XP earned! ⚡
+                </p>
               </div>
 
               {newBadges.length > 0 && (
-                <div className="bg-purple-50 border border-purple-200 rounded-2xl px-4 py-3 w-full">
-                  <p className="font-bold text-purple-600 mb-2">New badges! 🏅</p>
+                <div className="rounded-2xl px-4 py-3 w-full"
+                  style={{ background: 'rgba(180,0,255,0.08)', border: '1px solid rgba(180,0,255,0.3)' }}>
+                  <p className="font-bold mb-2" style={{ color: '#b400ff' }}>New badges! 🏅</p>
                   <div className="flex flex-wrap gap-2 justify-center">
                     {newBadges.map(b => <span key={b} className="text-2xl">🏅</span>)}
                   </div>
@@ -207,14 +228,15 @@ export default function LessonPlay() {
                     setShowConfetti(false);
                     setKey(k => k + 100);
                   }}
-                  className="flex-1 bg-gray-100 text-gray-600 py-3 rounded-2xl font-bold text-lg"
+                  className="flex-1 py-3 rounded-2xl font-bold text-lg"
+                  style={{ background: '#1a1a2e', color: '#6b6b9a', border: '1px solid rgba(107,107,154,0.3)' }}
                 >
                   Try again 🔄
                 </motion.button>
                 <motion.button
                   whileTap={{ scale: 0.95 }}
                   onClick={() => navigate('/map')}
-                  className="flex-1 bg-indigo-500 text-white py-3 rounded-2xl font-bold text-lg shadow"
+                  className="flex-1 py-3 rounded-2xl font-bold text-lg cyber-btn"
                 >
                   Back to Map 🗺️
                 </motion.button>

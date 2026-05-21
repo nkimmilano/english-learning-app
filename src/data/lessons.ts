@@ -1140,6 +1140,445 @@ export const LESSONS: Lesson[] = [
       { id: 'd10', type: 'quiz', question: 'Second Conditional = If + ___ + would + verb', correctAnswer: 'past simple', options: ['past simple', 'present simple', 'present perfect', 'future simple'] },
     ],
   },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // NEW: READING COMPREHENSION — A2
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'a2-rc-dinosaurs',
+    zone: 'a2',
+    category: 'Reading',
+    title: 'Amazing Dinosaurs 🦕',
+    icon: '🦕',
+    color: 'from-emerald-500 to-green-600',
+    requiredXP: 0,
+    drills: [
+      {
+        id: 'd1',
+        type: 'reading-comprehension',
+        question: 'Amazing Dinosaurs',
+        passage: 'Dinosaurs lived on Earth millions of years ago, long before humans appeared. There were many different types of dinosaurs. Some were enormous, like the T-Rex, which was one of the biggest meat-eaters. Others were small, like the Compsognathus, which was about the same size as a chicken.\n\nSome dinosaurs ate only plants. These are called herbivores. The giant Brachiosaurus had a very long neck and used it to eat leaves from the tops of tall trees. Other dinosaurs ate meat. These are called carnivores.\n\nScientists called palaeontologists study dinosaur fossils — bones and teeth that have turned to stone over millions of years. From these fossils, we can learn what dinosaurs looked like and how they lived. Most scientists now believe that modern birds are actually a type of dinosaur!',
+        topic: 'dinosaurs',
+        readingLevel: 'b1',
+        wordCount: 130,
+        correctAnswer: '',
+        options: [],
+        rcQuestions: [
+          {
+            question: 'What do we call dinosaurs that only eat plants?',
+            correctAnswer: 'Herbivores',
+            options: ['Herbivores', 'Carnivores', 'Fossils', 'Palaeontologists'],
+            explanation: 'The passage says "Some dinosaurs ate only plants. These are called herbivores."',
+            questionType: 'literal',
+          },
+          {
+            question: 'What does "fossil" mean in the passage?',
+            correctAnswer: 'Bones or teeth that have turned to stone',
+            options: ['Bones or teeth that have turned to stone', 'A type of dinosaur', 'A scientist who studies animals', 'A meat-eating creature'],
+            explanation: 'The passage defines fossils as "bones and teeth that have turned to stone over millions of years."',
+            questionType: 'vocabulary',
+          },
+          {
+            question: 'Why did the Brachiosaurus have a long neck?',
+            correctAnswer: 'To eat leaves from the tops of tall trees',
+            options: ['To eat leaves from the tops of tall trees', 'To swim in deep water', 'To fight other dinosaurs', 'To run faster'],
+            explanation: 'The passage says the Brachiosaurus "used it to eat leaves from the tops of tall trees."',
+            questionType: 'literal',
+          },
+          {
+            question: 'Why do scientists study dinosaur fossils?',
+            correctAnswer: 'To learn what dinosaurs looked like and how they lived',
+            options: ['To learn what dinosaurs looked like and how they lived', 'To bring dinosaurs back to life', 'To find gold and treasure', 'To build museums'],
+            explanation: 'The passage says fossils help scientists learn "what dinosaurs looked like and how they lived."',
+            questionType: 'inference',
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'a2-rc-football',
+    zone: 'a2',
+    category: 'Reading',
+    title: 'The Beautiful Game ⚽',
+    icon: '⚽',
+    color: 'from-green-500 to-emerald-600',
+    requiredXP: 0,
+    drills: [
+      {
+        id: 'd1',
+        type: 'reading-comprehension',
+        question: 'Football: The Beautiful Game',
+        passage: 'Football is the most popular sport in the world. It is played in almost every country, from small villages to huge stadiums. A football team has eleven players, and the aim of the game is to score more goals than the other team.\n\nThe World Cup is the biggest football competition. It happens every four years and countries from all over the world compete to become champions. Brazil has won the World Cup the most times — five in total.\n\nFootball is great exercise. Players run several kilometres during a match, which lasts 90 minutes. Good players need to be fast, strong, and good at working as a team. Many children dream of becoming professional footballers and playing in famous clubs like Real Madrid, Barcelona, or Manchester United.',
+        topic: 'football',
+        readingLevel: 'b1',
+        wordCount: 125,
+        correctAnswer: '',
+        options: [],
+        rcQuestions: [
+          {
+            question: 'How many players are in a football team?',
+            correctAnswer: 'Eleven',
+            options: ['Eleven', 'Ten', 'Twelve', 'Nine'],
+            explanation: 'The passage states "A football team has eleven players."',
+            questionType: 'literal',
+          },
+          {
+            question: 'How long does a football match last?',
+            correctAnswer: '90 minutes',
+            options: ['90 minutes', '60 minutes', '45 minutes', '120 minutes'],
+            explanation: 'The passage says a match "lasts 90 minutes."',
+            questionType: 'literal',
+          },
+          {
+            question: 'What does "compete" mean in the passage?',
+            correctAnswer: 'Try to win against others',
+            options: ['Try to win against others', 'Celebrate together', 'Train very hard', 'Watch a sport'],
+            explanation: '"Compete" means to take part in a contest trying to win against other participants.',
+            questionType: 'vocabulary',
+          },
+          {
+            question: 'Why do you think the author calls football "the beautiful game"?',
+            correctAnswer: 'Because it is exciting, popular worldwide, and requires skill and teamwork',
+            options: ['Because it is exciting, popular worldwide, and requires skill and teamwork', 'Because the stadiums are beautiful buildings', 'Because footballers wear beautiful kits', 'Because the ball is round and smooth'],
+            explanation: 'The passage describes football as loved worldwide, requiring speed, strength and teamwork — suggesting it is admired for more than just its rules.',
+            questionType: 'inference',
+          },
+        ],
+      },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // NEW: SPELLING — A2
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'a2-spelling-silent',
+    zone: 'a2',
+    category: 'Spelling',
+    title: 'Silent Letters 🤫',
+    icon: '🤫',
+    color: 'from-indigo-400 to-violet-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'quiz', question: 'Which word has a silent "k"?', correctAnswer: 'knight', options: ['knight', 'kite', 'king', 'kitchen'] },
+      { id: 'd2', type: 'scramble', question: 'Unscramble! (has a silent letter)', correctAnswer: 'KNIFE', imageEmoji: '🔪', hint: 'K' },
+      { id: 'd3', type: 'quiz', question: 'The "b" is silent in...', correctAnswer: 'lamb', options: ['lamb', 'barn', 'brush', 'bird'] },
+      { id: 'd4', type: 'hangman', question: 'Spell it: you do this with a pen (silent "w")', correctAnswer: 'write', hint: 'w' },
+      { id: 'd5', type: 'quiz', question: 'Which word has a silent "w"?', correctAnswer: 'wrong', options: ['wrong', 'wind', 'went', 'word'] },
+      { id: 'd6', type: 'scramble', question: 'Unscramble! (has a silent "k")', correctAnswer: 'KNOCK', imageEmoji: '👊', hint: 'K' },
+      { id: 'd7', type: 'quiz', question: 'The "h" is silent in...', correctAnswer: 'honest', options: ['honest', 'happy', 'huge', 'hero'] },
+      { id: 'd8', type: 'hangman', question: 'Spell it: to go down on one knee (silent "k")', correctAnswer: 'kneel', hint: 'k' },
+      { id: 'd9', type: 'quiz', question: 'Which word has a silent "g"?', correctAnswer: 'gnome', options: ['gnome', 'girl', 'great', 'grow'] },
+      { id: 'd10', type: 'fill-blank', question: 'The silent "k" appears in "k___ght". What letters fill the gap?', correctAnswer: 'ni', options: ['ni', 'ai', 'oo', 'ei'] },
+    ],
+  },
+
+  {
+    id: 'a2-spelling-common',
+    zone: 'a2',
+    category: 'Spelling',
+    title: 'Spell It Right! ✅',
+    icon: '✅',
+    color: 'from-emerald-400 to-green-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'friend', options: ['friend', 'freind', 'frend', 'friand'] },
+      { id: 'd2', type: 'hangman', question: 'Spell it: the day after today', correctAnswer: 'tomorrow', hint: 't' },
+      { id: 'd3', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'because', options: ['because', 'becuase', 'becose', 'beccause'] },
+      { id: 'd4', type: 'scramble', question: 'Unscramble this common word!', correctAnswer: 'PEOPLE', imageEmoji: '👥', hint: 'P' },
+      { id: 'd5', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'beautiful', options: ['beautiful', 'beautifull', 'beutiful', 'beautful'] },
+      { id: 'd6', type: 'hangman', question: 'Spell it: truly / very much', correctAnswer: 'really', hint: 'r' },
+      { id: 'd7', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'different', options: ['different', 'diferent', 'diffrent', 'diferrent'] },
+      { id: 'd8', type: 'scramble', question: 'Unscramble!', correctAnswer: 'ALWAYS', imageEmoji: '♾️', hint: 'A' },
+      { id: 'd9', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'surprise', options: ['surprise', 'suprise', 'surprize', 'surprize'] },
+      { id: 'd10', type: 'hangman', question: 'Spell it: twelve months make one of these', correctAnswer: 'year', hint: 'y' },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // NEW: READING COMPREHENSION — B1
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'b1-rc-robots',
+    zone: 'b1',
+    category: 'Reading',
+    title: 'The World of Robots 🤖',
+    icon: '🤖',
+    color: 'from-slate-500 to-gray-600',
+    requiredXP: 0,
+    drills: [
+      {
+        id: 'd1',
+        type: 'reading-comprehension',
+        question: 'Robots: Machines That Help Us',
+        passage: 'Robots are machines that can be programmed to perform tasks automatically. Some robots look like humans, with arms, legs, and a head, but most robots look nothing like people — they are designed purely for the job they need to do.\n\nIndustrial robots are used in factories to build cars, assemble electronics, and package food. They work faster than humans, never get tired, and can work 24 hours a day. However, this has caused some concern, as robots can replace human workers in certain jobs.\n\nMedical robots are used in hospitals to help surgeons perform delicate operations more precisely. Space robots, like NASA\'s Curiosity rover, explore planets where it would be too dangerous to send humans.\n\nAs technology improves, robots are becoming more intelligent. Scientists are developing robots that can learn from experience, recognise faces, and even hold conversations. The future of robots is both exciting and challenging.',
+        topic: 'robots',
+        readingLevel: 'b1',
+        wordCount: 145,
+        correctAnswer: '',
+        options: [],
+        rcQuestions: [
+          {
+            question: 'What is one advantage of industrial robots over human workers?',
+            correctAnswer: 'They can work 24 hours a day without getting tired',
+            options: ['They can work 24 hours a day without getting tired', 'They are cheaper to build than hiring a worker', 'They can repair themselves when broken', 'They understand human emotions'],
+            explanation: 'The passage states robots "never get tired, and can work 24 hours a day."',
+            questionType: 'literal',
+          },
+          {
+            question: 'What does "precisely" mean in this passage?',
+            correctAnswer: 'Accurately and with great care',
+            options: ['Accurately and with great care', 'Very quickly', 'On a large scale', 'In a dangerous way'],
+            explanation: '"Precisely" means with exactness and accuracy — essential in delicate surgery.',
+            questionType: 'vocabulary',
+          },
+          {
+            question: 'Why do scientists send robots like Curiosity to other planets instead of humans?',
+            correctAnswer: 'Because it would be too dangerous for humans',
+            options: ['Because it would be too dangerous for humans', 'Because robots are faster than rockets', 'Because robots enjoy travelling', 'Because robots weigh less'],
+            explanation: 'The passage says space robots explore "where it would be too dangerous to send humans."',
+            questionType: 'inference',
+          },
+          {
+            question: 'True, False, or Not Given: All robots are designed to look like human beings.',
+            correctAnswer: 'False',
+            options: ['False', 'True', 'Not Given'],
+            explanation: 'The passage says "most robots look nothing like people — they are designed purely for the job they need to do."',
+            questionType: 'true-false-not-given',
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'b1-rc-sharks',
+    zone: 'b1',
+    category: 'Reading',
+    title: 'Sharks of the Deep 🦈',
+    icon: '🦈',
+    color: 'from-blue-600 to-indigo-700',
+    requiredXP: 0,
+    drills: [
+      {
+        id: 'd1',
+        type: 'reading-comprehension',
+        question: 'The Truth About Sharks',
+        passage: 'Sharks are one of the oldest creatures on Earth, having survived for over 450 million years — far longer than dinosaurs. There are more than 500 different species of shark, ranging in size from the tiny dwarf lanternshark, which fits in your hand, to the giant whale shark, which can grow up to 12 metres long.\n\nDespite their fearsome reputation, most sharks are not dangerous to humans. The whale shark, for example, is completely harmless — it feeds only on tiny plankton by filtering seawater through its enormous mouth.\n\nSharks play a vital role in ocean ecosystems. They sit at the top of the food chain and help maintain the balance of marine life. Sadly, millions of sharks are killed each year by humans for their fins. Many species are now endangered, and scientists are urging governments to protect them before it is too late.',
+        topic: 'sharks',
+        readingLevel: 'b1',
+        wordCount: 145,
+        correctAnswer: '',
+        options: [],
+        rcQuestions: [
+          {
+            question: 'How long have sharks existed on Earth?',
+            correctAnswer: 'Over 450 million years',
+            options: ['Over 450 million years', 'About 65 million years', 'Around 200 million years', 'Exactly 500 million years'],
+            explanation: 'The passage states sharks have survived "for over 450 million years."',
+            questionType: 'literal',
+          },
+          {
+            question: 'What does "endangered" mean in this passage?',
+            correctAnswer: 'At risk of dying out completely',
+            options: ['At risk of dying out completely', 'Very dangerous and aggressive', 'Extremely large and powerful', 'Protected by government law'],
+            explanation: 'Endangered means a species is at serious risk of becoming extinct — disappearing forever.',
+            questionType: 'vocabulary',
+          },
+          {
+            question: 'Why is the whale shark not dangerous to humans?',
+            correctAnswer: 'It only feeds on tiny plankton, not humans',
+            options: ['It only feeds on tiny plankton, not humans', 'It lives too deep underwater to reach people', 'It is too small to harm people', 'It is scared of humans'],
+            explanation: 'The passage says the whale shark "feeds only on tiny plankton by filtering seawater."',
+            questionType: 'literal',
+          },
+          {
+            question: 'Why might killing sharks for their fins harm ocean ecosystems?',
+            correctAnswer: 'Sharks keep the food chain balanced — removing them disrupts ocean life',
+            options: ['Sharks keep the food chain balanced — removing them disrupts ocean life', 'Fins are needed to filter ocean water', 'Other fish will start to eat humans instead', 'Sharks produce oxygen for sea creatures'],
+            explanation: 'The passage says sharks "sit at the top of the food chain and help maintain the balance of marine life."',
+            questionType: 'inference',
+          },
+        ],
+      },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // NEW: SPELLING — B1
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'b1-spelling-advanced',
+    zone: 'b1',
+    category: 'Spelling',
+    title: 'Spelling Challenge 💪',
+    icon: '💪',
+    color: 'from-rose-500 to-red-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'hangman', question: 'Spell it: more than ordinary — truly remarkable', correctAnswer: 'extraordinary', hint: 'e' },
+      { id: 'd2', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'accommodation', options: ['accommodation', 'accomodation', 'acommodation', 'accommodaton'] },
+      { id: 'd3', type: 'hangman', question: 'Spell it: the act of convincing someone', correctAnswer: 'persuasion', hint: 'p' },
+      { id: 'd4', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'environment', options: ['environment', 'enviornment', 'enviroment', 'envioronment'] },
+      { id: 'd5', type: 'scramble', question: 'Unscramble this tricky word!', correctAnswer: 'SEPARATE', imageEmoji: '✂️', hint: 'S' },
+      { id: 'd6', type: 'hangman', question: 'Spell it: happening at the same time', correctAnswer: 'simultaneous', hint: 's' },
+      { id: 'd7', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'definite', options: ['definite', 'definate', 'definitly', 'defenite'] },
+      { id: 'd8', type: 'scramble', question: 'Unscramble!', correctAnswer: 'COMMITTEE', imageEmoji: '🏛️', hint: 'C' },
+      { id: 'd9', type: 'hangman', question: 'Spell it: something that happened by chance with no plan', correctAnswer: 'coincidence', hint: 'c' },
+      { id: 'd10', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'occurrence', options: ['occurrence', 'occurence', 'ocurrence', 'occurrance'] },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // NEW: HOMOPHONES — B1 (additional sets)
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'b1-homophones-where-wear',
+    zone: 'b1',
+    category: 'Homophones',
+    title: 'Where / Wear / Were',
+    icon: '🔊',
+    color: 'from-violet-500 to-purple-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: '___ did you put my keys?', correctAnswer: 'Where', options: ['Where', 'Wear', 'Were'], homophoneExplanation: "Where = asks about a place or location. 'Where did you put...?' is a location question." },
+      { id: 'd2', type: 'homophone', question: "You should ___ a coat — it's cold.", correctAnswer: 'wear', options: ['where', 'wear', 'were'], homophoneExplanation: "Wear = to have clothing on your body. 'Wear a coat' means put the coat on." },
+      { id: 'd3', type: 'homophone', question: 'We ___ so tired after the match.', correctAnswer: 'were', options: ['where', 'wear', 'were'], homophoneExplanation: "Were = past tense of 'are'. 'We were tired' = we are tired (in the past)." },
+      { id: 'd4', type: 'homophone', question: '___ is the nearest hospital?', correctAnswer: 'Where', options: ['Where', 'Wear', 'Were'], homophoneExplanation: "Where = asks about a location. 'Where is...?' seeks a place answer." },
+      { id: 'd5', type: 'homophone', question: 'The players ___ celebrating on the pitch.', correctAnswer: 'were', options: ['where', 'wear', 'were'], homophoneExplanation: "Were = past tense of 'are'. 'They were celebrating' happened in the past." },
+      { id: 'd6', type: 'homophone', question: 'I always ___ blue on match days.', correctAnswer: 'wear', options: ['where', 'wear', 'were'], homophoneExplanation: "Wear = to put on clothes. 'Wear blue' means dress in blue clothing." },
+      { id: 'd7', type: 'homophone', question: '___ were you last night?', correctAnswer: 'Where', options: ['Where', 'Wear', 'Were'], homophoneExplanation: "Where = asks about a location. Even as a past question, 'where' still points to a place." },
+      { id: 'd8', type: 'homophone', question: 'The astronauts had to ___ special suits.', correctAnswer: 'wear', options: ['where', 'wear', 'were'], homophoneExplanation: "Wear = to have clothing or equipment on your body. Astronauts put on (wear) special suits." },
+    ],
+  },
+
+  {
+    id: 'b1-homophones-right-write',
+    zone: 'b1',
+    category: 'Homophones',
+    title: 'Right / Write + See / Sea',
+    icon: '🔊',
+    color: 'from-violet-500 to-purple-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: 'Turn ___ at the traffic lights.', correctAnswer: 'right', options: ['right', 'write'], homophoneExplanation: "Right = direction (opposite of left). Also means correct or accurate." },
+      { id: 'd2', type: 'homophone', question: 'Please ___ your name at the top of the page.', correctAnswer: 'write', options: ['right', 'write'], homophoneExplanation: "Write = to put words on paper using a pen or pencil." },
+      { id: 'd3', type: 'homophone', question: 'Can you ___ the finish line yet?', correctAnswer: 'see', options: ['see', 'sea'], homophoneExplanation: "See = to use your eyes / to look at something." },
+      { id: 'd4', type: 'homophone', question: 'The boat sailed across the ___.', correctAnswer: 'sea', options: ['see', 'sea'], homophoneExplanation: "Sea = a large body of salt water. Example: the Mediterranean Sea." },
+      { id: 'd5', type: 'homophone', question: 'That answer is not ___.', correctAnswer: 'right', options: ['right', 'write'], homophoneExplanation: "Right = correct. 'That is not right' means it is wrong or incorrect." },
+      { id: 'd6', type: 'homophone', question: 'She loves to ___ stories in her diary.', correctAnswer: 'write', options: ['right', 'write'], homophoneExplanation: "Write = to form words with a pen. Writing stories means creating them on paper." },
+      { id: 'd7', type: 'homophone', question: 'We live near the ___.', correctAnswer: 'sea', options: ['see', 'sea'], homophoneExplanation: "Sea = ocean / body of salt water. 'Live near the sea' means close to the ocean." },
+      { id: 'd8', type: 'homophone', question: "I'll ___ you at the stadium tomorrow.", correctAnswer: 'see', options: ['see', 'sea'], homophoneExplanation: "See = to meet or look at. 'I'll see you there' means we will meet." },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // NEW: READING COMPREHENSION — B2
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'b2-rc-volcanoes',
+    zone: 'b2',
+    category: 'Reading',
+    title: 'Volcanoes 🌋',
+    icon: '🌋',
+    color: 'from-orange-600 to-red-700',
+    requiredXP: 0,
+    drills: [
+      {
+        id: 'd1',
+        type: 'reading-comprehension',
+        question: "Volcanoes: Earth's Fierce Engines",
+        passage: "Volcanoes are openings in the Earth's crust through which molten rock, ash, and gases escape from deep below the surface. The molten rock beneath the surface is called magma; once it erupts above ground, it is called lava. Lava can reach temperatures of over 1,200 degrees Celsius and move at speeds of up to 65 kilometres per hour on steep slopes.\n\nVolcanoes form at the boundaries of tectonic plates — the enormous slabs of rock that make up Earth's outer layer. When plates move apart or collide, magma can rise to the surface, sometimes violently. The Ring of Fire, a horseshoe-shaped zone around the Pacific Ocean, is home to roughly 75% of the world's active volcanoes.\n\nDespite their destructive power, volcanoes have also shaped human civilisation. Volcanic soil is extraordinarily fertile, which is why many communities throughout history have settled near volcanoes despite the risk. The Hawaiian Islands were created entirely by volcanic activity beneath the Pacific Ocean.",
+        topic: 'volcanoes',
+        readingLevel: 'b2',
+        wordCount: 155,
+        correctAnswer: '',
+        options: [],
+        rcQuestions: [
+          {
+            question: 'What is the difference between magma and lava?',
+            correctAnswer: 'Magma is underground; lava is what erupts above the surface',
+            options: ['Magma is underground; lava is what erupts above the surface', 'Lava is cooler than magma', 'Magma is on the surface; lava is underground', 'They are the same thing with different names'],
+            explanation: 'The passage clearly defines: magma is underground, lava is what erupts above ground.',
+            questionType: 'literal',
+          },
+          {
+            question: 'What does "fertile" mean in this passage?',
+            correctAnswer: 'Very good for growing crops and plants',
+            options: ['Very good for growing crops and plants', 'Extremely dangerous', 'Rich in minerals but toxic', 'Frequently flooded by rain'],
+            explanation: '"Fertile" describes soil that is very productive — excellent for growing plants and crops.',
+            questionType: 'vocabulary',
+          },
+          {
+            question: "What percentage of the world's active volcanoes are found in the Ring of Fire?",
+            correctAnswer: 'About 75%',
+            options: ['About 75%', 'About 50%', 'About 25%', 'About 90%'],
+            explanation: 'The passage states the Ring of Fire is home to "roughly 75% of the world\'s active volcanoes."',
+            questionType: 'literal',
+          },
+          {
+            question: 'True, False, or Not Given: The Hawaiian Islands were formed by volcanic activity under the Pacific Ocean.',
+            correctAnswer: 'True',
+            options: ['True', 'False', 'Not Given'],
+            explanation: 'The passage states "the Hawaiian Islands were created entirely by volcanic activity beneath the Pacific Ocean."',
+            questionType: 'true-false-not-given',
+          },
+        ],
+      },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // NEW: HOMOPHONES — B2 (additional sets)
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'b2-homophones-accept',
+    zone: 'b2',
+    category: 'Homophones',
+    title: 'Accept / Except + Lose / Loose',
+    icon: '🔊',
+    color: 'from-pink-600 to-rose-700',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: 'Please ___ our apologies for the delay.', correctAnswer: 'accept', options: ['accept', 'except'], homophoneExplanation: "Accept = to receive or agree to something willingly. 'Accept an apology' means to receive it." },
+      { id: 'd2', type: 'homophone', question: 'Everyone was invited ___ Tom.', correctAnswer: 'except', options: ['accept', 'except'], homophoneExplanation: "Except = not including / but not. 'Everyone except Tom' means Tom was left out." },
+      { id: 'd3', type: 'homophone', question: "Don't ___ the race now — keep going!", correctAnswer: 'lose', options: ['lose', 'loose'], homophoneExplanation: "Lose = to fail to win, or to misplace something. Opposite of 'win' or 'find'." },
+      { id: 'd4', type: 'homophone', question: 'This bolt is ___ — it needs tightening.', correctAnswer: 'loose', options: ['lose', 'loose'], homophoneExplanation: "Loose = not tight / not firmly fixed. A loose bolt is not secure and moves around." },
+      { id: 'd5', type: 'homophone', question: "The team will ___ its top spot if they don't win.", correctAnswer: 'lose', options: ['lose', 'loose'], homophoneExplanation: "Lose = to stop having something / to be defeated. They may lose (stop having) their position." },
+      { id: 'd6', type: 'homophone', question: 'The rope was too ___ to hold the anchor.', correctAnswer: 'loose', options: ['lose', 'loose'], homophoneExplanation: "Loose = not tight enough. A loose rope cannot hold things firmly in place." },
+      { id: 'd7', type: 'homophone', question: 'She had to ___ three of the team offers.', correctAnswer: 'accept', options: ['accept', 'except'], homophoneExplanation: "Accept = to agree to or take something offered. She received and agreed to the offers." },
+      { id: 'd8', type: 'homophone', question: 'All subjects ___ maths were easy for him.', correctAnswer: 'except', options: ['accept', 'except'], homophoneExplanation: "Except = not including. 'All except maths' means every subject but maths." },
+    ],
+  },
+
+  {
+    id: 'b2-homophones-whose',
+    zone: 'b2',
+    category: 'Homophones',
+    title: "Whose / Who\'s + Fewer / Less",
+    icon: '🔊',
+    color: 'from-pink-600 to-rose-700',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: '___ car is parked outside?', correctAnswer: 'Whose', options: ["Whose", "Who's"], homophoneExplanation: "Whose = belonging to whom (possessive). 'Whose car?' asks who owns it." },
+      { id: 'd2', type: 'homophone', question: '___ coming to training tomorrow?', correctAnswer: "Who's", options: ["Whose", "Who's"], homophoneExplanation: "Who's = who is (contraction). Replace test: 'Who is coming to training tomorrow?' ✓" },
+      { id: 'd3', type: 'homophone', question: 'There are ___ people here than yesterday.', correctAnswer: 'fewer', options: ['fewer', 'less'], homophoneExplanation: "Fewer = used with countable nouns (people, cars, apples). You can count individual people." },
+      { id: 'd4', type: 'homophone', question: 'She has ___ experience than her colleague.', correctAnswer: 'less', options: ['fewer', 'less'], homophoneExplanation: "Less = used with uncountable nouns (experience, water, money). Experience cannot be individually counted." },
+      { id: 'd5', type: 'homophone', question: '___ the driver of that racing car?', correctAnswer: "Who's", options: ["Whose", "Who's"], homophoneExplanation: "Who's = who is. Replace test: 'Who is the driver of that racing car?' ✓" },
+      { id: 'd6', type: 'homophone', question: '___ idea was it to start a team?', correctAnswer: 'Whose', options: ["Whose", "Who's"], homophoneExplanation: "Whose = belonging to whom. 'Whose idea?' asks which person owns or came up with the idea." },
+      { id: 'd7', type: 'homophone', question: 'We need ___ mistakes this half.', correctAnswer: 'fewer', options: ['fewer', 'less'], homophoneExplanation: "Fewer = with countable nouns. Mistakes can be counted (1 mistake, 2 mistakes, etc.)." },
+      { id: 'd8', type: 'homophone', question: 'Drink ___ coffee if you want to sleep better.', correctAnswer: 'less', options: ['fewer', 'less'], homophoneExplanation: "Less = with uncountable nouns. Coffee as a general substance is uncountable." },
+    ],
+  },
 ];
 
 export const DAILY_CHALLENGE_DRILLS = [

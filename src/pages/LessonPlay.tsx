@@ -14,6 +14,7 @@ import QuickQuiz from '../components/drills/QuickQuiz';
 import ClockDrill from '../components/drills/ClockDrill';
 import ReadingComprehension from '../components/drills/ReadingComprehension';
 import HomophoneDrill from '../components/drills/HomophoneDrill';
+import ListeningStory from '../components/drills/ListeningStory';
 import Confetti from '../components/layout/Confetti';
 import LevelUpModal from '../components/ui/LevelUpModal';
 
@@ -41,6 +42,7 @@ function DrillRenderer({
     case 'clock':          return <ClockDrill drill={drill} onAnswer={onAnswer} />;
     case 'reading-comprehension': return <ReadingComprehension drill={drill} onAnswer={onAnswer} />;
     case 'homophone':      return <HomophoneDrill drill={drill} onAnswer={onAnswer} />;
+    case 'listening-story': return <ListeningStory drill={drill} onAnswer={onAnswer} />;
     default:               return null;
   }
 }
@@ -56,6 +58,7 @@ const DRILL_TYPE_NAMES: Record<string, string> = {
   'clock':         'Tell the Time',
   'reading-comprehension': 'Reading',
   'homophone':     'Homophones',
+  'listening-story': 'Listening Story',
 };
 
 // Zone → neon color map

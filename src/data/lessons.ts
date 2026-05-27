@@ -1,99 +1,1620 @@
-export type DrillType =
-  | 'fill-blank'
-  | 'word-image'
-  | 'hangman'
-  | 'scramble'
-  | 'sentence-builder'
-  | 'listening'
-  | 'quiz'
-  | 'clock'
-  | 'reading-comprehension'
-  | 'homophone'
-  | 'listening-story';
+import { Lesson } from '../types';
 
-export type Zone = 'a1' | 'a1plus' | 'a2' | 'b1' | 'b2';
+export const LESSONS: Lesson[] = [
 
-export interface RCQuestion {
-  question: string;
-  correctAnswer: string;
-  options: string[];            // shuffled at render time, never rely on index
-  explanation: string;          // shown after student answers
-  questionType: 'literal' | 'vocabulary' | 'inference' | 'true-false-not-given';
-}
+  // ═══════════════════════════════════════════════════════════════════════════
+  // ZONE A1 — Foundations
+  // ═══════════════════════════════════════════════════════════════════════════
 
-export interface Drill {
-  id: string;
-  type: DrillType;
-  // Standard fields (most drills)
-  question: string;
-  correctAnswer: string;
-  options?: string[];           // store raw order; shuffle at render time
-  imageEmoji?: string;
-  hint?: string;
-  words?: string[];             // sentence-builder tiles
-  hours?: number;               // clock drills
-  minutes?: number;             // clock drills
-  homophoneExplanation?: string; // shown after homophone answer
-  homophones?: string[];         // alias for options in homophone drills (display hint)
-  // Reading comprehension fields
-  passage?: string;             // 80–150 word paragraph
-  readingLevel?: 'b1' | 'b2';
-  topic?: string;               // e.g. 'cars', 'superheroes', 'space'
-  wordCount?: number;
-  rcQuestions?: RCQuestion[];   // sub-questions for reading comp
-}
+  {
+    id: 'a1-greetings',
+    zone: 'a1',
+    category: 'Greetings',
+    title: 'Hello World!',
+    icon: '👋',
+    color: 'from-blue-400 to-blue-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'fill-blank', question: '___ is my name. I am Tom.', correctAnswer: 'This', options: ['This', 'That', 'It', 'He'] },
+      { id: 'd2', type: 'fill-blank', question: 'Hello! How ___ you?', correctAnswer: 'are', options: ['are', 'is', 'am', 'be'] },
+      { id: 'd3', type: 'listening', question: 'Listen and choose the word you hear.', correctAnswer: 'Hello', options: ['Hello', 'Goodbye', 'Please', 'Thank you'], imageEmoji: '👋' },
+      { id: 'd4', type: 'word-image', question: 'Which word matches this picture?', correctAnswer: 'wave', options: ['wave', 'run', 'sleep', 'jump'], imageEmoji: '👋' },
+      { id: 'd5', type: 'scramble', question: 'Unscramble this greeting!', correctAnswer: 'HELLO', imageEmoji: '👋', hint: 'H' },
+      { id: 'd6', type: 'fill-blank', question: 'Good ___! See you tomorrow.', correctAnswer: 'bye', options: ['bye', 'morning', 'night', 'day'] },
+      { id: 'd7', type: 'quiz', question: 'What do you say when you meet someone?', correctAnswer: 'Hello!', options: ['Hello!', 'Goodbye!', 'Thank you!', 'Sorry!'] },
+      { id: 'd8', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'My name is Sam.', words: ['My', 'name', 'is', 'Sam.'] },
+      { id: 'd9', type: 'quiz', question: 'What do you say when you leave?', correctAnswer: 'Goodbye!', options: ['Goodbye!', 'Hello!', 'Please!', 'Yes!'] },
+      { id: 'd10', type: 'listening', question: 'Listen and choose.', correctAnswer: 'Goodbye', options: ['Goodbye', 'Hello', 'Thank you', 'Sorry'], imageEmoji: '👋' },
+    ],
+  },
 
-export interface Lesson {
-  id: string;
-  zone: Zone;
-  category: string;
-  title: string;
-  icon: string;
-  drills: Drill[];
-  requiredXP: number;
-  color: string;
-}
+  {
+    id: 'a1-numbers',
+    zone: 'a1',
+    category: 'Numbers',
+    title: 'Numbers 1–20',
+    icon: '🔢',
+    color: 'from-purple-400 to-purple-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'fill-blank', question: 'One, two, ___, four, five.', correctAnswer: 'three', options: ['three', 'six', 'ten', 'eight'] },
+      { id: 'd2', type: 'scramble', question: 'Unscramble the number!', correctAnswer: 'SEVEN', imageEmoji: '7️⃣', hint: 'S' },
+      { id: 'd3', type: 'quiz', question: 'How many fingers on one hand?', correctAnswer: 'Five', options: ['Five', 'Ten', 'Two', 'Eight'] },
+      { id: 'd4', type: 'fill-blank', question: 'Ten plus ten equals ___.', correctAnswer: 'twenty', options: ['twenty', 'eleven', 'fifteen', 'twelve'] },
+      { id: 'd5', type: 'listening', question: 'Listen and choose the number.', correctAnswer: 'twelve', options: ['twelve', 'twenty', 'thirteen', 'eleven'], imageEmoji: '🔢' },
+      { id: 'd6', type: 'scramble', question: 'Unscramble!', correctAnswer: 'ELEVEN', imageEmoji: '1️⃣1️⃣', hint: 'E' },
+      { id: 'd7', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'I have six cats.', words: ['I', 'have', 'six', 'cats.'] },
+      { id: 'd8', type: 'quiz', question: 'What comes after nineteen?', correctAnswer: 'Twenty', options: ['Twenty', 'Eleven', 'Fifteen', 'Eighteen'] },
+      { id: 'd9', type: 'fill-blank', question: 'Five plus eight equals ___.', correctAnswer: 'thirteen', options: ['thirteen', 'twelve', 'fifteen', 'fourteen'] },
+      { id: 'd10', type: 'quiz', question: 'Which number is between 14 and 16?', correctAnswer: 'Fifteen', options: ['Fifteen', 'Thirteen', 'Eleven', 'Seventeen'] },
+    ],
+  },
 
-export interface Badge {
-  id: string;
-  title: string;
-  description: string;
-  icon: string;
-  earned: boolean;
-  earnedAt?: number;
-}
+  {
+    id: 'a1-numbers-100',
+    zone: 'a1',
+    category: 'Numbers',
+    title: 'Numbers 20–100',
+    icon: '💯',
+    color: 'from-violet-400 to-purple-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'quiz', question: 'How do you say 30?', correctAnswer: 'thirty', options: ['thirty', 'thirteen', 'three', 'thirsty'] },
+      { id: 'd2', type: 'quiz', question: 'How do you say 45?', correctAnswer: 'forty-five', options: ['forty-five', 'fifty-four', 'fourteen-five', 'four-five'] },
+      { id: 'd3', type: 'fill-blank', question: 'Twenty, thirty, ___, fifty.', correctAnswer: 'forty', options: ['forty', 'fourteen', 'four', 'four-ten'] },
+      { id: 'd4', type: 'scramble', question: 'Unscramble!', correctAnswer: 'SIXTY', imageEmoji: '6️⃣0️⃣', hint: 'S' },
+      { id: 'd5', type: 'fill-blank', question: 'Fifty, sixty, ___, eighty.', correctAnswer: 'seventy', options: ['seventy', 'seventeen', 'seven', 'sixty-ten'] },
+      { id: 'd6', type: 'quiz', question: 'How do you say 100?', correctAnswer: 'one hundred', options: ['one hundred', 'ten tens', 'one thousand', 'hundred one'] },
+      { id: 'd7', type: 'listening', question: 'Listen and choose.', correctAnswer: 'ninety', options: ['ninety', 'nineteen', 'nine', 'nine-ten'], imageEmoji: '9️⃣0️⃣' },
+      { id: 'd8', type: 'fill-blank', question: 'Eighty, ___, one hundred.', correctAnswer: 'ninety', options: ['ninety', 'nineteen', 'eighty-ten', 'nine'] },
+      { id: 'd9', type: 'scramble', question: 'Unscramble!', correctAnswer: 'EIGHTY', imageEmoji: '8️⃣0️⃣', hint: 'E' },
+      { id: 'd10', type: 'sentence-builder', question: 'Build the number sentence:', correctAnswer: 'There are one hundred days.', words: ['There', 'are', 'one', 'hundred', 'days.'] },
+    ],
+  },
 
-export interface LessonProgress {
-  lessonId: string;
-  completed: boolean;
-  bestScore: number;
-  attemptsCount: number;
-  lastPlayed: number;
-  perfectScores: number;
-  drillTypesSeen: DrillType[];
-}
+  {
+    id: 'a1-colors',
+    zone: 'a1',
+    category: 'Colors & Shapes',
+    title: 'Colors & Shapes',
+    icon: '🌈',
+    color: 'from-pink-400 to-rose-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'word-image', question: 'Which color matches this?', correctAnswer: 'red', options: ['red', 'blue', 'green', 'yellow'], imageEmoji: '🔴' },
+      { id: 'd2', type: 'word-image', question: 'Which color matches this?', correctAnswer: 'blue', options: ['blue', 'red', 'orange', 'purple'], imageEmoji: '🔵' },
+      { id: 'd3', type: 'fill-blank', question: 'The sun is ___.', correctAnswer: 'yellow', options: ['yellow', 'blue', 'green', 'red'] },
+      { id: 'd4', type: 'scramble', question: 'Unscramble the color!', correctAnswer: 'GREEN', imageEmoji: '🟢', hint: 'G' },
+      { id: 'd5', type: 'fill-blank', question: 'Grass is ___.', correctAnswer: 'green', options: ['green', 'red', 'blue', 'yellow'] },
+      { id: 'd6', type: 'quiz', question: 'What color is a banana?', correctAnswer: 'Yellow', options: ['Yellow', 'Red', 'Blue', 'Green'] },
+      { id: 'd7', type: 'word-image', question: 'This shape has three sides.', correctAnswer: 'triangle', options: ['triangle', 'circle', 'square', 'rectangle'], imageEmoji: '🔺' },
+      { id: 'd8', type: 'scramble', question: 'Unscramble the shape!', correctAnswer: 'CIRCLE', imageEmoji: '⭕', hint: 'C' },
+      { id: 'd9', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'The ball is red.', words: ['The', 'ball', 'is', 'red.'] },
+      { id: 'd10', type: 'listening', question: 'Listen and choose.', correctAnswer: 'orange', options: ['orange', 'purple', 'pink', 'brown'], imageEmoji: '🟠' },
+    ],
+  },
 
-export interface PlayerProfile {
-  nickname: string;
-  avatarEmoji: string;
-  createdAt: number;
-}
+  {
+    id: 'a1-animals',
+    zone: 'a1',
+    category: 'Animals',
+    title: 'Animals!',
+    icon: '🐾',
+    color: 'from-green-400 to-emerald-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'word-image', question: 'Which word matches this animal?', correctAnswer: 'cat', options: ['cat', 'dog', 'bird', 'fish'], imageEmoji: '🐱' },
+      { id: 'd2', type: 'word-image', question: 'Which word matches this animal?', correctAnswer: 'dog', options: ['dog', 'cat', 'rabbit', 'horse'], imageEmoji: '🐶' },
+      { id: 'd3', type: 'scramble', question: 'Unscramble the animal!', correctAnswer: 'ELEPHANT', imageEmoji: '🐘', hint: 'E' },
+      { id: 'd4', type: 'fill-blank', question: 'The ___ has a very long neck.', correctAnswer: 'giraffe', options: ['giraffe', 'lion', 'monkey', 'bear'] },
+      { id: 'd5', type: 'quiz', question: 'Which animal says "moo"?', correctAnswer: 'Cow', options: ['Cow', 'Dog', 'Cat', 'Bird'] },
+      { id: 'd6', type: 'listening', question: 'Listen and choose the animal.', correctAnswer: 'tiger', options: ['tiger', 'lion', 'bear', 'wolf'], imageEmoji: '🐯' },
+      { id: 'd7', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'I like dogs.', words: ['I', 'like', 'dogs.'] },
+      { id: 'd8', type: 'scramble', question: 'Unscramble!', correctAnswer: 'RABBIT', imageEmoji: '🐰', hint: 'R' },
+      { id: 'd9', type: 'fill-blank', question: 'A ___ can swim very fast.', correctAnswer: 'fish', options: ['fish', 'cat', 'bird', 'horse'] },
+      { id: 'd10', type: 'word-image', question: 'Which word matches this animal?', correctAnswer: 'bird', options: ['bird', 'fish', 'frog', 'snake'], imageEmoji: '🐦' },
+    ],
+  },
 
-export interface GameState {
-  profile: PlayerProfile | null;
-  xp: number;
-  level: number;
-  streakDays: number;
-  lastPlayedDate: string;
-  badges: Badge[];
-  lessonProgress: Record<string, LessonProgress>;
-  dailyChallengeDate: string;
-  dailyChallengeCompleted: boolean;
-  totalWordsLearned: number;
-  totalHangmanCorrect: number;
-  totalReadingPassages: number;
-  settings: {
-    soundEnabled: boolean;
-    teacherModeUnlocked: boolean;
-  };
-}
+  {
+    id: 'a1-family',
+    zone: 'a1',
+    category: 'Family',
+    title: 'My Family',
+    icon: '👨‍👩‍👧‍👦',
+    color: 'from-orange-400 to-amber-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'word-image', question: 'Which word matches this person?', correctAnswer: 'mother', options: ['mother', 'father', 'sister', 'brother'], imageEmoji: '👩' },
+      { id: 'd2', type: 'word-image', question: 'Which word matches this person?', correctAnswer: 'father', options: ['father', 'mother', 'uncle', 'aunt'], imageEmoji: '👨' },
+      { id: 'd3', type: 'fill-blank', question: 'My dad\'s mother is my ___.', correctAnswer: 'grandmother', options: ['grandmother', 'aunt', 'sister', 'mother'] },
+      { id: 'd4', type: 'scramble', question: 'Unscramble!', correctAnswer: 'SISTER', imageEmoji: '👧', hint: 'S' },
+      { id: 'd5', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'I love my family.', words: ['I', 'love', 'my', 'family.'] },
+      { id: 'd6', type: 'quiz', question: 'Your mother\'s father is your...', correctAnswer: 'grandfather', options: ['grandfather', 'uncle', 'brother', 'father'] },
+      { id: 'd7', type: 'fill-blank', question: 'My ___ and sister are my siblings.', correctAnswer: 'brother', options: ['brother', 'mother', 'father', 'aunt'] },
+      { id: 'd8', type: 'listening', question: 'Listen and choose.', correctAnswer: 'brother', options: ['brother', 'sister', 'mother', 'father'], imageEmoji: '👦' },
+      { id: 'd9', type: 'scramble', question: 'Unscramble!', correctAnswer: 'BROTHER', imageEmoji: '👦', hint: 'B' },
+      { id: 'd10', type: 'quiz', question: 'Your parents\' daughter is your...', correctAnswer: 'sister', options: ['sister', 'brother', 'aunt', 'cousin'] },
+    ],
+  },
+
+  {
+    id: 'a1-classroom',
+    zone: 'a1',
+    category: 'Classroom',
+    title: 'My Classroom',
+    icon: '🏫',
+    color: 'from-sky-400 to-cyan-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'word-image', question: 'Which word matches this object?', correctAnswer: 'pencil', options: ['pencil', 'book', 'ruler', 'bag'], imageEmoji: '✏️' },
+      { id: 'd2', type: 'word-image', question: 'Which word matches this object?', correctAnswer: 'book', options: ['book', 'pen', 'eraser', 'desk'], imageEmoji: '📚' },
+      { id: 'd3', type: 'fill-blank', question: 'I write with a ___.', correctAnswer: 'pen', options: ['pen', 'book', 'ruler', 'chair'] },
+      { id: 'd4', type: 'scramble', question: 'Unscramble!', correctAnswer: 'ERASER', imageEmoji: '🧼', hint: 'E' },
+      { id: 'd5', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'Open your book please.', words: ['Open', 'your', 'book', 'please.'] },
+      { id: 'd6', type: 'quiz', question: 'You sit on a...', correctAnswer: 'chair', options: ['chair', 'table', 'board', 'window'] },
+      { id: 'd7', type: 'fill-blank', question: 'The teacher writes on the ___.', correctAnswer: 'board', options: ['board', 'book', 'pencil', 'door'] },
+      { id: 'd8', type: 'listening', question: 'Listen and choose.', correctAnswer: 'ruler', options: ['ruler', 'pencil', 'eraser', 'book'], imageEmoji: '📏' },
+      { id: 'd9', type: 'scramble', question: 'Unscramble!', correctAnswer: 'PENCIL', imageEmoji: '✏️', hint: 'P' },
+      { id: 'd10', type: 'quiz', question: 'You carry your things in a...', correctAnswer: 'bag', options: ['bag', 'book', 'ruler', 'pen'] },
+    ],
+  },
+
+  {
+    id: 'a1-verbs',
+    zone: 'a1',
+    category: 'Basic Verbs',
+    title: 'Action Words!',
+    icon: '🏃',
+    color: 'from-red-400 to-pink-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'word-image', question: 'Which action matches this picture?', correctAnswer: 'eat', options: ['eat', 'sleep', 'run', 'swim'], imageEmoji: '🍽️' },
+      { id: 'd2', type: 'fill-blank', question: 'I ___ to school every morning.', correctAnswer: 'go', options: ['go', 'eat', 'sleep', 'play'] },
+      { id: 'd3', type: 'scramble', question: 'Unscramble the verb!', correctAnswer: 'DRINK', imageEmoji: '🥤', hint: 'D' },
+      { id: 'd4', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'I like to play football.', words: ['I', 'like', 'to', 'play', 'football.'] },
+      { id: 'd5', type: 'fill-blank', question: 'She ___ a red dress today.', correctAnswer: 'has', options: ['has', 'have', 'is', 'are'] },
+      { id: 'd6', type: 'quiz', question: 'Which word means "to move fast on your legs"?', correctAnswer: 'run', options: ['run', 'eat', 'sleep', 'read'] },
+      { id: 'd7', type: 'fill-blank', question: 'I ___ swim. I learned last year!', correctAnswer: 'can', options: ['can', 'is', 'have', 'are'] },
+      { id: 'd8', type: 'listening', question: 'Listen and choose.', correctAnswer: 'sleep', options: ['sleep', 'eat', 'run', 'play'], imageEmoji: '😴' },
+      { id: 'd9', type: 'word-image', question: 'Which action matches this picture?', correctAnswer: 'read', options: ['read', 'write', 'draw', 'sing'], imageEmoji: '📖' },
+      { id: 'd10', type: 'quiz', question: 'What do you do when you are tired?', correctAnswer: 'sleep', options: ['sleep', 'eat', 'play', 'run'] },
+    ],
+  },
+
+  // ───── Time & Dates (A1) ─────────────────────────────────────────────────
+
+  {
+    id: 'a1-days',
+    zone: 'a1',
+    category: 'Time & Dates',
+    title: 'Days of the Week',
+    icon: '📅',
+    color: 'from-teal-400 to-cyan-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'scramble', question: 'Unscramble the day!', correctAnswer: 'MONDAY', imageEmoji: '📅', hint: 'M' },
+      { id: 'd2', type: 'fill-blank', question: 'The day after Wednesday is ___.', correctAnswer: 'Thursday', options: ['Thursday', 'Tuesday', 'Friday', 'Sunday'] },
+      { id: 'd3', type: 'fill-blank', question: 'The day before Saturday is ___.', correctAnswer: 'Friday', options: ['Friday', 'Thursday', 'Sunday', 'Monday'] },
+      { id: 'd4', type: 'sentence-builder', question: 'Put the first three days in order:', correctAnswer: 'Monday Tuesday Wednesday', words: ['Wednesday', 'Monday', 'Tuesday'] },
+      { id: 'd5', type: 'quiz', question: 'Which day comes after Sunday?', correctAnswer: 'Monday', options: ['Monday', 'Saturday', 'Friday', 'Tuesday'] },
+      { id: 'd6', type: 'scramble', question: 'Unscramble!', correctAnswer: 'SATURDAY', imageEmoji: '🎉', hint: 'S' },
+      { id: 'd7', type: 'fill-blank', question: 'Monday, Tuesday, Wednesday, Thursday, ___, Saturday, Sunday.', correctAnswer: 'Friday', options: ['Friday', 'Monday', 'Sunday', 'Tuesday'] },
+      { id: 'd8', type: 'quiz', question: 'How many days are in a week?', correctAnswer: 'Seven', options: ['Seven', 'Five', 'Eight', 'Six'] },
+      { id: 'd9', type: 'listening', question: 'Listen and choose the day.', correctAnswer: 'Wednesday', options: ['Wednesday', 'Monday', 'Friday', 'Sunday'], imageEmoji: '📅' },
+      { id: 'd10', type: 'fill-blank', question: 'Today is Monday. Yesterday was ___.', correctAnswer: 'Sunday', options: ['Sunday', 'Tuesday', 'Saturday', 'Friday'] },
+    ],
+  },
+
+  {
+    id: 'a1-months',
+    zone: 'a1',
+    category: 'Time & Dates',
+    title: 'Months of the Year',
+    icon: '🗓️',
+    color: 'from-blue-400 to-indigo-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'quiz', question: 'Which month comes after March?', correctAnswer: 'April', options: ['April', 'May', 'February', 'June'] },
+      { id: 'd2', type: 'scramble', question: 'Unscramble the month!', correctAnswer: 'JANUARY', imageEmoji: '❄️', hint: 'J' },
+      { id: 'd3', type: 'fill-blank', question: 'January, February, ___, April.', correctAnswer: 'March', options: ['March', 'May', 'June', 'August'] },
+      { id: 'd4', type: 'quiz', question: 'How many months are in a year?', correctAnswer: 'Twelve', options: ['Twelve', 'Ten', 'Eight', 'Seven'] },
+      { id: 'd5', type: 'fill-blank', question: 'The last month of the year is ___.', correctAnswer: 'December', options: ['December', 'November', 'January', 'October'] },
+      { id: 'd6', type: 'scramble', question: 'Unscramble!', correctAnswer: 'OCTOBER', imageEmoji: '🎃', hint: 'O' },
+      { id: 'd7', type: 'fill-blank', question: 'How many days are in February (usually)?', correctAnswer: 'twenty-eight', options: ['twenty-eight', 'thirty', 'thirty-one', 'twenty-nine'] },
+      { id: 'd8', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'My birthday is in July.', words: ['My', 'birthday', 'is', 'in', 'July.'] },
+      { id: 'd9', type: 'listening', question: 'Listen and choose the month.', correctAnswer: 'September', options: ['September', 'November', 'December', 'August'], imageEmoji: '🍂' },
+      { id: 'd10', type: 'quiz', question: 'Which month comes after October?', correctAnswer: 'November', options: ['November', 'September', 'December', 'August'] },
+    ],
+  },
+
+  {
+    id: 'a1-telling-time',
+    zone: 'a1',
+    category: 'Time & Dates',
+    title: 'Telling the Time',
+    icon: '🕐',
+    color: 'from-indigo-400 to-blue-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'clock', question: 'What time is it?', correctAnswer: 'three o\'clock', options: ['three o\'clock', 'half past three', 'quarter past three', 'two o\'clock'], hours: 3, minutes: 0 },
+      { id: 'd2', type: 'clock', question: 'What time is it?', correctAnswer: 'half past six', options: ['half past six', 'six o\'clock', 'quarter to seven', 'quarter past six'], hours: 6, minutes: 30 },
+      { id: 'd3', type: 'clock', question: 'What time is it?', correctAnswer: 'quarter past nine', options: ['quarter past nine', 'nine o\'clock', 'half past nine', 'quarter to nine'], hours: 9, minutes: 15 },
+      { id: 'd4', type: 'clock', question: 'What time is it?', correctAnswer: 'quarter to five', options: ['quarter to five', 'quarter past five', 'half past four', 'five o\'clock'], hours: 4, minutes: 45 },
+      { id: 'd5', type: 'fill-blank', question: 'It is three ___. (3:00)', correctAnswer: "o'clock", options: ["o'clock", 'past', 'to', 'half'] },
+      { id: 'd6', type: 'clock', question: 'What time is it?', correctAnswer: 'twelve o\'clock', options: ['twelve o\'clock', 'half past twelve', 'quarter past twelve', 'one o\'clock'], hours: 12, minutes: 0 },
+      { id: 'd7', type: 'fill-blank', question: 'It is half ___ seven. (7:30)', correctAnswer: 'past', options: ['past', 'to', 'at', 'of'] },
+      { id: 'd8', type: 'clock', question: 'What time is it?', correctAnswer: 'half past two', options: ['half past two', 'two o\'clock', 'quarter past two', 'quarter to three'], hours: 2, minutes: 30 },
+      { id: 'd9', type: 'quiz', question: 'Quarter past four means...', correctAnswer: '4:15', options: ['4:15', '4:30', '4:45', '3:45'] },
+      { id: 'd10', type: 'clock', question: 'What time is it?', correctAnswer: 'quarter to eight', options: ['quarter to eight', 'quarter past eight', 'half past seven', 'eight o\'clock'], hours: 7, minutes: 45 },
+    ],
+  },
+
+  {
+    id: 'a1-dates',
+    zone: 'a1',
+    category: 'Time & Dates',
+    title: 'Dates & Ordinals',
+    icon: '📆',
+    color: 'from-rose-400 to-pink-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'fill-blank', question: '1st is "first", 2nd is "second", 3rd is "___".', correctAnswer: 'third', options: ['third', 'four', 'three', 'thirty'] },
+      { id: 'd2', type: 'quiz', question: 'How do you say 5th?', correctAnswer: 'fifth', options: ['fifth', 'fiveth', 'fiveteen', 'fivst'] },
+      { id: 'd3', type: 'fill-blank', question: 'When is Christmas? December ___.', correctAnswer: '25th', options: ['25th', '24th', '26th', '31st'] },
+      { id: 'd4', type: 'sentence-builder', question: 'Build the date:', correctAnswer: 'Today is March 3rd.', words: ['Today', 'is', 'March', '3rd.'] },
+      { id: 'd5', type: 'quiz', question: 'How do you say 21st?', correctAnswer: 'twenty-first', options: ['twenty-first', 'twenty-one', 'twentifirst', 'twenty-oneth'] },
+      { id: 'd6', type: 'scramble', question: 'Unscramble!', correctAnswer: 'SECOND', imageEmoji: '2️⃣', hint: 'S' },
+      { id: 'd7', type: 'fill-blank', question: 'New Year\'s Day is January ___.', correctAnswer: '1st', options: ['1st', '2nd', '31st', '10th'] },
+      { id: 'd8', type: 'quiz', question: 'How do you say the date "12/25" in English?', correctAnswer: 'December twenty-fifth', options: ['December twenty-fifth', 'Twelve twenty-five', 'December twelve', 'Twenty-five December'] },
+      { id: 'd9', type: 'fill-blank', question: 'The ___ month of the year is January.', correctAnswer: 'first', options: ['first', 'one', 'once', 'single'] },
+      { id: 'd10', type: 'quiz', question: 'What comes after 19th?', correctAnswer: '20th (twentieth)', options: ['20th (twentieth)', '19th (nineteenth)', '21st (twenty-first)', '10th (tenth)'] },
+    ],
+  },
+
+  {
+    id: 'a1-seasons',
+    zone: 'a1',
+    category: 'Time & Dates',
+    title: 'Seasons & Calendar',
+    icon: '🌸',
+    color: 'from-green-400 to-teal-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'quiz', question: 'December, January and February are in...', correctAnswer: 'winter', options: ['winter', 'summer', 'spring', 'autumn'] },
+      { id: 'd2', type: 'word-image', question: 'Which season matches this picture?', correctAnswer: 'summer', options: ['summer', 'winter', 'spring', 'autumn'], imageEmoji: '☀️' },
+      { id: 'd3', type: 'fill-blank', question: 'March, April and May are in ___.', correctAnswer: 'spring', options: ['spring', 'summer', 'winter', 'autumn'] },
+      { id: 'd4', type: 'word-image', question: 'Which season matches this picture?', correctAnswer: 'autumn', options: ['autumn', 'spring', 'summer', 'winter'], imageEmoji: '🍂' },
+      { id: 'd5', type: 'fill-blank', question: 'Yesterday, ___, tomorrow.', correctAnswer: 'today', options: ['today', 'now', 'morning', 'evening'] },
+      { id: 'd6', type: 'fill-blank', question: 'Last week was ___ this week.', correctAnswer: 'before', options: ['before', 'after', 'during', 'inside'] },
+      { id: 'd7', type: 'quiz', question: 'How many seasons are there?', correctAnswer: 'Four', options: ['Four', 'Three', 'Two', 'Six'] },
+      { id: 'd8', type: 'scramble', question: 'Unscramble the season!', correctAnswer: 'WINTER', imageEmoji: '❄️', hint: 'W' },
+      { id: 'd9', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'Summer is hot and sunny.', words: ['Summer', 'is', 'hot', 'and', 'sunny.'] },
+      { id: 'd10', type: 'fill-blank', question: 'Next week is ___ this week.', correctAnswer: 'after', options: ['after', 'before', 'during', 'yesterday'] },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // ZONE A1+ — Bridge
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'a1plus-present-simple',
+    zone: 'a1plus',
+    category: 'Grammar',
+    title: 'Present Simple',
+    icon: '📝',
+    color: 'from-indigo-400 to-violet-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'fill-blank', question: 'She ___ football every day.', correctAnswer: 'plays', options: ['plays', 'play', 'playing', 'played'] },
+      { id: 'd2', type: 'fill-blank', question: 'They ___ to school by bus.', correctAnswer: 'go', options: ['go', 'goes', 'going', 'went'] },
+      { id: 'd3', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'He likes pizza very much.', words: ['He', 'likes', 'pizza', 'very', 'much.'] },
+      { id: 'd4', type: 'fill-blank', question: 'My cat ___ fish.', correctAnswer: 'eats', options: ['eats', 'eat', 'eating', 'ate'] },
+      { id: 'd5', type: 'quiz', question: 'Which is correct?', correctAnswer: 'She reads books.', options: ['She reads books.', 'She read books.', 'She reading books.', 'She readed books.'] },
+      { id: 'd6', type: 'fill-blank', question: 'I ___ English at school.', correctAnswer: 'learn', options: ['learn', 'learns', 'learning', 'learned'] },
+      { id: 'd7', type: 'scramble', question: 'Unscramble!', correctAnswer: 'PLAYS', imageEmoji: '⚽', hint: 'P' },
+      { id: 'd8', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'We play in the park.', words: ['We', 'play', 'in', 'the', 'park.'] },
+      { id: 'd9', type: 'listening', question: 'Listen and choose.', correctAnswer: 'swims', options: ['swims', 'swim', 'swimming', 'swam'], imageEmoji: '🏊' },
+      { id: 'd10', type: 'quiz', question: 'Which is correct for "he"?', correctAnswer: 'He runs fast.', options: ['He runs fast.', 'He run fast.', 'He running fast.', 'He runned fast.'] },
+    ],
+  },
+
+  {
+    id: 'a1plus-prepositions',
+    zone: 'a1plus',
+    category: 'Grammar',
+    title: 'Where Is It?',
+    icon: '📍',
+    color: 'from-teal-400 to-green-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'fill-blank', question: 'The book is ___ the desk.', correctAnswer: 'on', options: ['on', 'in', 'under', 'next to'] },
+      { id: 'd2', type: 'fill-blank', question: 'The cat is hiding ___ the sofa.', correctAnswer: 'under', options: ['under', 'on', 'in', 'above'] },
+      { id: 'd3', type: 'word-image', question: 'The ball is INSIDE the box — which word?', correctAnswer: 'in', options: ['in', 'on', 'under', 'behind'], imageEmoji: '📦' },
+      { id: 'd4', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'The dog is next to the chair.', words: ['The', 'dog', 'is', 'next to', 'the', 'chair.'] },
+      { id: 'd5', type: 'fill-blank', question: 'My shoes are ___ the bed.', correctAnswer: 'under', options: ['under', 'on', 'in', 'next to'] },
+      { id: 'd6', type: 'quiz', question: 'The bird is ___ the tree. (above it)', correctAnswer: 'above', options: ['above', 'under', 'in', 'on'] },
+      { id: 'd7', type: 'scramble', question: 'Unscramble!', correctAnswer: 'BEHIND', imageEmoji: '👀', hint: 'B' },
+      { id: 'd8', type: 'fill-blank', question: 'There is a park ___ my school.', correctAnswer: 'next to', options: ['next to', 'in', 'on', 'under'] },
+      { id: 'd9', type: 'listening', question: 'Listen and choose.', correctAnswer: 'between', options: ['between', 'behind', 'above', 'below'], imageEmoji: '↔️' },
+      { id: 'd10', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'The cat is on the sofa.', words: ['The', 'cat', 'is', 'on', 'the', 'sofa.'] },
+    ],
+  },
+
+  {
+    id: 'a1plus-questions',
+    zone: 'a1plus',
+    category: 'Grammar',
+    title: 'Question Words',
+    icon: '❓',
+    color: 'from-amber-400 to-yellow-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'fill-blank', question: '___ is your name?', correctAnswer: 'What', options: ['What', 'Where', 'Who', 'When'] },
+      { id: 'd2', type: 'fill-blank', question: '___ do you live? In London.', correctAnswer: 'Where', options: ['Where', 'When', 'What', 'How'] },
+      { id: 'd3', type: 'fill-blank', question: '___ is your birthday? In June.', correctAnswer: 'When', options: ['When', 'Where', 'Who', 'What'] },
+      { id: 'd4', type: 'fill-blank', question: '___ is that boy? He is my brother!', correctAnswer: 'Who', options: ['Who', 'What', 'Where', 'When'] },
+      { id: 'd5', type: 'sentence-builder', question: 'Build the question:', correctAnswer: 'How old are you?', words: ['How', 'old', 'are', 'you?'] },
+      { id: 'd6', type: 'quiz', question: 'I want to know the reason. I ask...', correctAnswer: 'Why?', options: ['Why?', 'What?', 'Who?', 'Where?'] },
+      { id: 'd7', type: 'scramble', question: 'Unscramble!', correctAnswer: 'WHERE', imageEmoji: '🗺️', hint: 'W' },
+      { id: 'd8', type: 'fill-blank', question: '___ many cats do you have?', correctAnswer: 'How', options: ['How', 'What', 'Which', 'When'] },
+      { id: 'd9', type: 'listening', question: 'Listen and choose.', correctAnswer: 'What', options: ['What', 'Where', 'When', 'Who'], imageEmoji: '❓' },
+      { id: 'd10', type: 'sentence-builder', question: 'Build the question:', correctAnswer: 'Where is my cat?', words: ['Where', 'is', 'my', 'cat?'] },
+    ],
+  },
+
+  {
+    id: 'a1plus-food',
+    zone: 'a1plus',
+    category: 'Vocabulary',
+    title: 'Food & Drink',
+    icon: '🍎',
+    color: 'from-red-400 to-orange-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'word-image', question: 'Which word matches this food?', correctAnswer: 'apple', options: ['apple', 'bread', 'milk', 'egg'], imageEmoji: '🍎' },
+      { id: 'd2', type: 'word-image', question: 'Which word matches this food?', correctAnswer: 'pizza', options: ['pizza', 'soup', 'salad', 'rice'], imageEmoji: '🍕' },
+      { id: 'd3', type: 'scramble', question: 'Unscramble!', correctAnswer: 'BANANA', imageEmoji: '🍌', hint: 'B' },
+      { id: 'd4', type: 'fill-blank', question: 'I drink ___ every morning.', correctAnswer: 'milk', options: ['milk', 'pizza', 'bread', 'soup'] },
+      { id: 'd5', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'I want a sandwich please.', words: ['I', 'want', 'a', 'sandwich', 'please.'] },
+      { id: 'd6', type: 'quiz', question: 'Which is a drink?', correctAnswer: 'juice', options: ['juice', 'apple', 'bread', 'cheese'] },
+      { id: 'd7', type: 'listening', question: 'Listen and choose.', correctAnswer: 'chocolate', options: ['chocolate', 'cheese', 'chicken', 'cherry'], imageEmoji: '🍫' },
+      { id: 'd8', type: 'scramble', question: 'Unscramble!', correctAnswer: 'ORANGE', imageEmoji: '🍊', hint: 'O' },
+      { id: 'd9', type: 'fill-blank', question: 'Chips are my favorite ___.', correctAnswer: 'snack', options: ['snack', 'drink', 'meal', 'fruit'] },
+      { id: 'd10', type: 'word-image', question: 'Which word matches this food?', correctAnswer: 'egg', options: ['egg', 'milk', 'butter', 'bread'], imageEmoji: '🥚' },
+    ],
+  },
+
+  {
+    id: 'a1plus-describing',
+    zone: 'a1plus',
+    category: 'Vocabulary',
+    title: 'Describing People',
+    icon: '🧍',
+    color: 'from-violet-400 to-purple-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'word-image', question: 'Which word means this person is very tall?', correctAnswer: 'tall', options: ['tall', 'short', 'fat', 'thin'], imageEmoji: '🧍' },
+      { id: 'd2', type: 'fill-blank', question: 'She is very ___. She always smiles.', correctAnswer: 'happy', options: ['happy', 'sad', 'angry', 'scared'] },
+      { id: 'd3', type: 'scramble', question: 'Unscramble!', correctAnswer: 'YOUNG', imageEmoji: '👶', hint: 'Y' },
+      { id: 'd4', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'My teacher is very kind.', words: ['My', 'teacher', 'is', 'very', 'kind.'] },
+      { id: 'd5', type: 'fill-blank', question: 'He has ___ hair. It is very dark.', correctAnswer: 'black', options: ['black', 'white', 'green', 'blue'] },
+      { id: 'd6', type: 'quiz', question: 'The opposite of "tall" is...', correctAnswer: 'short', options: ['short', 'big', 'old', 'fat'] },
+      { id: 'd7', type: 'fill-blank', question: 'She is not sad. She is ___.', correctAnswer: 'happy', options: ['happy', 'angry', 'scared', 'tired'] },
+      { id: 'd8', type: 'listening', question: 'Listen and choose.', correctAnswer: 'strong', options: ['strong', 'weak', 'tall', 'short'], imageEmoji: '💪' },
+      { id: 'd9', type: 'scramble', question: 'Unscramble!', correctAnswer: 'FUNNY', imageEmoji: '😄', hint: 'F' },
+      { id: 'd10', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'The boy has long hair.', words: ['The', 'boy', 'has', 'long', 'hair.'] },
+    ],
+  },
+
+  // ───── Math in English (A1+) ──────────────────────────────────────────────
+
+  {
+    id: 'math-addition',
+    zone: 'a1plus',
+    category: 'Math in English',
+    title: 'Addition ➕',
+    icon: '➕',
+    color: 'from-emerald-400 to-green-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'quiz', question: 'What is twelve plus seven?', correctAnswer: '19', options: ['17', '18', '19', '20'] },
+      { id: 'd2', type: 'fill-blank', question: 'Fifteen plus twenty-three equals ___.', correctAnswer: 'thirty-eight', options: ['thirty-eight', 'thirty-seven', 'forty-eight', 'twenty-eight'] },
+      { id: 'd3', type: 'quiz', question: 'What is 47 + 36?', correctAnswer: '83', options: ['83', '73', '84', '93'] },
+      { id: 'd4', type: 'fill-blank', question: 'Twenty ___ thirty equals fifty.', correctAnswer: 'plus', options: ['plus', 'minus', 'times', 'divided by'] },
+      { id: 'd5', type: 'quiz', question: 'What is twenty-five plus fourteen?', correctAnswer: '39', options: ['38', '39', '40', '41'] },
+      { id: 'd6', type: 'sentence-builder', question: 'Build the math sentence:', correctAnswer: 'Six plus four equals ten.', words: ['Six', 'plus', 'four', 'equals', 'ten.'] },
+      { id: 'd7', type: 'quiz', question: 'What is 63 + 28?', correctAnswer: '91', options: ['89', '90', '91', '92'] },
+      { id: 'd8', type: 'fill-blank', question: 'Forty-seven plus ___ equals fifty.', correctAnswer: 'three', options: ['three', 'thirteen', 'thirty', 'seven'] },
+      { id: 'd9', type: 'quiz', question: 'What is thirty-six plus forty-five?', correctAnswer: '81', options: ['80', '81', '82', '71'] },
+      { id: 'd10', type: 'fill-blank', question: 'Fifty ___ fifty equals one hundred.', correctAnswer: 'plus', options: ['plus', 'minus', 'times', 'divided by'] },
+    ],
+  },
+
+  {
+    id: 'math-subtraction',
+    zone: 'a1plus',
+    category: 'Math in English',
+    title: 'Subtraction ➖',
+    icon: '➖',
+    color: 'from-orange-400 to-red-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'quiz', question: 'What is thirty minus eight?', correctAnswer: '22', options: ['20', '21', '22', '23'] },
+      { id: 'd2', type: 'fill-blank', question: 'Fifty ___ twenty equals thirty.', correctAnswer: 'minus', options: ['minus', 'plus', 'times', 'divided by'] },
+      { id: 'd3', type: 'quiz', question: 'What is 75 − 38?', correctAnswer: '37', options: ['36', '37', '38', '47'] },
+      { id: 'd4', type: 'fill-blank', question: 'One hundred minus ___ equals ninety.', correctAnswer: 'ten', options: ['ten', 'one', 'twenty', 'fifty'] },
+      { id: 'd5', type: 'quiz', question: 'What is forty-six minus nineteen?', correctAnswer: '27', options: ['25', '26', '27', '28'] },
+      { id: 'd6', type: 'sentence-builder', question: 'Build the math sentence:', correctAnswer: 'Ten minus four equals six.', words: ['Ten', 'minus', 'four', 'equals', 'six.'] },
+      { id: 'd7', type: 'quiz', question: 'What is 90 − 35?', correctAnswer: '55', options: ['54', '55', '56', '65'] },
+      { id: 'd8', type: 'fill-blank', question: 'Sixty-three minus ___ equals sixty.', correctAnswer: 'three', options: ['three', 'thirty', 'thirteen', 'six'] },
+      { id: 'd9', type: 'quiz', question: 'What is eighty minus forty-four?', correctAnswer: '36', options: ['34', '35', '36', '46'] },
+      { id: 'd10', type: 'quiz', question: 'Which word means "take away" in math?', correctAnswer: 'minus', options: ['minus', 'plus', 'times', 'equals'] },
+    ],
+  },
+
+  {
+    id: 'math-multiplication',
+    zone: 'a1plus',
+    category: 'Math in English',
+    title: 'Multiplication ✖️',
+    icon: '✖️',
+    color: 'from-blue-400 to-indigo-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'quiz', question: 'What is two times five?', correctAnswer: '10', options: ['7', '8', '10', '12'] },
+      { id: 'd2', type: 'quiz', question: 'What is ten times six?', correctAnswer: '60', options: ['16', '60', '56', '66'] },
+      { id: 'd3', type: 'fill-blank', question: 'Five ___ four equals twenty.', correctAnswer: 'times', options: ['times', 'plus', 'minus', 'divided by'] },
+      { id: 'd4', type: 'quiz', question: 'What is six times four?', correctAnswer: '24', options: ['20', '22', '24', '26'] },
+      { id: 'd5', type: 'sentence-builder', question: 'Build the math sentence:', correctAnswer: 'Three times three equals nine.', words: ['Three', 'times', 'three', 'equals', 'nine.'] },
+      { id: 'd6', type: 'quiz', question: 'What is seven times eight?', correctAnswer: '56', options: ['54', '55', '56', '57'] },
+      { id: 'd7', type: 'quiz', question: 'What is 9 × 9?', correctAnswer: '81', options: ['79', '80', '81', '82'] },
+      { id: 'd8', type: 'fill-blank', question: 'Ten times ten equals ___.', correctAnswer: 'one hundred', options: ['one hundred', 'ten', 'twenty', 'one thousand'] },
+      { id: 'd9', type: 'quiz', question: 'What is five times seven?', correctAnswer: '35', options: ['30', '32', '35', '37'] },
+      { id: 'd10', type: 'quiz', question: 'Which word means "multiply" in math?', correctAnswer: 'times', options: ['times', 'plus', 'minus', 'equals'] },
+    ],
+  },
+
+  {
+    id: 'math-division',
+    zone: 'a1plus',
+    category: 'Math in English',
+    title: 'Division ÷',
+    icon: '➗',
+    color: 'from-purple-400 to-pink-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'quiz', question: 'What is twenty divided by four?', correctAnswer: '5', options: ['4', '5', '6', '8'] },
+      { id: 'd2', type: 'fill-blank', question: 'Thirty ___ five equals six.', correctAnswer: 'divided by', options: ['divided by', 'times', 'plus', 'minus'] },
+      { id: 'd3', type: 'quiz', question: 'What is 100 ÷ 10?', correctAnswer: '10', options: ['10', '90', '100', '1'] },
+      { id: 'd4', type: 'quiz', question: 'What is forty-two divided by seven?', correctAnswer: '6', options: ['5', '6', '7', '8'] },
+      { id: 'd5', type: 'sentence-builder', question: 'Build the math sentence:', correctAnswer: 'Eight divided by two equals four.', words: ['Eight', 'divided by', 'two', 'equals', 'four.'] },
+      { id: 'd6', type: 'quiz', question: 'What is 36 ÷ 6?', correctAnswer: '6', options: ['5', '6', '7', '9'] },
+      { id: 'd7', type: 'fill-blank', question: 'Eighty ___ eight equals ten.', correctAnswer: 'divided by', options: ['divided by', 'times', 'plus', 'minus'] },
+      { id: 'd8', type: 'quiz', question: 'What is sixty-three divided by nine?', correctAnswer: '7', options: ['6', '7', '8', '9'] },
+      { id: 'd9', type: 'quiz', question: 'What is 50 ÷ 5?', correctAnswer: '10', options: ['5', '8', '10', '45'] },
+      { id: 'd10', type: 'quiz', question: 'Which word means "share equally" in math?', correctAnswer: 'divided by', options: ['divided by', 'minus', 'times', 'plus'] },
+    ],
+  },
+
+  {
+    id: 'math-mixed',
+    zone: 'a1plus',
+    category: 'Math in English',
+    title: 'Mixed Maths! 🎲',
+    icon: '🎲',
+    color: 'from-yellow-400 to-orange-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'quiz', question: 'What is seventeen PLUS fifteen?', correctAnswer: '32', options: ['30', '31', '32', '33'] },
+      { id: 'd2', type: 'quiz', question: 'What is fifty MINUS twenty-three?', correctAnswer: '27', options: ['25', '26', '27', '28'] },
+      { id: 'd3', type: 'quiz', question: 'What is eight TIMES seven?', correctAnswer: '56', options: ['54', '56', '58', '63'] },
+      { id: 'd4', type: 'quiz', question: 'What is forty-five DIVIDED BY nine?', correctAnswer: '5', options: ['4', '5', '6', '9'] },
+      { id: 'd5', type: 'fill-blank', question: 'Twenty plus thirty-five ___ fifty-five.', correctAnswer: 'equals', options: ['equals', 'minus', 'times', 'plus'] },
+      { id: 'd6', type: 'quiz', question: 'What is 6 × 6?', correctAnswer: '36', options: ['30', '33', '36', '42'] },
+      { id: 'd7', type: 'quiz', question: 'What is ninety MINUS forty-seven?', correctAnswer: '43', options: ['41', '42', '43', '44'] },
+      { id: 'd8', type: 'quiz', question: 'What is 72 ÷ 8?', correctAnswer: '9', options: ['7', '8', '9', '10'] },
+      { id: 'd9', type: 'fill-blank', question: 'Nine ___ nine equals eighty-one.', correctAnswer: 'times', options: ['times', 'plus', 'minus', 'divided by'] },
+      { id: 'd10', type: 'quiz', question: 'What is twenty-four PLUS thirty-nine?', correctAnswer: '63', options: ['61', '62', '63', '64'] },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // ZONE A2 — Explorer
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'a2-past-simple',
+    zone: 'a2',
+    category: 'Grammar',
+    title: 'Past Simple',
+    icon: '⏰',
+    color: 'from-rose-500 to-red-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'fill-blank', question: 'Yesterday I ___ to school by bus.', correctAnswer: 'went', options: ['went', 'go', 'goes', 'going'] },
+      { id: 'd2', type: 'fill-blank', question: 'She ___ a sandwich for lunch.', correctAnswer: 'ate', options: ['ate', 'eat', 'eats', 'eating'] },
+      { id: 'd3', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'We played football yesterday.', words: ['We', 'played', 'football', 'yesterday.'] },
+      { id: 'd4', type: 'fill-blank', question: 'He ___ his homework last night.', correctAnswer: 'finished', options: ['finished', 'finish', 'finishes', 'finishing'] },
+      { id: 'd5', type: 'quiz', question: 'Past tense of "see" is...', correctAnswer: 'saw', options: ['saw', 'seed', 'seen', 'sawed'] },
+      { id: 'd6', type: 'fill-blank', question: 'They ___ happy when they won.', correctAnswer: 'were', options: ['were', 'are', 'was', 'be'] },
+      { id: 'd7', type: 'scramble', question: 'Unscramble the past tense verb!', correctAnswer: 'PLAYED', imageEmoji: '⚽', hint: 'P' },
+      { id: 'd8', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'I saw a big dog.', words: ['I', 'saw', 'a', 'big', 'dog.'] },
+      { id: 'd9', type: 'fill-blank', question: 'She ___ a beautiful picture.', correctAnswer: 'drew', options: ['drew', 'draw', 'draws', 'drawing'] },
+      { id: 'd10', type: 'quiz', question: 'Past tense of "go" is...', correctAnswer: 'went', options: ['went', 'goed', 'gone', 'going'] },
+    ],
+  },
+
+  {
+    id: 'a2-present-continuous',
+    zone: 'a2',
+    category: 'Grammar',
+    title: 'Right Now!',
+    icon: '▶️',
+    color: 'from-emerald-500 to-teal-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'fill-blank', question: 'She ___ reading a book now.', correctAnswer: 'is', options: ['is', 'are', 'am', 'was'] },
+      { id: 'd2', type: 'fill-blank', question: 'They ___ playing in the garden.', correctAnswer: 'are', options: ['are', 'is', 'am', 'be'] },
+      { id: 'd3', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'I am eating lunch now.', words: ['I', 'am', 'eating', 'lunch', 'now.'] },
+      { id: 'd4', type: 'fill-blank', question: 'He is ___ (run) in the park.', correctAnswer: 'running', options: ['running', 'run', 'runs', 'ran'] },
+      { id: 'd5', type: 'quiz', question: 'Which sentence uses Present Continuous?', correctAnswer: 'She is dancing.', options: ['She is dancing.', 'She dances.', 'She danced.', 'She will dance.'] },
+      { id: 'd6', type: 'fill-blank', question: 'I am ___ (swim) in the pool.', correctAnswer: 'swimming', options: ['swimming', 'swim', 'swims', 'swam'] },
+      { id: 'd7', type: 'scramble', question: 'Unscramble!', correctAnswer: 'SWIMMING', imageEmoji: '🏊', hint: 'S' },
+      { id: 'd8', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'We are watching a movie.', words: ['We', 'are', 'watching', 'a', 'movie.'] },
+      { id: 'd9', type: 'fill-blank', question: 'Look! The dog ___ chasing the cat.', correctAnswer: 'is', options: ['is', 'are', 'am', 'were'] },
+      { id: 'd10', type: 'listening', question: 'Listen and choose.', correctAnswer: 'jumping', options: ['jumping', 'jump', 'jumped', 'jumps'], imageEmoji: '🦘' },
+    ],
+  },
+
+  {
+    id: 'a2-comparatives',
+    zone: 'a2',
+    category: 'Grammar',
+    title: 'Bigger & Biggest!',
+    icon: '📊',
+    color: 'from-blue-500 to-sky-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'fill-blank', question: 'An elephant is ___ than a cat. (big)', correctAnswer: 'bigger', options: ['bigger', 'big', 'biggest', 'more big'] },
+      { id: 'd2', type: 'fill-blank', question: 'She is the ___ girl in the class. (tall)', correctAnswer: 'tallest', options: ['tallest', 'taller', 'tall', 'most tall'] },
+      { id: 'd3', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'My dog is faster than yours.', words: ['My', 'dog', 'is', 'faster', 'than', 'yours.'] },
+      { id: 'd4', type: 'fill-blank', question: 'This film is ___ than that one. (funny)', correctAnswer: 'funnier', options: ['funnier', 'funniest', 'more funny', 'funny'] },
+      { id: 'd5', type: 'quiz', question: 'Superlative of "good" is...', correctAnswer: 'best', options: ['best', 'better', 'gooder', 'goodest'] },
+      { id: 'd6', type: 'fill-blank', question: 'Mount Everest is the ___ mountain. (high)', correctAnswer: 'highest', options: ['highest', 'higher', 'high', 'more high'] },
+      { id: 'd7', type: 'scramble', question: 'Unscramble!', correctAnswer: 'BIGGER', imageEmoji: '📏', hint: 'B' },
+      { id: 'd8', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'This is the best pizza!', words: ['This', 'is', 'the', 'best', 'pizza!'] },
+      { id: 'd9', type: 'fill-blank', question: 'He is ___ than his brother. (old)', correctAnswer: 'older', options: ['older', 'oldest', 'old', 'more old'] },
+      { id: 'd10', type: 'quiz', question: 'Comparative of "bad" is...', correctAnswer: 'worse', options: ['worse', 'worst', 'badder', 'baddest'] },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // ZONE B1 — Challenger
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'b1-present-perfect',
+    zone: 'b1',
+    category: 'Grammar',
+    title: 'Have You Ever?',
+    icon: '🏆',
+    color: 'from-purple-600 to-indigo-700',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'fill-blank', question: 'I ___ eaten sushi before.', correctAnswer: 'have', options: ['have', 'has', 'had', 'did'] },
+      { id: 'd2', type: 'fill-blank', question: 'She ___ never been to Paris.', correctAnswer: 'has', options: ['has', 'have', 'had', 'did'] },
+      { id: 'd3', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'Have you ever seen a whale?', words: ['Have', 'you', 'ever', 'seen', 'a', 'whale?'] },
+      { id: 'd4', type: 'fill-blank', question: 'We ___ just arrived at school.', correctAnswer: 'have', options: ['have', 'has', 'are', 'did'] },
+      { id: 'd5', type: 'quiz', question: 'Past participle of "go" is...', correctAnswer: 'gone', options: ['gone', 'went', 'goed', 'going'] },
+      { id: 'd6', type: 'fill-blank', question: 'He ___ already done his homework.', correctAnswer: 'has', options: ['has', 'have', 'is', 'was'] },
+      { id: 'd7', type: 'scramble', question: 'Unscramble!', correctAnswer: 'VISITED', imageEmoji: '✈️', hint: 'V' },
+      { id: 'd8', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'I have never eaten snails.', words: ['I', 'have', 'never', 'eaten', 'snails.'] },
+      { id: 'd9', type: 'fill-blank', question: 'They ___ lived here for five years.', correctAnswer: 'have', options: ['have', 'has', 'had', 'are'] },
+      { id: 'd10', type: 'quiz', question: 'Which uses Present Perfect?', correctAnswer: 'She has read that book.', options: ['She has read that book.', 'She read that book.', 'She reads that book.', 'She is reading that book.'] },
+    ],
+  },
+
+  {
+    id: 'b1-future',
+    zone: 'b1',
+    category: 'Grammar',
+    title: 'Future Plans!',
+    icon: '🚀',
+    color: 'from-orange-500 to-red-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'fill-blank', question: 'I ___ go to the park tomorrow.', correctAnswer: 'will', options: ['will', 'am', 'do', 'have'] },
+      { id: 'd2', type: 'fill-blank', question: 'She is ___ to study medicine.', correctAnswer: 'going', options: ['going', 'go', 'gone', 'went'] },
+      { id: 'd3', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'It will be sunny tomorrow.', words: ['It', 'will', 'be', 'sunny', 'tomorrow.'] },
+      { id: 'd4', type: 'fill-blank', question: 'I ___ going to visit my grandma this weekend.', correctAnswer: 'am', options: ['am', 'is', 'are', 'will'] },
+      { id: 'd5', type: 'quiz', question: 'Which is a future sentence?', correctAnswer: 'He will play tennis.', options: ['He will play tennis.', 'He played tennis.', 'He plays tennis.', 'He is playing tennis.'] },
+      { id: 'd6', type: 'fill-blank', question: 'Don\'t worry, I ___ help you!', correctAnswer: 'will', options: ['will', 'am', 'do', 'have'] },
+      { id: 'd7', type: 'scramble', question: 'Unscramble!', correctAnswer: 'TOMORROW', imageEmoji: '📅', hint: 'T' },
+      { id: 'd8', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'We are going to the beach.', words: ['We', 'are', 'going', 'to', 'the', 'beach.'] },
+      { id: 'd9', type: 'fill-blank', question: 'Look at those clouds! It ___ rain.', correctAnswer: 'will', options: ['will', 'is', 'was', 'has'] },
+      { id: 'd10', type: 'fill-blank', question: 'I ___ going to be a doctor when I grow up.', correctAnswer: 'am', options: ['am', 'is', 'are', 'will'] },
+    ],
+  },
+
+  {
+    id: 'b1-modal-verbs',
+    zone: 'b1',
+    category: 'Grammar',
+    title: 'Modal Verbs',
+    icon: '🎯',
+    color: 'from-indigo-500 to-blue-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'fill-blank', question: 'You ___ eat vegetables. They are good for you.', correctAnswer: 'should', options: ['should', 'might', 'could', 'would'] },
+      { id: 'd2', type: 'fill-blank', question: 'You ___ wear a seatbelt. It\'s the law!', correctAnswer: 'must', options: ['must', 'should', 'might', 'could'] },
+      { id: 'd3', type: 'quiz', question: 'Which modal verb expresses possibility?', correctAnswer: 'might', options: ['might', 'must', 'should', 'will'] },
+      { id: 'd4', type: 'fill-blank', question: 'It looks cloudy. It ___ rain later.', correctAnswer: 'might', options: ['might', 'must', 'should', 'would'] },
+      { id: 'd5', type: 'fill-blank', question: 'In her dream, she ___ fly like a bird.', correctAnswer: 'could', options: ['could', 'must', 'should', 'might'] },
+      { id: 'd6', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'You should drink more water.', words: ['You', 'should', 'drink', 'more', 'water.'] },
+      { id: 'd7', type: 'quiz', question: '"Must" shows...', correctAnswer: 'obligation', options: ['obligation', 'possibility', 'wish', 'habit'] },
+      { id: 'd8', type: 'fill-blank', question: 'If I were rich, I ___ travel the world.', correctAnswer: 'would', options: ['would', 'will', 'should', 'must'] },
+      { id: 'd9', type: 'scramble', question: 'Unscramble the modal verb!', correctAnswer: 'SHOULD', imageEmoji: '🤔', hint: 'S' },
+      { id: 'd10', type: 'quiz', question: 'Which sentence uses a modal verb?', correctAnswer: 'She might come tomorrow.', options: ['She might come tomorrow.', 'She comes tomorrow.', 'She came yesterday.', 'She is coming now.'] },
+    ],
+  },
+
+  {
+    id: 'b1-spelling',
+    zone: 'b1',
+    category: 'Spelling',
+    title: 'Tricky Spelling! 🔤',
+    icon: '🔤',
+    color: 'from-pink-500 to-rose-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'hangman', question: 'Spell it: something you need before you have enough', correctAnswer: 'necessary', hint: 'n' },
+      { id: 'd2', type: 'hangman', question: 'Spell it: a strong beat or pattern in music', correctAnswer: 'rhythm', hint: 'r' },
+      { id: 'd3', type: 'scramble', question: 'Unscramble the tricky word!', correctAnswer: 'NECESSARY', imageEmoji: '📋', hint: 'N' },
+      { id: 'd4', type: 'hangman', question: 'Spell it: the building where elected leaders meet', correctAnswer: 'parliament', hint: 'p' },
+      { id: 'd5', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'necessary', options: ['necessary', 'neccessary', 'nessecary', 'necesary'] },
+      { id: 'd6', type: 'hangman', question: 'Spell it: to describe something as much bigger than it really is', correctAnswer: 'exaggerate', hint: 'e' },
+      { id: 'd7', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'rhythm', options: ['rhythm', 'rythm', 'rhythem', 'rithm'] },
+      { id: 'd8', type: 'scramble', question: 'Unscramble!', correctAnswer: 'PARLIAMENT', imageEmoji: '🏛️', hint: 'P' },
+      { id: 'd9', type: 'hangman', question: 'Spell it: badly behaved in a playful, naughty way', correctAnswer: 'mischievous', hint: 'm' },
+      { id: 'd10', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'mischievous', options: ['mischievous', 'mischevious', 'mischievious', 'mischeivous'] },
+    ],
+  },
+
+  {
+    id: 'b1-conditional',
+    zone: 'b1',
+    category: 'Grammar',
+    title: 'First Conditional',
+    icon: '🌦️',
+    color: 'from-cyan-500 to-blue-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'fill-blank', question: 'If it ___, we will stay inside.', correctAnswer: 'rains', options: ['rains', 'rain', 'will rain', 'rained'] },
+      { id: 'd2', type: 'fill-blank', question: 'If you study hard, you ___ pass the test.', correctAnswer: 'will', options: ['will', 'would', 'might', 'can'] },
+      { id: 'd3', type: 'sentence-builder', question: 'Build the conditional:', correctAnswer: 'If it is sunny we will go outside.', words: ['If', 'it', 'is', 'sunny', 'we', 'will', 'go', 'outside.'] },
+      { id: 'd4', type: 'quiz', question: 'Which is a correct First Conditional?', correctAnswer: 'If she runs fast, she will win.', options: ['If she runs fast, she will win.', 'If she would run, she wins.', 'If she ran fast, she wins.', 'If she runs, she won.'] },
+      { id: 'd5', type: 'fill-blank', question: 'If we miss the bus, we ___ be late.', correctAnswer: 'will', options: ['will', 'would', 'might', 'should'] },
+      { id: 'd6', type: 'fill-blank', question: 'What ___ you do if it snows tomorrow?', correctAnswer: 'will', options: ['will', 'would', 'do', 'are'] },
+      { id: 'd7', type: 'quiz', question: 'In the First Conditional the IF clause uses...', correctAnswer: 'present simple', options: ['present simple', 'will + verb', 'past simple', 'present perfect'] },
+      { id: 'd8', type: 'fill-blank', question: 'If he ___ his vegetables, he will grow strong.', correctAnswer: 'eats', options: ['eats', 'will eat', 'ate', 'eat'] },
+      { id: 'd9', type: 'sentence-builder', question: 'Build the conditional:', correctAnswer: 'If you are kind people will like you.', words: ['If', 'you', 'are', 'kind', 'people', 'will', 'like', 'you.'] },
+      { id: 'd10', type: 'fill-blank', question: 'If you touch that cactus, it ___ hurt!', correctAnswer: 'will', options: ['will', 'would', 'shall', 'must'] },
+    ],
+  },
+
+  {
+    id: 'b1-passive',
+    zone: 'b1',
+    category: 'Grammar',
+    title: 'Passive Voice',
+    icon: '🔄',
+    color: 'from-violet-500 to-purple-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'fill-blank', question: 'The car ___ built in Germany.', correctAnswer: 'was', options: ['was', 'is', 'were', 'be'] },
+      { id: 'd2', type: 'fill-blank', question: 'English ___ spoken all over the world.', correctAnswer: 'is', options: ['is', 'are', 'was', 'be'] },
+      { id: 'd3', type: 'quiz', question: 'Which sentence is in the passive voice?', correctAnswer: 'The cake was eaten by Tom.', options: ['The cake was eaten by Tom.', 'Tom ate the cake.', 'Tom is eating the cake.', 'Tom will eat the cake.'] },
+      { id: 'd4', type: 'fill-blank', question: 'The windows ___ cleaned yesterday.', correctAnswer: 'were', options: ['were', 'was', 'are', 'be'] },
+      { id: 'd5', type: 'sentence-builder', question: 'Build the passive sentence:', correctAnswer: 'The letter was written by Sam.', words: ['The', 'letter', 'was', 'written', 'by', 'Sam.'] },
+      { id: 'd6', type: 'fill-blank', question: 'The homework ___ not done properly.', correctAnswer: 'was', options: ['was', 'is', 'were', 'been'] },
+      { id: 'd7', type: 'quiz', question: 'Passive = Subject + ___ + past participle', correctAnswer: 'to be', options: ['to be', 'to have', 'to do', 'will'] },
+      { id: 'd8', type: 'fill-blank', question: 'Three goals ___ scored in the match.', correctAnswer: 'were', options: ['were', 'was', 'are', 'have'] },
+      { id: 'd9', type: 'scramble', question: 'Unscramble the past participle!', correctAnswer: 'WRITTEN', imageEmoji: '✍️', hint: 'W' },
+      { id: 'd10', type: 'fill-blank', question: 'The new school ___ opened next year.', correctAnswer: 'will be', options: ['will be', 'was', 'is', 'were'] },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // HOMOPHONES (B1)
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'b1-homophones-there',
+    zone: 'b1',
+    category: 'Homophones',
+    title: 'There / Their / They\'re',
+    icon: '🔊',
+    color: 'from-violet-500 to-purple-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: '___ going to the game later.', correctAnswer: "They're", options: ["There", "Their", "They're"], homophoneExplanation: "They're = they are (a contraction). Try replacing with 'they are' — if it works, use they're." },
+      { id: 'd2', type: 'homophone', question: 'I left my bag over ___.', correctAnswer: 'there', options: ['there', 'their', "they're"], homophoneExplanation: "There = a place or location. 'Put it there' points to a spot." },
+      { id: 'd3', type: 'homophone', question: 'The students forgot ___ homework.', correctAnswer: 'their', options: ['there', 'their', "they're"], homophoneExplanation: "Their = belonging to them (possessive). The homework belongs to the students." },
+      { id: 'd4', type: 'homophone', question: '___ not coming to the party.', correctAnswer: "They're", options: ["There", "Their", "They're"], homophoneExplanation: "They're = they are. 'They are not coming to the party.'" },
+      { id: 'd5', type: 'homophone', question: 'The kids rode ___ bikes to school.', correctAnswer: 'their', options: ['there', 'their', "they're"], homophoneExplanation: "Their = belonging to them. The bikes belong to the kids." },
+      { id: 'd6', type: 'homophone', question: 'Is anyone ___?', correctAnswer: 'there', options: ['there', 'their', "they're"], homophoneExplanation: "There = refers to a place or existence. 'Is anyone there?' asks if someone is present." },
+      { id: 'd7', type: 'homophone', question: '___ always late for meetings.', correctAnswer: "They're", options: ["There", "Their", "They're"], homophoneExplanation: "They're = they are. Replace test: 'They are always late for meetings.' ✓" },
+      { id: 'd8', type: 'homophone', question: 'She found ___ missing keys.', correctAnswer: 'their', options: ['there', 'their', "they're"], homophoneExplanation: "Their = belonging to them. The keys belong to those people." },
+    ],
+  },
+
+  {
+    id: 'b1-homophones-to',
+    zone: 'b1',
+    category: 'Homophones',
+    title: 'To / Too / Two',
+    icon: '🔊',
+    color: 'from-violet-500 to-purple-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: 'I want ___ go to the beach.', correctAnswer: 'to', options: ['to', 'too', 'two'], homophoneExplanation: "To = used before a verb (infinitive). 'I want to go.'" },
+      { id: 'd2', type: 'homophone', question: 'Can I come ___?', correctAnswer: 'too', options: ['to', 'too', 'two'], homophoneExplanation: "Too = also / as well. 'Can I come too?' means 'Can I come also?'" },
+      { id: 'd3', type: 'homophone', question: 'She has ___ cats.', correctAnswer: 'two', options: ['to', 'too', 'two'], homophoneExplanation: "Two = the number 2. Example: I have two brothers." },
+      { id: 'd4', type: 'homophone', question: 'This coffee is ___ hot to drink.', correctAnswer: 'too', options: ['to', 'too', 'two'], homophoneExplanation: "Too = excessively / more than enough. 'Too hot' means more than hot enough." },
+      { id: 'd5', type: 'homophone', question: 'We walked ___ the store.', correctAnswer: 'to', options: ['to', 'too', 'two'], homophoneExplanation: "To = toward a destination. 'Walked to the store' shows direction." },
+      { id: 'd6', type: 'homophone', question: 'I bought ___ tickets for the show.', correctAnswer: 'two', options: ['to', 'too', 'two'], homophoneExplanation: "Two = the number 2. 'Two tickets' means 2 tickets." },
+      { id: 'd7', type: 'homophone', question: 'He is ___ tired to work.', correctAnswer: 'too', options: ['to', 'too', 'two'], homophoneExplanation: "Too = excessively. 'Too tired to work' — he is more than tired enough." },
+      { id: 'd8', type: 'homophone', question: 'She gave the book ___ her friend.', correctAnswer: 'to', options: ['to', 'too', 'two'], homophoneExplanation: "To = toward someone. 'Gave the book to her friend' shows the receiver." },
+    ],
+  },
+
+  {
+    id: 'b1-homophones-your',
+    zone: 'b1',
+    category: 'Homophones',
+    title: 'Your / You\'re',
+    icon: '🔊',
+    color: 'from-violet-500 to-purple-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: '___ going to love this game.', correctAnswer: "You're", options: ["Your", "You're"], homophoneExplanation: "You're = you are. Replace test: 'You are going to love this game.' ✓" },
+      { id: 'd2', type: 'homophone', question: 'Is this ___ controller?', correctAnswer: 'your', options: ['your', "you're"], homophoneExplanation: "Your = belonging to you (possessive). The controller belongs to you." },
+      { id: 'd3', type: 'homophone', question: "What's ___ high score?", correctAnswer: 'your', options: ['your', "you're"], homophoneExplanation: "Your = belonging to you. 'Your high score' = the high score that is yours." },
+      { id: 'd4', type: 'homophone', question: '___ the best player on the team.', correctAnswer: "You're", options: ["Your", "You're"], homophoneExplanation: "You're = you are. 'You are the best player on the team.' ✓" },
+      { id: 'd5', type: 'homophone', question: "I can't believe ___ that fast.", correctAnswer: "you're", options: ['your', "you're"], homophoneExplanation: "You're = you are. 'I can't believe you are that fast.' ✓" },
+      { id: 'd6', type: 'homophone', question: 'Put ___ helmet on before the race.', correctAnswer: 'your', options: ['your', "you're"], homophoneExplanation: "Your = belonging to you. The helmet belongs to you." },
+      { id: 'd7', type: 'homophone', question: '___ going to need more practice.', correctAnswer: "You're", options: ["Your", "You're"], homophoneExplanation: "You're = you are. 'You are going to need more practice.' ✓" },
+      { id: 'd8', type: 'homophone', question: "That's ___ best shot yet.", correctAnswer: 'your', options: ['your', "you're"], homophoneExplanation: "Your = belonging to you. 'Your best shot' = the best shot you have made." },
+    ],
+  },
+
+  {
+    id: 'b1-homophones-its',
+    zone: 'b1',
+    category: 'Homophones',
+    title: 'Its / It\'s',
+    icon: '🔊',
+    color: 'from-violet-500 to-purple-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: "___ raining outside.", correctAnswer: "It's", options: ["Its", "It's"], homophoneExplanation: "It's = it is (contraction). Replace test: 'It is raining outside.' ✓" },
+      { id: 'd2', type: 'homophone', question: 'The robot lost ___ power.', correctAnswer: 'its', options: ['its', "it's"], homophoneExplanation: "Its = belonging to it (possessive). The power belongs to the robot." },
+      { id: 'd3', type: 'homophone', question: "___ the fastest car on the track.", correctAnswer: "It's", options: ["Its", "It's"], homophoneExplanation: "It's = it is. Replace test: 'It is the fastest car on the track.' ✓" },
+      { id: 'd4', type: 'homophone', question: 'The spider spun ___ web.', correctAnswer: 'its', options: ['its', "it's"], homophoneExplanation: "Its = belonging to it. The web belongs to the spider." },
+      { id: 'd5', type: 'homophone', question: "___ going to be a great match.", correctAnswer: "It's", options: ["Its", "It's"], homophoneExplanation: "It's = it is. Replace test: 'It is going to be a great match.' ✓" },
+      { id: 'd6', type: 'homophone', question: 'The engine lost ___ power mid-race.', correctAnswer: 'its', options: ['its', "it's"], homophoneExplanation: "Its = belonging to it. The power belongs to the engine." },
+      { id: 'd7', type: 'homophone', question: "___ not over until the final lap.", correctAnswer: "It's", options: ["Its", "It's"], homophoneExplanation: "It's = it is. Replace test: 'It is not over until the final lap.' ✓" },
+      { id: 'd8', type: 'homophone', question: 'The team celebrated ___ victory.', correctAnswer: 'its', options: ['its', "it's"], homophoneExplanation: "Its = belonging to it. The victory belongs to the team." },
+    ],
+  },
+
+  {
+    id: 'b1-homophones-here-hear',
+    zone: 'b1',
+    category: 'Homophones',
+    title: 'Here / Hear',
+    icon: '🔊',
+    color: 'from-violet-500 to-purple-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: 'Come over ___ and look at this.', correctAnswer: 'here', options: ['here', 'hear'], homophoneExplanation: "Here = a place or location. 'Come over here' means come to this place." },
+      { id: 'd2', type: 'homophone', question: 'Can you ___ the crowd cheering?', correctAnswer: 'hear', options: ['here', 'hear'], homophoneExplanation: "Hear = to listen / perceive sound. You use your ears to hear." },
+      { id: 'd3', type: 'homophone', question: 'I can ___ the engine from a mile away.', correctAnswer: 'hear', options: ['here', 'hear'], homophoneExplanation: "Hear = to perceive sound. The engine is loud enough to hear at a distance." },
+      { id: 'd4', type: 'homophone', question: 'The finish line is right ___.', correctAnswer: 'here', options: ['here', 'hear'], homophoneExplanation: "Here = at this place / location. 'Right here' means at this exact spot." },
+      { id: 'd5', type: 'homophone', question: 'Did you ___ what the coach said?', correctAnswer: 'hear', options: ['here', 'hear'], homophoneExplanation: "Hear = to listen. 'Did you hear?' means did you listen and understand." },
+      { id: 'd6', type: 'homophone', question: 'Put the trophy ___ on the shelf.', correctAnswer: 'here', options: ['here', 'hear'], homophoneExplanation: "Here = at this location. 'Put it here' tells someone where to place something." },
+      { id: 'd7', type: 'homophone', question: "I can't ___ you over the noise.", correctAnswer: 'hear', options: ['here', 'hear'], homophoneExplanation: "Hear = to perceive sound. The noise is too loud to hear properly." },
+      { id: 'd8', type: 'homophone', question: "We're almost ___!", correctAnswer: 'here', options: ['here', 'hear'], homophoneExplanation: "Here = at this place. 'Almost here' means almost arrived at the destination." },
+    ],
+  },
+
+  {
+    id: 'b1-homophones-knew-threw',
+    zone: 'b1',
+    category: 'Homophones',
+    title: 'Knew / New + Threw / Through',
+    icon: '🔊',
+    color: 'from-violet-500 to-purple-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: 'She ___ the answer straight away.', correctAnswer: 'knew', options: ['knew', 'new'], homophoneExplanation: "Knew = past tense of know. 'She knew' means she had the knowledge before." },
+      { id: 'd2', type: 'homophone', question: 'He got a ___ superhero costume.', correctAnswer: 'new', options: ['knew', 'new'], homophoneExplanation: "New = not old / recently made or acquired." },
+      { id: 'd3', type: 'homophone', question: 'The pitcher ___ the ball hard.', correctAnswer: 'threw', options: ['threw', 'through'], homophoneExplanation: "Threw = past tense of throw. 'The pitcher threw the ball.'" },
+      { id: 'd4', type: 'homophone', question: 'The car drove ___ the tunnel.', correctAnswer: 'through', options: ['threw', 'through'], homophoneExplanation: "Through = from one side to the other, or all the way inside something." },
+      { id: 'd5', type: 'homophone', question: "Nobody ___ his secret identity.", correctAnswer: 'knew', options: ['knew', 'new'], homophoneExplanation: "Knew = past tense of know. 'Nobody knew' means no one had that knowledge." },
+      { id: 'd6', type: 'homophone', question: 'They installed a ___ engine.', correctAnswer: 'new', options: ['knew', 'new'], homophoneExplanation: "New = recently made or not used before. A brand new engine." },
+      { id: 'd7', type: 'homophone', question: 'She ___ a perfect pass.', correctAnswer: 'threw', options: ['threw', 'through'], homophoneExplanation: "Threw = past tense of throw. 'She threw a perfect pass.'" },
+      { id: 'd8', type: 'homophone', question: 'The rocket flew ___ the atmosphere.', correctAnswer: 'through', options: ['threw', 'through'], homophoneExplanation: "Through = passing from one side to the other. The rocket went through the atmosphere." },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // HOMOPHONES (B2)
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'b2-homophones-affect',
+    zone: 'b2',
+    category: 'Homophones',
+    title: 'Affect / Effect',
+    icon: '🔊',
+    color: 'from-pink-600 to-rose-700',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: 'The rain will ___ the race result.', correctAnswer: 'affect', options: ['affect', 'effect'], homophoneExplanation: "Affect = verb, to have an impact on something. 'Rain affects grip on the track.'" },
+      { id: 'd2', type: 'homophone', question: 'The ___ of the crash was massive.', correctAnswer: 'effect', options: ['affect', 'effect'], homophoneExplanation: "Effect = noun, the result or outcome. 'The effect of the crash was serious.'" },
+      { id: 'd3', type: 'homophone', question: 'How does gravity ___ a spacecraft?', correctAnswer: 'affect', options: ['affect', 'effect'], homophoneExplanation: "Affect = verb. Gravity influences (affects) the path of a spacecraft." },
+      { id: 'd4', type: 'homophone', question: 'The medicine had a powerful ___.', correctAnswer: 'effect', options: ['affect', 'effect'], homophoneExplanation: "Effect = noun. The medicine produced a strong result (effect)." },
+      { id: 'd5', type: 'homophone', question: 'Lack of sleep can ___ your performance.', correctAnswer: 'affect', options: ['affect', 'effect'], homophoneExplanation: "Affect = verb. 'Lack of sleep affects performance' means it impacts it." },
+      { id: 'd6', type: 'homophone', question: 'The special ___ in the movie looked real.', correctAnswer: 'effect', options: ['affect', 'effect'], homophoneExplanation: "Effect = noun. 'Special effects' are the visual results created in films." },
+      { id: 'd7', type: 'homophone', question: 'Will the weather ___ our plans?', correctAnswer: 'affect', options: ['affect', 'effect'], homophoneExplanation: "Affect = verb. The weather may change (affect) our plans." },
+      { id: 'd8', type: 'homophone', question: 'The ___ of training was clear in the final.', correctAnswer: 'effect', options: ['affect', 'effect'], homophoneExplanation: "Effect = noun. The result (effect) of training showed in the performance." },
+    ],
+  },
+
+  {
+    id: 'b2-homophones-complement',
+    zone: 'b2',
+    category: 'Homophones',
+    title: 'Complement / Compliment',
+    icon: '🔊',
+    color: 'from-pink-600 to-rose-700',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: 'That helmet really ___ your racing suit.', correctAnswer: 'complements', options: ['complements', 'compliments'], homophoneExplanation: "Complement = goes well with / completes something. The helmet and suit go well together." },
+      { id: 'd2', type: 'homophone', question: 'He received a huge ___ from his coach.', correctAnswer: 'compliment', options: ['complement', 'compliment'], homophoneExplanation: "Compliment = saying something nice about someone. The coach said something kind." },
+      { id: 'd3', type: 'homophone', question: 'The sauce is the perfect ___ to the dish.', correctAnswer: 'complement', options: ['complement', 'compliment'], homophoneExplanation: "Complement = something that completes or enhances. The sauce enhances the dish." },
+      { id: 'd4', type: 'homophone', question: 'She paid him a ___ on his speed.', correctAnswer: 'compliment', options: ['complement', 'compliment'], homophoneExplanation: "Compliment = a nice remark. 'She paid a compliment' means she said something positive." },
+      { id: 'd5', type: 'homophone', question: 'The turbo ___ the engine perfectly.', correctAnswer: 'complements', options: ['complements', 'compliments'], homophoneExplanation: "Complements = enhances / goes perfectly with. The turbo makes the engine perform better." },
+      { id: 'd6', type: 'homophone', question: 'What a ___ — she said I was gifted!', correctAnswer: 'compliment', options: ['complement', 'compliment'], homophoneExplanation: "Compliment = a nice thing said to someone. 'She said I was gifted' is a kind remark." },
+      { id: 'd7', type: 'homophone', question: "The two players ___ each other's style.", correctAnswer: 'complement', options: ['complement', 'compliment'], homophoneExplanation: "Complement = to go well together. Their playing styles enhance each other." },
+      { id: 'd8', type: 'homophone', question: 'He always ___ his teammates after a win.', correctAnswer: 'compliments', options: ['complements', 'compliments'], homophoneExplanation: "Compliments = says nice things to. He praises his teammates after winning." },
+    ],
+  },
+
+  {
+    id: 'b2-homophones-passed-brake',
+    zone: 'b2',
+    category: 'Homophones',
+    title: 'Passed / Past + Brake / Break',
+    icon: '🔊',
+    color: 'from-pink-600 to-rose-700',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: 'He ___ three cars on the final lap.', correctAnswer: 'passed', options: ['passed', 'past'], homophoneExplanation: "Passed = moved beyond (verb, past tense of pass). He overtook three cars." },
+      { id: 'd2', type: 'homophone', question: 'In the ___, cars had no safety features.', correctAnswer: 'past', options: ['passed', 'past'], homophoneExplanation: "Past = a previous time (noun/adjective). 'In the past' refers to earlier times." },
+      { id: 'd3', type: 'homophone', question: 'Hit the ___ before the sharp corner.', correctAnswer: 'brake', options: ['brake', 'break'], homophoneExplanation: "Brake = device to slow down a vehicle. You press the brake pedal to slow down." },
+      { id: 'd4', type: 'homophone', question: 'I need a ___ after three hours of gaming.', correctAnswer: 'break', options: ['brake', 'break'], homophoneExplanation: "Break = a rest or pause. 'Take a break' means stop for a short rest." },
+      { id: 'd5', type: 'homophone', question: 'She ___ the test with a perfect score.', correctAnswer: 'passed', options: ['passed', 'past'], homophoneExplanation: "Passed = successfully completed (verb). 'She passed the test' means she succeeded." },
+      { id: 'd6', type: 'homophone', question: 'That corner has always been dangerous in the ___.', correctAnswer: 'past', options: ['passed', 'past'], homophoneExplanation: "Past = previous times. 'In the past' means historically / before now." },
+      { id: 'd7', type: 'homophone', question: 'The ___ pads were completely worn out.', correctAnswer: 'brake', options: ['brake', 'break'], homophoneExplanation: "Brake = the stopping mechanism. Brake pads press against the wheel to slow the car." },
+      { id: 'd8', type: 'homophone', question: "Don't ___ the winning streak.", correctAnswer: 'break', options: ['brake', 'break'], homophoneExplanation: "Break = to end or interrupt something. 'Break the streak' means end the run of wins." },
+    ],
+  },
+
+  {
+    id: 'b2-homophones-stationary',
+    zone: 'b2',
+    category: 'Homophones',
+    title: 'Stationary / Stationery + Principal / Principle',
+    icon: '🔊',
+    color: 'from-pink-600 to-rose-700',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: 'The car remained ___ at the starting line.', correctAnswer: 'stationary', options: ['stationary', 'stationery'], homophoneExplanation: "Stationary = not moving, standing still. The car did not move." },
+      { id: 'd2', type: 'homophone', question: 'He bought ___ for the new school year.', correctAnswer: 'stationery', options: ['stationary', 'stationery'], homophoneExplanation: "Stationery = pens, paper, and writing supplies. Bought for school." },
+      { id: 'd3', type: 'homophone', question: 'The ___ of the school gave a speech.', correctAnswer: 'principal', options: ['principal', 'principle'], homophoneExplanation: "Principal = head of a school. Also means 'most important' as an adjective." },
+      { id: 'd4', type: 'homophone', question: "He refused to cheat — it was against his ___.", correctAnswer: 'principle', options: ['principal', 'principle'], homophoneExplanation: "Principle = a moral rule or belief. His principle was to always be honest." },
+      { id: 'd5', type: 'homophone', question: 'Keep the camera ___ for a clear shot.', correctAnswer: 'stationary', options: ['stationary', 'stationery'], homophoneExplanation: "Stationary = not moving. A still (stationary) camera gives a clearer image." },
+      { id: 'd6', type: 'homophone', question: 'She packed her ___ into her school bag.', correctAnswer: 'stationery', options: ['stationary', 'stationery'], homophoneExplanation: "Stationery = writing supplies like pens and notebooks. Packed for school." },
+      { id: 'd7', type: 'homophone', question: 'The ___ reason for the delay was the weather.', correctAnswer: 'principal', options: ['principal', 'principle'], homophoneExplanation: "Principal = main / most important. The principal (main) reason was the weather." },
+      { id: 'd8', type: 'homophone', question: "It's a ___ I always follow: never give up.", correctAnswer: 'principle', options: ['principal', 'principle'], homophoneExplanation: "Principle = a personal rule or belief. 'Never give up' is the principle followed." },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // ZONE B2 — Advanced
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'b2-phrasal-verbs',
+    zone: 'b2',
+    category: 'Vocabulary',
+    title: 'Phrasal Verbs',
+    icon: '💬',
+    color: 'from-teal-500 to-cyan-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'fill-blank', question: 'I need to ___ up early for school tomorrow.', correctAnswer: 'get', options: ['get', 'take', 'put', 'give'] },
+      { id: 'd2', type: 'quiz', question: '"Give up" means...', correctAnswer: 'stop trying', options: ['stop trying', 'hand something over', 'go faster', 'start again'] },
+      { id: 'd3', type: 'fill-blank', question: 'Please ___ off your phone during the lesson.', correctAnswer: 'turn', options: ['turn', 'put', 'take', 'bring'] },
+      { id: 'd4', type: 'sentence-builder', question: 'Build the sentence:', correctAnswer: 'She gave up eating chocolate.', words: ['She', 'gave', 'up', 'eating', 'chocolate.'] },
+      { id: 'd5', type: 'quiz', question: '"Look up" a word means...', correctAnswer: 'find it in a dictionary', options: ['find it in a dictionary', 'shout the word loudly', 'forget the word', 'write it down'] },
+      { id: 'd6', type: 'fill-blank', question: 'Could you ___ after my cat while I\'m on holiday?', correctAnswer: 'look', options: ['look', 'take', 'keep', 'carry'] },
+      { id: 'd7', type: 'quiz', question: '"Run out of" means...', correctAnswer: 'have no more of something', options: ['have no more of something', 'run very fast', 'escape from something', 'do too much exercise'] },
+      { id: 'd8', type: 'fill-blank', question: 'Don\'t ___ down on people who are different from you.', correctAnswer: 'look', options: ['look', 'turn', 'get', 'give'] },
+      { id: 'd9', type: 'scramble', question: 'Unscramble!', correctAnswer: 'LOOKOUT', imageEmoji: '👀', hint: 'L' },
+      { id: 'd10', type: 'fill-blank', question: 'I need to ___ up with the rest of the class. They\'re ahead.', correctAnswer: 'catch', options: ['catch', 'make', 'bring', 'keep'] },
+    ],
+  },
+
+  {
+    id: 'b2-complex-grammar',
+    zone: 'b2',
+    category: 'Grammar',
+    title: 'Second Conditional',
+    icon: '🧩',
+    color: 'from-purple-600 to-pink-700',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'fill-blank', question: 'If I ___ a superhero, I would fly everywhere.', correctAnswer: 'were', options: ['were', 'was', 'am', 'will be'] },
+      { id: 'd2', type: 'fill-blank', question: 'If she had more time, she ___ learn the piano.', correctAnswer: 'would', options: ['would', 'will', 'could', 'should'] },
+      { id: 'd3', type: 'quiz', question: 'The Second Conditional talks about...', correctAnswer: 'imaginary or unlikely situations', options: ['imaginary or unlikely situations', 'real future events', 'past events', 'definite plans'] },
+      { id: 'd4', type: 'sentence-builder', question: 'Build the conditional:', correctAnswer: 'If I won the lottery I would buy a spaceship.', words: ['If', 'I', 'won', 'the', 'lottery', 'I', 'would', 'buy', 'a', 'spaceship.'] },
+      { id: 'd5', type: 'fill-blank', question: 'What ___ you do if you found a million pounds?', correctAnswer: 'would', options: ['would', 'will', 'do', 'could'] },
+      { id: 'd6', type: 'quiz', question: 'Which is a correct Second Conditional?', correctAnswer: 'If he tried harder, he would succeed.', options: ['If he tried harder, he would succeed.', 'If he tries harder, he will succeed.', 'If he tries harder, he would succeed.', 'If he tried harder, he will succeed.'] },
+      { id: 'd7', type: 'fill-blank', question: 'If animals ___ talk, what would your dog say?', correctAnswer: 'could', options: ['could', 'can', 'will', 'would'] },
+      { id: 'd8', type: 'fill-blank', question: 'She ___ travel the world if she had enough money.', correctAnswer: 'would', options: ['would', 'will', 'is', 'was'] },
+      { id: 'd9', type: 'scramble', question: 'Unscramble the key word!', correctAnswer: 'IMAGINARY', imageEmoji: '💭', hint: 'I' },
+      { id: 'd10', type: 'quiz', question: 'Second Conditional = If + ___ + would + verb', correctAnswer: 'past simple', options: ['past simple', 'present simple', 'present perfect', 'future simple'] },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // NEW: READING COMPREHENSION — A2
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // NEW: SPELLING — A2
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'a2-spelling-silent',
+    zone: 'a2',
+    category: 'Spelling',
+    title: 'Silent Letters 🤫',
+    icon: '🤫',
+    color: 'from-indigo-400 to-violet-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'quiz', question: 'Which word has a silent "k"?', correctAnswer: 'knight', options: ['knight', 'kite', 'king', 'kitchen'] },
+      { id: 'd2', type: 'scramble', question: 'Unscramble! (has a silent letter)', correctAnswer: 'KNIFE', imageEmoji: '🔪', hint: 'K' },
+      { id: 'd3', type: 'quiz', question: 'The "b" is silent in...', correctAnswer: 'lamb', options: ['lamb', 'barn', 'brush', 'bird'] },
+      { id: 'd4', type: 'hangman', question: 'Spell it: you do this with a pen (silent "w")', correctAnswer: 'write', hint: 'w' },
+      { id: 'd5', type: 'quiz', question: 'Which word has a silent "w"?', correctAnswer: 'wrong', options: ['wrong', 'wind', 'went', 'word'] },
+      { id: 'd6', type: 'scramble', question: 'Unscramble! (has a silent "k")', correctAnswer: 'KNOCK', imageEmoji: '👊', hint: 'K' },
+      { id: 'd7', type: 'quiz', question: 'The "h" is silent in...', correctAnswer: 'honest', options: ['honest', 'happy', 'huge', 'hero'] },
+      { id: 'd8', type: 'hangman', question: 'Spell it: to go down on one knee (silent "k")', correctAnswer: 'kneel', hint: 'k' },
+      { id: 'd9', type: 'quiz', question: 'Which word has a silent "g"?', correctAnswer: 'gnome', options: ['gnome', 'girl', 'great', 'grow'] },
+      { id: 'd10', type: 'fill-blank', question: 'The silent "k" appears in "k___ght". What letters fill the gap?', correctAnswer: 'ni', options: ['ni', 'ai', 'oo', 'ei'] },
+    ],
+  },
+
+  {
+    id: 'a2-spelling-common',
+    zone: 'a2',
+    category: 'Spelling',
+    title: 'Spell It Right! ✅',
+    icon: '✅',
+    color: 'from-emerald-400 to-green-500',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'friend', options: ['friend', 'freind', 'frend', 'friand'] },
+      { id: 'd2', type: 'hangman', question: 'Spell it: the day after today', correctAnswer: 'tomorrow', hint: 't' },
+      { id: 'd3', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'because', options: ['because', 'becuase', 'becose', 'beccause'] },
+      { id: 'd4', type: 'scramble', question: 'Unscramble this common word!', correctAnswer: 'PEOPLE', imageEmoji: '👥', hint: 'P' },
+      { id: 'd5', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'beautiful', options: ['beautiful', 'beautifull', 'beutiful', 'beautful'] },
+      { id: 'd6', type: 'hangman', question: 'Spell it: truly / very much', correctAnswer: 'really', hint: 'r' },
+      { id: 'd7', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'different', options: ['different', 'diferent', 'diffrent', 'diferrent'] },
+      { id: 'd8', type: 'scramble', question: 'Unscramble!', correctAnswer: 'ALWAYS', imageEmoji: '♾️', hint: 'A' },
+      { id: 'd9', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'surprise', options: ['surprise', 'suprise', 'surprize', 'surprize'] },
+      { id: 'd10', type: 'hangman', question: 'Spell it: twelve months make one of these', correctAnswer: 'year', hint: 'y' },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // NEW: READING COMPREHENSION — B1
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // NEW: SPELLING — B1
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'b1-spelling-advanced',
+    zone: 'b1',
+    category: 'Spelling',
+    title: 'Spelling Challenge 💪',
+    icon: '💪',
+    color: 'from-rose-500 to-red-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'hangman', question: 'Spell it: more than ordinary — truly remarkable', correctAnswer: 'extraordinary', hint: 'e' },
+      { id: 'd2', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'accommodation', options: ['accommodation', 'accomodation', 'acommodation', 'accommodaton'] },
+      { id: 'd3', type: 'hangman', question: 'Spell it: the act of convincing someone', correctAnswer: 'persuasion', hint: 'p' },
+      { id: 'd4', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'environment', options: ['environment', 'enviornment', 'enviroment', 'envioronment'] },
+      { id: 'd5', type: 'scramble', question: 'Unscramble this tricky word!', correctAnswer: 'SEPARATE', imageEmoji: '✂️', hint: 'S' },
+      { id: 'd6', type: 'hangman', question: 'Spell it: happening at the same time', correctAnswer: 'simultaneous', hint: 's' },
+      { id: 'd7', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'definite', options: ['definite', 'definate', 'definitly', 'defenite'] },
+      { id: 'd8', type: 'scramble', question: 'Unscramble!', correctAnswer: 'COMMITTEE', imageEmoji: '🏛️', hint: 'C' },
+      { id: 'd9', type: 'hangman', question: 'Spell it: something that happened by chance with no plan', correctAnswer: 'coincidence', hint: 'c' },
+      { id: 'd10', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'occurrence', options: ['occurrence', 'occurence', 'ocurrence', 'occurrance'] },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // NEW: HOMOPHONES — B1 (additional sets)
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'b1-homophones-where-wear',
+    zone: 'b1',
+    category: 'Homophones',
+    title: 'Where / Wear / Were',
+    icon: '🔊',
+    color: 'from-violet-500 to-purple-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: '___ did you put my keys?', correctAnswer: 'Where', options: ['Where', 'Wear', 'Were'], homophoneExplanation: "Where = asks about a place or location. 'Where did you put...?' is a location question." },
+      { id: 'd2', type: 'homophone', question: "You should ___ a coat — it's cold.", correctAnswer: 'wear', options: ['where', 'wear', 'were'], homophoneExplanation: "Wear = to have clothing on your body. 'Wear a coat' means put the coat on." },
+      { id: 'd3', type: 'homophone', question: 'We ___ so tired after the match.', correctAnswer: 'were', options: ['where', 'wear', 'were'], homophoneExplanation: "Were = past tense of 'are'. 'We were tired' = we are tired (in the past)." },
+      { id: 'd4', type: 'homophone', question: '___ is the nearest hospital?', correctAnswer: 'Where', options: ['Where', 'Wear', 'Were'], homophoneExplanation: "Where = asks about a location. 'Where is...?' seeks a place answer." },
+      { id: 'd5', type: 'homophone', question: 'The players ___ celebrating on the pitch.', correctAnswer: 'were', options: ['where', 'wear', 'were'], homophoneExplanation: "Were = past tense of 'are'. 'They were celebrating' happened in the past." },
+      { id: 'd6', type: 'homophone', question: 'I always ___ blue on match days.', correctAnswer: 'wear', options: ['where', 'wear', 'were'], homophoneExplanation: "Wear = to put on clothes. 'Wear blue' means dress in blue clothing." },
+      { id: 'd7', type: 'homophone', question: '___ were you last night?', correctAnswer: 'Where', options: ['Where', 'Wear', 'Were'], homophoneExplanation: "Where = asks about a location. Even as a past question, 'where' still points to a place." },
+      { id: 'd8', type: 'homophone', question: 'The astronauts had to ___ special suits.', correctAnswer: 'wear', options: ['where', 'wear', 'were'], homophoneExplanation: "Wear = to have clothing or equipment on your body. Astronauts put on (wear) special suits." },
+    ],
+  },
+
+  {
+    id: 'b1-homophones-right-write',
+    zone: 'b1',
+    category: 'Homophones',
+    title: 'Right / Write + See / Sea',
+    icon: '🔊',
+    color: 'from-violet-500 to-purple-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: 'Turn ___ at the traffic lights.', correctAnswer: 'right', options: ['right', 'write'], homophoneExplanation: "Right = direction (opposite of left). Also means correct or accurate." },
+      { id: 'd2', type: 'homophone', question: 'Please ___ your name at the top of the page.', correctAnswer: 'write', options: ['right', 'write'], homophoneExplanation: "Write = to put words on paper using a pen or pencil." },
+      { id: 'd3', type: 'homophone', question: 'Can you ___ the finish line yet?', correctAnswer: 'see', options: ['see', 'sea'], homophoneExplanation: "See = to use your eyes / to look at something." },
+      { id: 'd4', type: 'homophone', question: 'The boat sailed across the ___.', correctAnswer: 'sea', options: ['see', 'sea'], homophoneExplanation: "Sea = a large body of salt water. Example: the Mediterranean Sea." },
+      { id: 'd5', type: 'homophone', question: 'That answer is not ___.', correctAnswer: 'right', options: ['right', 'write'], homophoneExplanation: "Right = correct. 'That is not right' means it is wrong or incorrect." },
+      { id: 'd6', type: 'homophone', question: 'She loves to ___ stories in her diary.', correctAnswer: 'write', options: ['right', 'write'], homophoneExplanation: "Write = to form words with a pen. Writing stories means creating them on paper." },
+      { id: 'd7', type: 'homophone', question: 'We live near the ___.', correctAnswer: 'sea', options: ['see', 'sea'], homophoneExplanation: "Sea = ocean / body of salt water. 'Live near the sea' means close to the ocean." },
+      { id: 'd8', type: 'homophone', question: "I'll ___ you at the stadium tomorrow.", correctAnswer: 'see', options: ['see', 'sea'], homophoneExplanation: "See = to meet or look at. 'I'll see you there' means we will meet." },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // NEW: READING COMPREHENSION — B2
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // NEW: HOMOPHONES — B2 (additional sets)
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'b2-homophones-accept',
+    zone: 'b2',
+    category: 'Homophones',
+    title: 'Accept / Except + Lose / Loose',
+    icon: '🔊',
+    color: 'from-pink-600 to-rose-700',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: 'Please ___ our apologies for the delay.', correctAnswer: 'accept', options: ['accept', 'except'], homophoneExplanation: "Accept = to receive or agree to something willingly. 'Accept an apology' means to receive it." },
+      { id: 'd2', type: 'homophone', question: 'Everyone was invited ___ Tom.', correctAnswer: 'except', options: ['accept', 'except'], homophoneExplanation: "Except = not including / but not. 'Everyone except Tom' means Tom was left out." },
+      { id: 'd3', type: 'homophone', question: "Don't ___ the race now — keep going!", correctAnswer: 'lose', options: ['lose', 'loose'], homophoneExplanation: "Lose = to fail to win, or to misplace something. Opposite of 'win' or 'find'." },
+      { id: 'd4', type: 'homophone', question: 'This bolt is ___ — it needs tightening.', correctAnswer: 'loose', options: ['lose', 'loose'], homophoneExplanation: "Loose = not tight / not firmly fixed. A loose bolt is not secure and moves around." },
+      { id: 'd5', type: 'homophone', question: "The team will ___ its top spot if they don't win.", correctAnswer: 'lose', options: ['lose', 'loose'], homophoneExplanation: "Lose = to stop having something / to be defeated. They may lose (stop having) their position." },
+      { id: 'd6', type: 'homophone', question: 'The rope was too ___ to hold the anchor.', correctAnswer: 'loose', options: ['lose', 'loose'], homophoneExplanation: "Loose = not tight enough. A loose rope cannot hold things firmly in place." },
+      { id: 'd7', type: 'homophone', question: 'She had to ___ three of the team offers.', correctAnswer: 'accept', options: ['accept', 'except'], homophoneExplanation: "Accept = to agree to or take something offered. She received and agreed to the offers." },
+      { id: 'd8', type: 'homophone', question: 'All subjects ___ maths were easy for him.', correctAnswer: 'except', options: ['accept', 'except'], homophoneExplanation: "Except = not including. 'All except maths' means every subject but maths." },
+    ],
+  },
+
+  {
+    id: 'b2-homophones-whose',
+    zone: 'b2',
+    category: 'Homophones',
+    title: "Whose / Who\'s + Fewer / Less",
+    icon: '🔊',
+    color: 'from-pink-600 to-rose-700',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'homophone', question: '___ car is parked outside?', correctAnswer: 'Whose', options: ["Whose", "Who's"], homophoneExplanation: "Whose = belonging to whom (possessive). 'Whose car?' asks who owns it." },
+      { id: 'd2', type: 'homophone', question: '___ coming to training tomorrow?', correctAnswer: "Who's", options: ["Whose", "Who's"], homophoneExplanation: "Who's = who is (contraction). Replace test: 'Who is coming to training tomorrow?' ✓" },
+      { id: 'd3', type: 'homophone', question: 'There are ___ people here than yesterday.', correctAnswer: 'fewer', options: ['fewer', 'less'], homophoneExplanation: "Fewer = used with countable nouns (people, cars, apples). You can count individual people." },
+      { id: 'd4', type: 'homophone', question: 'She has ___ experience than her colleague.', correctAnswer: 'less', options: ['fewer', 'less'], homophoneExplanation: "Less = used with uncountable nouns (experience, water, money). Experience cannot be individually counted." },
+      { id: 'd5', type: 'homophone', question: '___ the driver of that racing car?', correctAnswer: "Who's", options: ["Whose", "Who's"], homophoneExplanation: "Who's = who is. Replace test: 'Who is the driver of that racing car?' ✓" },
+      { id: 'd6', type: 'homophone', question: '___ idea was it to start a team?', correctAnswer: 'Whose', options: ["Whose", "Who's"], homophoneExplanation: "Whose = belonging to whom. 'Whose idea?' asks which person owns or came up with the idea." },
+      { id: 'd7', type: 'homophone', question: 'We need ___ mistakes this half.', correctAnswer: 'fewer', options: ['fewer', 'less'], homophoneExplanation: "Fewer = with countable nouns. Mistakes can be counted (1 mistake, 2 mistakes, etc.)." },
+      { id: 'd8', type: 'homophone', question: 'Drink ___ coffee if you want to sleep better.', correctAnswer: 'less', options: ['fewer', 'less'], homophoneExplanation: "Less = with uncountable nouns. Coffee as a general substance is uncountable." },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // READING COMPREHENSION — 4 NEW TOPICS
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'rc-science-water-cycle',
+    zone: 'b1',
+    category: 'Reading',
+    title: 'The Water Cycle 💧',
+    icon: '💧',
+    color: 'from-blue-500 to-cyan-600',
+    requiredXP: 0,
+    drills: [
+      {
+        id: 'd1',
+        type: 'reading-comprehension',
+        question: 'The Water Cycle',
+        passage: 'Water is constantly moving around our planet in a process called the water cycle. It begins when the sun heats water in oceans, rivers, and lakes, causing it to evaporate — turning from liquid into an invisible gas called water vapour.\n\nAs water vapour rises into the sky, it cools down and turns back into tiny water droplets. These droplets collect to form clouds. This process is called condensation. When clouds hold too much water, it falls back to Earth as rain, snow, or hail — this is called precipitation.\n\nOn the ground, some water flows into rivers and streams, eventually returning to the ocean. Some soaks into the soil and becomes groundwater. Plants also absorb water through their roots and release it back into the air through their leaves — a process called transpiration.\n\nThe water cycle has no beginning or end. It is a continuous, closed loop that keeps Earth\'s water supply in balance.',
+        topic: 'science',
+        readingLevel: 'b1',
+        wordCount: 148,
+        correctAnswer: '',
+        options: [],
+        rcQuestions: [
+          {
+            question: 'What causes water to evaporate from oceans and lakes?',
+            correctAnswer: 'The heat of the sun',
+            options: ['The heat of the sun', 'Wind blowing across the water', 'The weight of clouds above', 'Cold temperatures at night'],
+            explanation: 'The passage states "It begins when the sun heats water in oceans, rivers, and lakes, causing it to evaporate."',
+            questionType: 'literal',
+          },
+          {
+            question: 'What does "condensation" mean in this passage?',
+            correctAnswer: 'Water vapour cooling and turning back into droplets',
+            options: ['Water vapour cooling and turning back into droplets', 'Rain falling to the ground', 'Water soaking into the soil', 'Plants releasing water into the air'],
+            explanation: 'The passage says condensation is when water vapour rises, cools, and turns back into tiny water droplets that form clouds.',
+            questionType: 'vocabulary',
+          },
+          {
+            question: 'What happens to some water after it reaches the ground as rain?',
+            correctAnswer: 'Some flows into rivers; some soaks into the soil',
+            options: ['Some flows into rivers; some soaks into the soil', 'It all immediately evaporates again', 'It all flows directly to the ocean', 'Plants absorb all of it immediately'],
+            explanation: 'The passage explains that ground water flows into rivers or soaks into the soil as groundwater.',
+            questionType: 'literal',
+          },
+          {
+            question: 'Why do you think scientists say the water cycle has "no beginning or end"?',
+            correctAnswer: 'Because water keeps moving through the same stages over and over continuously',
+            options: ['Because water keeps moving through the same stages over and over continuously', 'Because water was created billions of years ago', 'Because scientists do not know where it starts', 'Because new water is constantly being made'],
+            explanation: 'A cycle by definition is circular — there is no first or last step, the process repeats endlessly.',
+            questionType: 'inference',
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'rc-american-history-civil-rights',
+    zone: 'b1',
+    category: 'Reading',
+    title: 'The Civil Rights Movement 🕊️',
+    icon: '🕊️',
+    color: 'from-amber-500 to-orange-600',
+    requiredXP: 0,
+    drills: [
+      {
+        id: 'd1',
+        type: 'reading-comprehension',
+        question: 'The American Civil Rights Movement',
+        passage: 'In the 1950s and 1960s, millions of Black Americans faced unfair laws and discrimination across the United States. These laws, known as segregation laws, kept Black and white Americans in separate schools, restaurants, and public places.\n\nA powerful movement grew to challenge these laws peacefully. One of its greatest leaders was Dr. Martin Luther King Jr., a minister from Atlanta, Georgia. He believed that non-violent protest was the strongest tool for change. In 1963, he led a peaceful march on Washington D.C. where he delivered his famous "I Have a Dream" speech, calling for equality and justice for all Americans.\n\nAnother key figure was Rosa Parks, who in 1955 refused to give up her bus seat to a white passenger — an act of quiet courage that sparked the Montgomery Bus Boycott, where Black citizens refused to ride city buses for over a year.\n\nThe Civil Rights Movement led to landmark laws including the Civil Rights Act of 1964, which made racial discrimination illegal. Dr. Martin Luther King Jr. is now remembered as a national hero, and his birthday is honoured as a public holiday every January.',
+        topic: 'science',
+        readingLevel: 'b1',
+        wordCount: 172,
+        correctAnswer: '',
+        options: [],
+        rcQuestions: [
+          {
+            question: 'What were segregation laws?',
+            correctAnswer: 'Laws that kept Black and white Americans separated in public places',
+            options: ['Laws that kept Black and white Americans separated in public places', 'Laws that protected Black Americans from discrimination', 'Laws created by Martin Luther King Jr.', 'Laws that banned peaceful protests'],
+            explanation: 'The passage says segregation laws kept Black and white Americans in separate schools, restaurants, and public places.',
+            questionType: 'literal',
+          },
+          {
+            question: 'What does "boycott" most likely mean in this passage?',
+            correctAnswer: 'Refusing to use or buy something as a form of protest',
+            options: ['Refusing to use or buy something as a form of protest', 'A type of peaceful march through the streets', 'A legal case brought to court', 'A speech given to a large crowd'],
+            explanation: 'In the Montgomery Bus Boycott, Black citizens refused to ride city buses — refusing to use a service to protest unfair treatment.',
+            questionType: 'vocabulary',
+          },
+          {
+            question: 'What did the Civil Rights Act of 1964 do?',
+            correctAnswer: 'Made racial discrimination illegal',
+            options: ['Made racial discrimination illegal', 'Created a new national holiday', 'Gave Martin Luther King Jr. a prize', 'Started the Montgomery Bus Boycott'],
+            explanation: 'The passage clearly states the Civil Rights Act of 1964 "made racial discrimination illegal."',
+            questionType: 'literal',
+          },
+          {
+            question: 'Why do you think Dr. King believed non-violent protest was more powerful than violence?',
+            correctAnswer: 'Peaceful protest wins public support and forces change without causing harm',
+            options: ['Peaceful protest wins public support and forces change without causing harm', 'Violence was against the law so they had no choice', 'Non-violent protest was faster than going to court', 'King was not physically strong enough to fight'],
+            explanation: 'Non-violent protest showed the moral strength of the movement, gaining national and international sympathy that violent actions would have undermined.',
+            questionType: 'inference',
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'rc-american-food-hamburger',
+    zone: 'b1',
+    category: 'Reading',
+    title: 'The American Hamburger 🍔',
+    icon: '🍔',
+    color: 'from-yellow-500 to-red-500',
+    requiredXP: 0,
+    drills: [
+      {
+        id: 'd1',
+        type: 'reading-comprehension',
+        question: "The Hamburger: America's Favourite",
+        passage: 'The hamburger is one of the most recognisable symbols of American food culture. While its exact origin is debated, most historians believe the modern hamburger was popularised at the St. Louis World\'s Fair in 1904. A beef patty placed between two slices of bread made it easy to eat while walking — perfect for a busy fair.\n\nIn the 20th century, fast-food chains transformed the hamburger into a global phenomenon. McDonald\'s was founded in 1940 in California by brothers Richard and Maurice McDonald. By focusing on speed, consistency, and low prices, McDonald\'s grew into one of the largest restaurant chains on Earth, with locations in over 100 countries.\n\nA classic American hamburger includes a beef patty, lettuce, tomato, onion, pickles, cheese, ketchup, and mustard — all inside a soft bun. Regional variations exist: In-N-Out Burger is iconic in California, while Shake Shack is beloved in New York City.\n\nToday the hamburger remains a staple of American life, enjoyed at backyard barbecues, roadside diners, and late-night drive-throughs alike.',
+        topic: 'science',
+        readingLevel: 'b1',
+        wordCount: 158,
+        correctAnswer: '',
+        options: [],
+        rcQuestions: [
+          {
+            question: 'Where is the hamburger believed to have been popularised?',
+            correctAnswer: 'At the St. Louis World\'s Fair in 1904',
+            options: ["At the St. Louis World's Fair in 1904", 'In New York City in the 1940s', 'At a McDonald\'s restaurant in California', 'At a backyard barbecue in Texas'],
+            explanation: "The passage says the hamburger was popularised at the St. Louis World's Fair in 1904.",
+            questionType: 'literal',
+          },
+          {
+            question: 'What does "consistency" mean in this context?',
+            correctAnswer: 'Every burger tasting the same no matter which branch you visit',
+            options: ['Every burger tasting the same no matter which branch you visit', 'Using only fresh, local ingredients', 'Cooking food as slowly as possible', 'Offering the most variety on the menu'],
+            explanation: "Consistency in fast food means the product is identical across all locations — a key part of McDonald's success.",
+            questionType: 'vocabulary',
+          },
+          {
+            question: 'In how many countries does McDonald\'s have restaurants?',
+            correctAnswer: 'Over 100',
+            options: ['Over 100', 'About 50', 'Exactly 100', 'Over 200'],
+            explanation: "The passage states McDonald's has locations in over 100 countries.",
+            questionType: 'literal',
+          },
+          {
+            question: 'Why do you think putting meat between bread made the hamburger so popular at the World\'s Fair?',
+            correctAnswer: 'It was portable and easy to eat while walking around the fair',
+            options: ['It was portable and easy to eat while walking around the fair', 'It was the cheapest food available at the fair', 'People had never seen bread before', 'The fair organisers made it mandatory to eat it'],
+            explanation: 'The passage says it was "easy to eat while walking — perfect for a busy fair," suggesting portability was the key advantage.',
+            questionType: 'inference',
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'rc-culture-halloween',
+    zone: 'b2',
+    category: 'Reading',
+    title: 'Halloween: An American Tradition 🎃',
+    icon: '🎃',
+    color: 'from-orange-500 to-amber-600',
+    requiredXP: 0,
+    drills: [
+      {
+        id: 'd1',
+        type: 'reading-comprehension',
+        question: 'Halloween: An American Tradition',
+        passage: "Halloween is celebrated on the 31st of October, primarily in the United States, Canada, and Ireland. Its origins date back over 2,000 years to an ancient Celtic festival called Samhain, when people believed the boundary between the living and the dead became thin, allowing spirits to roam the Earth.\n\nWhen Irish and Scottish immigrants brought their Halloween traditions to America in the 19th century, the holiday gradually transformed into the community celebration it is today. The Jack-o'-lantern — a carved pumpkin with a candle inside — became an American symbol of Halloween after immigrants switched from carving turnips (a tradition from their homeland) to the larger, more readily available American pumpkin.\n\nToday, Halloween is the second-biggest commercial holiday in the United States after Christmas. Children dress in costumes and go trick-or-treating, knocking on neighbours' doors to collect sweets. Adults celebrate with themed parties, haunted houses, and horror film marathons.\n\nSpending on Halloween in the U.S. now exceeds 10 billion dollars annually — a remarkable figure that reflects how deeply a 2,000-year-old Celtic festival has been woven into modern American identity.",
+        topic: 'science',
+        readingLevel: 'b2',
+        wordCount: 170,
+        correctAnswer: '',
+        options: [],
+        rcQuestions: [
+          {
+            question: 'What was the name of the ancient Celtic festival that Halloween originated from?',
+            correctAnswer: 'Samhain',
+            options: ['Samhain', 'Beltane', 'Lughnasadh', 'Imbolc'],
+            explanation: "The passage says Halloween's origins come from an ancient Celtic festival called Samhain.",
+            questionType: 'literal',
+          },
+          {
+            question: 'Why did Irish immigrants start using pumpkins instead of turnips for Jack-o\'-lanterns?',
+            correctAnswer: 'Pumpkins were larger and more easily available in America',
+            options: ['Pumpkins were larger and more easily available in America', 'Turnips were illegal to carve in America', 'Pumpkins are brighter orange and look scarier', 'American children preferred pumpkins'],
+            explanation: 'The passage says immigrants switched to pumpkins because they were "larger and more readily available" in America.',
+            questionType: 'literal',
+          },
+          {
+            question: 'What does "annually" mean in the final paragraph?',
+            correctAnswer: 'Every year',
+            options: ['Every year', 'Every decade', 'Every October', 'In total, over all time'],
+            explanation: '"Annually" means once per year or on a yearly basis.',
+            questionType: 'vocabulary',
+          },
+          {
+            question: 'True, False, or Not Given: Halloween spending in the U.S. is higher than Christmas spending.',
+            correctAnswer: 'False',
+            options: ['False', 'True', 'Not Given'],
+            explanation: 'The passage says Halloween is the second-biggest commercial holiday after Christmas — meaning Christmas spending is higher.',
+            questionType: 'true-false-not-given',
+          },
+        ],
+      },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // SPELLING — TOP 30 MOST COMMON ENGLISH WORDS
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'spelling-top-words-1',
+    zone: 'b1',
+    category: 'Spelling',
+    title: 'Common Words: Set 1 📝',
+    icon: '📝',
+    color: 'from-teal-500 to-cyan-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'hangman', question: 'Spell it: the reason why something happens (very common word)', correctAnswer: 'because', hint: 'b' },
+      { id: 'd2', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'friend', options: ['friend', 'freind', 'frend', 'friand'] },
+      { id: 'd3', type: 'hangman', question: 'Spell it: more than one person together (a common noun)', correctAnswer: 'people', hint: 'p' },
+      { id: 'd4', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'said', options: ['said', 'sayd', 'sed', 'saied'] },
+      { id: 'd5', type: 'scramble', question: 'Unscramble this common word!', correctAnswer: 'AGAIN', imageEmoji: '🔁', hint: 'A' },
+      { id: 'd6', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'really', options: ['really', 'realy', 'reelly', 'relly'] },
+      { id: 'd7', type: 'hangman', question: 'Spell it: each one without exception', correctAnswer: 'every', hint: 'e' },
+      { id: 'd8', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'which', options: ['which', 'wich', 'whitch', 'wicth'] },
+      { id: 'd9', type: 'scramble', question: 'Unscramble!', correctAnswer: 'COULD', imageEmoji: '🤔', hint: 'C' },
+      { id: 'd10', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'should', options: ['should', 'shold', 'shuld', 'shoud'] },
+    ],
+  },
+
+  {
+    id: 'spelling-top-words-2',
+    zone: 'b1',
+    category: 'Spelling',
+    title: 'Common Words: Set 2 📝',
+    icon: '📋',
+    color: 'from-indigo-500 to-blue-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'would', options: ['would', 'woud', 'wuld', 'whould'] },
+      { id: 'd2', type: 'hangman', question: 'Spell it: going from one side to the middle and out the other', correctAnswer: 'through', hint: 't' },
+      { id: 'd3', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'thought', options: ['thought', 'thout', 'thougt', 'thohgt'] },
+      { id: 'd4', type: 'scramble', question: 'Unscramble!', correctAnswer: 'ALWAYS', imageEmoji: '♾️', hint: 'A' },
+      { id: 'd5', type: 'hangman', question: 'Spell it: not apart — in the same place', correctAnswer: 'together', hint: 't' },
+      { id: 'd6', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'probably', options: ['probably', 'probly', 'probbably', 'probabely'] },
+      { id: 'd7', type: 'hangman', question: 'Spell it: not the same as something else', correctAnswer: 'different', hint: 'd' },
+      { id: 'd8', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'although', options: ['although', 'althogh', 'allthough', 'altough'] },
+      { id: 'd9', type: 'scramble', question: 'Unscramble!', correctAnswer: 'ANOTHER', imageEmoji: '➕', hint: 'A' },
+      { id: 'd10', type: 'hangman', question: 'Spell it: not this one but a second option', correctAnswer: 'whether', hint: 'w' },
+    ],
+  },
+
+  {
+    id: 'spelling-top-words-3',
+    zone: 'b1',
+    category: 'Spelling',
+    title: 'Common Words: Set 3 📝',
+    icon: '🔡',
+    color: 'from-violet-500 to-indigo-600',
+    requiredXP: 0,
+    drills: [
+      { id: 'd1', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'something', options: ['something', 'somthing', 'somethng', 'somthin'] },
+      { id: 'd2', type: 'hangman', question: 'Spell it: a sufficient amount — "that\'s ___!"', correctAnswer: 'enough', hint: 'e' },
+      { id: 'd3', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'between', options: ['between', 'beetween', 'betwen', 'betwean'] },
+      { id: 'd4', type: 'scramble', question: 'Unscramble!', correctAnswer: 'BEFORE', imageEmoji: '⏮️', hint: 'B' },
+      { id: 'd5', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'everything', options: ['everything', 'evrything', 'everythng', 'evreything'] },
+      { id: 'd6', type: 'hangman', question: 'Spell it: of great importance — opposite of unimportant', correctAnswer: 'important', hint: 'i' },
+      { id: 'd7', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'especially', options: ['especially', 'expecially', 'especialy', 'especiallly'] },
+      { id: 'd8', type: 'scramble', question: 'Unscramble!', correctAnswer: 'NOTHING', imageEmoji: '0️⃣', hint: 'N' },
+      { id: 'd9', type: 'quiz', question: 'Which is spelled correctly?', correctAnswer: 'usually', options: ['usually', 'usally', 'usualy', 'usualley'] },
+      { id: 'd10', type: 'hangman', question: 'Spell it: happening in a very short time from now', correctAnswer: 'immediately', hint: 'i' },
+    ],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════════
+  // LISTENING COMPREHENSION STORIES
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  {
+    id: 'listening-the-lost-dog',
+    zone: 'b1',
+    category: 'Listening',
+    title: 'The Lost Dog 🐕',
+    icon: '🐕',
+    color: 'from-amber-400 to-yellow-500',
+    requiredXP: 0,
+    drills: [
+      {
+        id: 'd1',
+        type: 'listening-story',
+        question: 'The Lost Dog',
+        passage: 'It was a cold Saturday morning when Emma woke up to find that her dog, Max, was not in his usual spot by the front door. She called his name through the house, but there was only silence.\n\nWorried, Emma put on her jacket and walked outside. She searched the garden, checked behind the garage, and walked all the way to the end of the street. Then she heard a familiar bark coming from Mrs. Brown\'s garden next door.\n\nThere was Max — sitting proudly next to a small hole he had dug under the fence, wagging his tail as if nothing had happened.\n\nEmma laughed with relief, scooped him up, and carried him home. That evening, her father fixed the hole in the fence. Max looked very disappointed.',
+        topic: 'dog',
+        readingLevel: 'b1',
+        wordCount: 128,
+        correctAnswer: '',
+        options: [],
+        rcQuestions: [
+          {
+            question: 'Where did Emma find Max?',
+            correctAnswer: "In Mrs. Brown's garden next door",
+            options: ["In Mrs. Brown's garden next door", 'Behind the garage', 'At the end of the street', 'Inside the house under a bed'],
+            explanation: "Emma heard Max's bark and found him in Mrs. Brown's garden next door.",
+            questionType: 'literal',
+          },
+          {
+            question: 'How did Max get into the neighbour\'s garden?',
+            correctAnswer: 'He dug a hole under the fence',
+            options: ['He dug a hole under the fence', 'He jumped over the fence', 'The gate was left open', 'Emma carried him there'],
+            explanation: 'Emma found Max next to a small hole he had dug under the fence.',
+            questionType: 'literal',
+          },
+          {
+            question: 'Why did Max look "very disappointed" at the end of the story?',
+            correctAnswer: "His escape route had been closed off by Emma's father",
+            options: ["His escape route had been closed off by Emma's father", 'He was hungry and wanted dinner', 'He did not want to go home with Emma', 'He was cold from being outside'],
+            explanation: "Max dug the hole to escape — once Emma's father fixed it, Max lost his way out, which is why he looked disappointed.",
+            questionType: 'inference',
+          },
+          {
+            question: 'True, False, or Not Given: Emma searched three places before finding Max.',
+            correctAnswer: 'True',
+            options: ['True', 'False', 'Not Given'],
+            explanation: 'Emma searched the garden, behind the garage, and walked to the end of the street — that is three places.',
+            questionType: 'true-false-not-given',
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'listening-new-york',
+    zone: 'b1',
+    category: 'Listening',
+    title: 'A Visit to New York City 🗽',
+    icon: '🗽',
+    color: 'from-blue-500 to-indigo-600',
+    requiredXP: 0,
+    drills: [
+      {
+        id: 'd1',
+        type: 'listening-story',
+        question: 'A Visit to New York City',
+        passage: 'Last summer, my family visited New York City for the first time. We arrived at JFK Airport on a Tuesday morning and took a yellow taxi to our hotel in Midtown Manhattan.\n\nOn our first day, we walked across the Brooklyn Bridge and looked back at the incredible skyline. In the afternoon, we visited the Statue of Liberty — a gift from France to the United States in 1886. She is even taller in real life than in photographs.\n\nThe next day, we explored Central Park, where people were jogging, cycling, and relaxing on the grass. We also visited the Metropolitan Museum of Art, which holds collections from ancient Egypt, medieval Europe, and modern America — all under one roof.\n\nBy the time we boarded our flight home, our feet were tired but our hearts were full. New York City never sleeps — and neither did we.',
+        topic: 'new-york',
+        readingLevel: 'b1',
+        wordCount: 140,
+        correctAnswer: '',
+        options: [],
+        rcQuestions: [
+          {
+            question: 'Which country gave the Statue of Liberty to the United States?',
+            correctAnswer: 'France',
+            options: ['France', 'England', 'Spain', 'Italy'],
+            explanation: 'The passage says the Statue of Liberty was "a gift from France to the United States in 1886."',
+            questionType: 'literal',
+          },
+          {
+            question: 'What does "Midtown Manhattan" most likely refer to?',
+            correctAnswer: 'A central area of New York City',
+            options: ['A central area of New York City', 'An airport in New York', 'A bridge connecting two boroughs', 'A museum district'],
+            explanation: 'Midtown is the central section of Manhattan, one of the main boroughs of New York City.',
+            questionType: 'vocabulary',
+          },
+          {
+            question: 'What kinds of activities did people do in Central Park?',
+            correctAnswer: 'Jogging, cycling, and relaxing on the grass',
+            options: ['Jogging, cycling, and relaxing on the grass', 'Swimming, painting, and playing football', 'Shopping, eating, and watching films', 'Running races and playing tennis'],
+            explanation: 'The passage lists jogging, cycling, and relaxing on the grass as activities in Central Park.',
+            questionType: 'literal',
+          },
+          {
+            question: 'What do you think the narrator means by "our hearts were full"?',
+            correctAnswer: 'They had wonderful memories and felt happy and satisfied',
+            options: ['They had wonderful memories and felt happy and satisfied', 'They ate too much food in New York', 'They were worried about missing the flight home', 'They were carrying heavy bags from shopping'],
+            explanation: '"Hearts were full" is an expression meaning emotionally satisfied and full of good feelings — despite tired feet.',
+            questionType: 'inference',
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    id: 'listening-science-fair',
+    zone: 'b1',
+    category: 'Listening',
+    title: 'The Science Fair 🔬',
+    icon: '🔬',
+    color: 'from-green-500 to-teal-600',
+    requiredXP: 0,
+    drills: [
+      {
+        id: 'd1',
+        type: 'listening-story',
+        question: 'The Science Fair',
+        passage: 'Maya had been working on her science project for three weeks. She wanted to find out whether plants grow faster when they listen to classical music. She planted two identical sets of seeds — one group in silence, the other with a small speaker playing Mozart — and measured their growth every single day.\n\nOn the morning of the science fair, Maya carried her display board carefully through the school corridor. Her results showed that the music plants had grown almost two centimetres taller than the silent plants.\n\nHer science teacher, Mr. Garcia, examined her data closely. "This is impressive, Maya," he said. "Your method was careful and your results are interesting — though we would need to repeat the experiment many times to be fully certain."\n\nMaya did not win first place. But when Mr. Garcia said her work showed real scientific thinking, it felt even better than a trophy.',
+        topic: 'school',
+        readingLevel: 'b1',
+        wordCount: 142,
+        correctAnswer: '',
+        options: [],
+        rcQuestions: [
+          {
+            question: 'What was Maya trying to find out with her experiment?',
+            correctAnswer: 'Whether plants grow faster when they listen to classical music',
+            options: ['Whether plants grow faster when they listen to classical music', 'Which type of soil is best for growing seeds', 'How much water plants need each day', 'Whether Mozart is better than other composers'],
+            explanation: "Maya's experiment aimed to discover if classical music affected plant growth speed.",
+            questionType: 'literal',
+          },
+          {
+            question: 'What does Mr. Garcia mean when he says the results need to be "repeated many times"?',
+            correctAnswer: 'One experiment is not enough to prove something in science',
+            options: ['One experiment is not enough to prove something in science', 'Maya made mistakes in her experiment', 'The plants did not actually grow differently', "Mr. Garcia didn't believe Maya's results"],
+            explanation: 'In science, experiments must be repeated many times to confirm results — a single trial could be a coincidence.',
+            questionType: 'inference',
+          },
+          {
+            question: 'How much taller were the music plants compared to the silent plants?',
+            correctAnswer: 'Almost two centimetres',
+            options: ['Almost two centimetres', 'Exactly two centimetres', 'About five centimetres', 'More than three centimetres'],
+            explanation: 'The passage states the music plants had grown "almost two centimetres taller than the silent plants."',
+            questionType: 'literal',
+          },
+          {
+            question: 'True, False, or Not Given: Maya won first place at the science fair.',
+            correctAnswer: 'False',
+            options: ['False', 'True', 'Not Given'],
+            explanation: "The passage clearly says 'Maya did not win first place.'",
+            questionType: 'true-false-not-given',
+          },
+        ],
+      },
+    ],
+  },
+];
+
+export const DAILY_CHALLENGE_DRILLS = [
+  { id: 'dc1', type: 'fill-blank' as const, question: 'The cat is ___ the mat.', correctAnswer: 'on', options: ['on', 'in', 'under', 'above'] },
+  { id: 'dc2', type: 'fill-blank' as const, question: 'She ___ to music every evening.', correctAnswer: 'listens', options: ['listens', 'listen', 'listening', 'listened'] },
+  { id: 'dc3', type: 'scramble' as const, question: 'Unscramble!', correctAnswer: 'SCHOOL', imageEmoji: '🏫', hint: 'S' },
+  { id: 'dc4', type: 'quiz' as const, question: 'Past tense of "run" is...', correctAnswer: 'ran', options: ['ran', 'runned', 'running', 'runs'] },
+  { id: 'dc5', type: 'quiz' as const, question: 'What is fifteen plus twenty-seven?', correctAnswer: '42', options: ['40', '41', '42', '43'] },
+  { id: 'dc6', type: 'quiz' as const, question: 'Which day comes after Thursday?', correctAnswer: 'Friday', options: ['Friday', 'Wednesday', 'Saturday', 'Monday'] },
+  { id: 'dc7', type: 'fill-blank' as const, question: 'I have ___ eaten breakfast.', correctAnswer: 'already', options: ['already', 'yet', 'never', 'ever'] },
+  { id: 'dc8', type: 'quiz' as const, question: 'What is eight times six?', correctAnswer: '48', options: ['42', '46', '48', '54'] },
+  { id: 'dc9', type: 'fill-blank' as const, question: 'There ___ three apples on the table.', correctAnswer: 'are', options: ['are', 'is', 'was', 'be'] },
+  { id: 'dc10', type: 'clock' as const, question: 'What time does the clock show?', correctAnswer: 'half past ten', options: ['half past ten', 'ten o\'clock', 'quarter past ten', 'quarter to eleven'], hours: 10, minutes: 30 },
+];

@@ -1,7 +1,8 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Drill } from '../../types';
 import { shuffleOptions } from '../../utils/shuffle';
+import { fetchElevenLabsAudio, hasElevenLabs, speakFallback } from '../../utils/elevenlabs';
 
 interface Props {
   drill: Drill;
@@ -11,7 +12,11 @@ interface Props {
 export default function Listening({ drill, onAnswer }: Props) {
   const [selected, setSelected] = useState<string | null>(null);
   const [revealed, setRevealed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+
+  const audioBlobUrl = useRef<string | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const options = useMemo(
     () => shuffleOptions(drill.options ?? []),
@@ -19,27 +24,47 @@ export default function Listening({ drill, onAnswer }: Props) {
   );
 
   useEffect(() => {
-    const timer = setTimeout(() => speak(), 400);
+    // Auto-play on mount
+    void playWord();
     return () => {
-      clearTimeout(timer);
+      audioRef.current?.pause();
+      if (audioBlobUrl.current) URL.revokeObjectURL(audioBlobUrl.current);
       window.speechSynthesis?.cancel();
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  function speak() {
-    if (!('speechSynthesis' in window)) return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(drill.correctAnswer);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.78;
-    utterance.pitch = 1.0;
-    const voices = window.speechSynthesis.getVoices();
-    const enVoice = voices.find(v => v.lang === 'en-US' && v.localService) ?? voices.find(v => v.lang.startsWith('en'));
-    if (enVoice) utterance.voice = enVoice;
-    utterance.onstart = () => setIsPlaying(true);
-    utterance.onend = () => setIsPlaying(false);
-    utterance.onerror = () => setIsPlaying(false);
-    window.speechSynthesis.speak(utterance);
+  async function playWord() {
+    if (isPlaying || isLoading) return;
+
+    if (audioBlobUrl.current) {
+      replayBlob(audioBlobUrl.current);
+      return;
+    }
+
+    if (hasElevenLabs) {
+      setIsLoading(true);
+      const url = await fetchElevenLabsAudio(drill.correctAnswer);
+      setIsLoading(false);
+      if (url) {
+        audioBlobUrl.current = url;
+        replayBlob(url);
+        return;
+      }
+    }
+
+    // Fallback
+    speakFallback(drill.correctAnswer);
+    setIsPlaying(true);
+    setTimeout(() => setIsPlaying(false), 1200);
+  }
+
+  function replayBlob(url: string) {
+    const audio = new Audio(url);
+    audioRef.current = audio;
+    audio.onplay = () => setIsPlaying(true);
+    audio.onended = () => setIsPlaying(false);
+    audio.onerror = () => setIsPlaying(false);
+    audio.play().catch(() => setIsPlaying(false));
   }
 
   function choose(opt: string) {
@@ -56,19 +81,18 @@ export default function Listening({ drill, onAnswer }: Props) {
       {drill.imageEmoji && <span className="text-7xl">{drill.imageEmoji}</span>}
       <p className="text-lg font-medium text-center" style={{ color: '#6b6b9a' }}>{drill.question}</p>
 
-      <motion.button
-        whileTap={{ scale: 0.92 }}
-        onClick={speak}
+      <motion.button whileTap={{ scale: 0.92 }} onClick={playWord} disabled={isLoading}
         className="w-24 h-24 rounded-full flex flex-col items-center justify-center gap-1 transition-all"
-        style={isPlaying ? {
+        style={isLoading ? {
+          background: 'rgba(0,245,255,0.05)', border: '3px solid rgba(0,245,255,0.2)', color: '#6b6b9a',
+        } : isPlaying ? {
           background: 'rgba(0,245,255,0.2)', border: '3px solid #00f5ff', color: '#00f5ff',
           boxShadow: '0 0 28px rgba(0,245,255,0.45)',
         } : {
           background: 'rgba(0,245,255,0.08)', border: '3px solid rgba(0,245,255,0.5)', color: '#00f5ff',
-        }}
-      >
-        <span className="text-4xl">🔊</span>
-        <span className="text-xs font-orbitron">{isPlaying ? 'PLAYING' : 'LISTEN'}</span>
+        }}>
+        <span className="text-4xl">{isLoading ? '⟳' : '🔊'}</span>
+        <span className="text-xs font-orbitron">{isLoading ? 'LOADING' : isPlaying ? 'PLAYING' : 'LISTEN'}</span>
       </motion.button>
 
       <AnimatePresence>
@@ -85,14 +109,14 @@ export default function Listening({ drill, onAnswer }: Props) {
 
       <div className="grid grid-cols-2 gap-3 w-full max-w-sm">
         {options.map(opt => {
-          let btnStyle: React.CSSProperties = { background: '#1a1a2e', border: '1px solid rgba(0,245,255,0.2)', color: '#e0e0ff' };
+          let s: React.CSSProperties = { background: '#1a1a2e', border: '1px solid rgba(0,245,255,0.2)', color: '#e0e0ff' };
           if (revealed && opt === drill.correctAnswer)
-            btnStyle = { background: 'rgba(0,255,136,0.12)', border: '2px solid #00ff88', color: '#00ff88', boxShadow: '0 0 14px rgba(0,255,136,0.3)' };
+            s = { background: 'rgba(0,255,136,0.12)', border: '2px solid #00ff88', color: '#00ff88', boxShadow: '0 0 14px rgba(0,255,136,0.3)' };
           else if (revealed && opt === selected)
-            btnStyle = { background: 'rgba(255,0,128,0.12)', border: '2px solid #ff0080', color: '#ff0080', boxShadow: '0 0 14px rgba(255,0,128,0.3)' };
+            s = { background: 'rgba(255,0,128,0.12)', border: '2px solid #ff0080', color: '#ff0080', boxShadow: '0 0 14px rgba(255,0,128,0.3)' };
           return (
             <motion.button key={opt} whileTap={{ scale: 0.95 }} onClick={() => choose(opt)}
-              className="py-4 rounded-2xl font-bold text-lg text-center transition-all" style={btnStyle}>
+              className="py-4 rounded-2xl font-bold text-lg text-center transition-all" style={s}>
               {opt}
             </motion.button>
           );

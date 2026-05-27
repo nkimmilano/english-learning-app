@@ -8,7 +8,8 @@ export type DrillType =
   | 'quiz'
   | 'clock'
   | 'reading-comprehension'
-  | 'homophone';
+  | 'homophone'
+  | 'listening-story';
 
 export type Zone = 'a1' | 'a1plus' | 'a2' | 'b1' | 'b2';
 

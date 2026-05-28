@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Drill } from '../../types';
 import { shuffleOptions } from '../../utils/shuffle';
 import { fetchElevenLabsAudio, hasElevenLabs, speakFallback } from '../../utils/elevenlabs';
+import { unlockIOSAudio } from '../../utils/iosAudioUnlock';
 
 interface Props {
   drill: Drill;
@@ -14,18 +15,13 @@ export default function Listening({ drill, onAnswer }: Props) {
   const [revealed, setRevealed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-
   const audioBlobUrl = useRef<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const options = useMemo(
-    () => shuffleOptions(drill.options ?? []),
-    [drill.id] // eslint-disable-line react-hooks/exhaustive-deps
-  );
+  const options = useMemo(() => shuffleOptions(drill.options ?? []),
+    [drill.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    // Auto-play on mount
-    void playWord();
     return () => {
       audioRef.current?.pause();
       if (audioBlobUrl.current) URL.revokeObjectURL(audioBlobUrl.current);
@@ -35,6 +31,7 @@ export default function Listening({ drill, onAnswer }: Props) {
 
   async function playWord() {
     if (isPlaying || isLoading) return;
+    unlockIOSAudio();
 
     if (audioBlobUrl.current) {
       replayBlob(audioBlobUrl.current);
@@ -52,7 +49,6 @@ export default function Listening({ drill, onAnswer }: Props) {
       }
     }
 
-    // Fallback
     speakFallback(drill.correctAnswer);
     setIsPlaying(true);
     setTimeout(() => setIsPlaying(false), 1200);
@@ -61,10 +57,14 @@ export default function Listening({ drill, onAnswer }: Props) {
   function replayBlob(url: string) {
     const audio = new Audio(url);
     audioRef.current = audio;
+    audio.setAttribute('playsinline', 'true');
+    audio.setAttribute('webkit-playsinline', 'true');
     audio.onplay = () => setIsPlaying(true);
     audio.onended = () => setIsPlaying(false);
     audio.onerror = () => setIsPlaying(false);
-    audio.play().catch(() => setIsPlaying(false));
+    audio.play().catch(() => {
+      setTimeout(() => audio.play().catch(() => setIsPlaying(false)), 100);
+    });
   }
 
   function choose(opt: string) {

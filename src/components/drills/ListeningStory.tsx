@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Drill, RCQuestion } from '../../types';
 import { shuffleOptions } from '../../utils/shuffle';
 import { fetchElevenLabsAudio, hasElevenLabs, speakFallback } from '../../utils/elevenlabs';
+import { unlockIOSAudio } from '../../utils/iosAudioUnlock';
 
 interface Props {
   drill: Drill;
@@ -10,39 +11,28 @@ interface Props {
 }
 
 const TOPIC_EMOJI: Record<string, string> = {
-  dog: '🐕',
-  'new-york': '🗽',
-  science: '🔬',
-  school: '🏫',
-  nature: '🌿',
-  story: '📖',
-  adventure: '🗺️',
-  city: '🌆',
-  animals: '🐾',
-  default: '🎧',
+  dog: '🐕', 'new-york': '🗽', science: '🔬', school: '🏫',
+  nature: '🌿', story: '📖', adventure: '🗺️', city: '🌆',
+  animals: '🐾', default: '🎧',
 };
 
 const TYPE_LABEL: Record<RCQuestion['questionType'], string> = {
-  literal: '👂 Listening',
-  vocabulary: '📝 Vocabulary',
-  inference: '🧠 Think!',
-  'true-false-not-given': '✅ True / False',
+  literal: '👂 Listening', vocabulary: '📝 Vocabulary',
+  inference: '🧠 Think!', 'true-false-not-given': '✅ True / False',
 };
 
-function QuestionPanel({
-  q, index, total, onDone,
-}: { q: RCQuestion; index: number; total: number; onDone: (c: boolean) => void }) {
+function QuestionPanel({ q, index, total, onDone }: {
+  q: RCQuestion; index: number; total: number; onDone: (c: boolean) => void;
+}) {
   const [selected, setSelected] = useState<string | null>(null);
   const [revealed, setRevealed] = useState(false);
   const shuffled = useMemo(() => shuffleOptions(q.options), []); // eslint-disable-line
-
   function choose(opt: string) {
     if (revealed) return;
     setSelected(opt);
     setRevealed(true);
   }
   const correct = selected === q.correctAnswer;
-
   return (
     <div className="flex flex-col gap-4 w-full">
       <div className="flex items-center justify-between">
@@ -55,7 +45,7 @@ function QuestionPanel({
       <p className="text-xl font-bold leading-snug" style={{ color: '#e0e0ff' }}>{q.question}</p>
       <div className="grid grid-cols-1 gap-2">
         {shuffled.map((opt, i) => {
-          const labels = ['A', 'B', 'C', 'D'];
+          const labels = ['A','B','C','D'];
           let s: React.CSSProperties = { background: '#1a1a2e', border: '1px solid rgba(0,245,255,0.18)', color: '#e0e0ff' };
           if (revealed && opt === q.correctAnswer)
             s = { background: 'rgba(0,255,136,0.12)', border: '2px solid #00ff88', color: '#00ff88', boxShadow: '0 0 14px rgba(0,255,136,0.3)' };
@@ -101,16 +91,12 @@ export default function ListeningStory({ drill, onAnswer }: Props) {
   const [qIndex, setQIndex] = useState(0);
   const [correct, setCorrect] = useState(0);
   const [showScript, setShowScript] = useState(false);
-
-  // Cache the blob URL so we don't re-fetch on replay
   const audioBlobUrl = useRef<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-
   const topicEmoji = TOPIC_EMOJI[drill.topic ?? ''] ?? TOPIC_EMOJI.default;
 
   useEffect(() => {
     return () => {
-      // Cleanup on unmount
       audioRef.current?.pause();
       if (audioBlobUrl.current) URL.revokeObjectURL(audioBlobUrl.current);
       window.speechSynthesis?.cancel();
@@ -120,7 +106,9 @@ export default function ListeningStory({ drill, onAnswer }: Props) {
   async function playStory() {
     if (isPlaying || isLoading) return;
 
-    // If we have a cached blob, just replay it
+    // iOS audio unlock must happen synchronously inside the tap handler
+    unlockIOSAudio();
+
     if (audioBlobUrl.current) {
       playBlobUrl(audioBlobUrl.current);
       return;
@@ -135,27 +123,38 @@ export default function ListeningStory({ drill, onAnswer }: Props) {
         playBlobUrl(url);
         return;
       }
-      // ElevenLabs failed — fall through to Web Speech
     }
 
-    // Fallback: Web Speech API
+    // Fallback: Web Speech
     speakFallback(drill.passage ?? '');
     setIsPlaying(true);
-    // Estimate duration from word count
     const words = (drill.passage ?? '').split(' ').length;
-    setTimeout(() => {
-      setIsPlaying(false);
-      setHasListened(true);
-    }, words * 450);
+    setTimeout(() => { setIsPlaying(false); setHasListened(true); }, words * 450);
   }
 
   function playBlobUrl(url: string) {
     const audio = new Audio(url);
     audioRef.current = audio;
+    // iOS requires these attributes
+    audio.setAttribute('playsinline', 'true');
+    audio.setAttribute('webkit-playsinline', 'true');
+    audio.preload = 'auto';
     audio.onplay = () => setIsPlaying(true);
     audio.onended = () => { setIsPlaying(false); setHasListened(true); };
     audio.onerror = () => { setIsPlaying(false); setHasListened(true); };
-    audio.play().catch(() => { setIsPlaying(false); setHasListened(true); });
+    // Use a user-gesture-safe play with resume trick for iOS
+    const playPromise = audio.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Second attempt after tiny delay (iOS sometimes needs this)
+        setTimeout(() => {
+          audio.play().catch(() => {
+            setIsPlaying(false);
+            setHasListened(true);
+          });
+        }, 100);
+      });
+    }
   }
 
   function stopStory() {
@@ -176,7 +175,6 @@ export default function ListeningStory({ drill, onAnswer }: Props) {
     }
   }
 
-  // ── INTRO ──
   if (phase === 'intro') {
     return (
       <div className="flex flex-col items-center gap-6 w-full max-w-xl">
@@ -184,9 +182,7 @@ export default function ListeningStory({ drill, onAnswer }: Props) {
           style={{ background: 'rgba(0,200,255,0.12)', color: '#00c8ff', border: '1px solid rgba(0,200,255,0.35)' }}>
           🎧 Listening Story
         </div>
-
         <span className="text-7xl">{topicEmoji}</span>
-
         <div className="flex items-center gap-2 rounded-2xl px-4 py-1"
           style={{ background: 'rgba(0,245,255,0.08)', border: '1px solid rgba(0,245,255,0.2)' }}>
           <span className="font-bold text-sm uppercase tracking-wide font-orbitron" style={{ color: '#00f5ff' }}>
@@ -194,24 +190,15 @@ export default function ListeningStory({ drill, onAnswer }: Props) {
           </span>
           <span style={{ color: '#6b6b9a' }}>·</span>
           <span className="text-sm" style={{ color: '#6b6b9a' }}>{questions.length} questions</span>
-          {hasElevenLabs && (
-            <>
-              <span style={{ color: '#6b6b9a' }}>·</span>
-              <span className="text-sm" style={{ color: '#00c8ff' }}>AI Voice</span>
-            </>
-          )}
+          {hasElevenLabs && (<><span style={{ color: '#6b6b9a' }}>·</span>
+            <span className="text-sm" style={{ color: '#00c8ff' }}>AI Voice</span></>)}
         </div>
-
-        <h2 className="text-2xl font-black text-center font-orbitron" style={{ color: '#e0e0ff' }}>
-          {drill.question}
-        </h2>
+        <h2 className="text-2xl font-black text-center font-orbitron" style={{ color: '#e0e0ff' }}>{drill.question}</h2>
         <p className="text-center text-base" style={{ color: '#6b6b9a' }}>
           Listen carefully, then answer the comprehension questions.
         </p>
 
-        {/* Play button */}
-        <motion.button
-          whileTap={{ scale: 0.93 }}
+        <motion.button whileTap={{ scale: 0.93 }}
           onClick={isPlaying ? stopStory : playStory}
           disabled={isLoading}
           className="w-28 h-28 rounded-full flex flex-col items-center justify-center gap-1 font-bold transition-all"
@@ -223,14 +210,12 @@ export default function ListeningStory({ drill, onAnswer }: Props) {
           } : {
             background: 'rgba(0,200,255,0.12)', border: '3px solid #00c8ff', color: '#00c8ff',
             boxShadow: '0 0 20px rgba(0,200,255,0.25)',
-          }}
-        >
+          }}>
           {isLoading
             ? <><span className="text-3xl animate-spin">⟳</span><span className="text-xs font-orbitron">LOADING</span></>
             : isPlaying
             ? <><span className="text-4xl">⏹</span><span className="text-xs font-orbitron">STOP</span></>
-            : <><span className="text-4xl">▶</span><span className="text-xs font-orbitron">PLAY</span></>
-          }
+            : <><span className="text-4xl">▶</span><span className="text-xs font-orbitron">PLAY</span></>}
         </motion.button>
 
         {isPlaying && (
@@ -260,7 +245,6 @@ export default function ListeningStory({ drill, onAnswer }: Props) {
             )}
           </motion.div>
         )}
-
         {!hasListened && !isPlaying && !isLoading && (
           <p className="text-sm" style={{ color: '#6b6b9a' }}>Press ▶ to hear the story</p>
         )}
@@ -268,7 +252,6 @@ export default function ListeningStory({ drill, onAnswer }: Props) {
     );
   }
 
-  // ── DONE ──
   if (phase === 'done') {
     const score = Math.round((correct / questions.length) * 100);
     return (
@@ -284,7 +267,6 @@ export default function ListeningStory({ drill, onAnswer }: Props) {
     );
   }
 
-  // ── QUESTIONS ──
   return (
     <div className="flex flex-col gap-4 w-full max-w-xl">
       <button onClick={isPlaying ? stopStory : playStory} disabled={isLoading}

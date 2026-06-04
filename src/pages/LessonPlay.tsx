@@ -15,6 +15,7 @@ import ClockDrill from '../components/drills/ClockDrill';
 import ReadingComprehension from '../components/drills/ReadingComprehension';
 import HomophoneDrill from '../components/drills/HomophoneDrill';
 import ListeningStory from '../components/drills/ListeningStory';
+import VideoComprehension from '../components/drills/VideoComprehension';
 import Confetti from '../components/layout/Confetti';
 import LevelUpModal from '../components/ui/LevelUpModal';
 
@@ -43,6 +44,7 @@ function DrillRenderer({
     case 'reading-comprehension': return <ReadingComprehension drill={drill} onAnswer={onAnswer} />;
     case 'homophone':      return <HomophoneDrill drill={drill} onAnswer={onAnswer} />;
     case 'listening-story': return <ListeningStory drill={drill} onAnswer={onAnswer} />;
+    case 'video-comprehension': return <VideoComprehension drill={drill} onAnswer={onAnswer} />;
     default:               return null;
   }
 }

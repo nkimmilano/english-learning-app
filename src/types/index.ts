@@ -9,7 +9,8 @@ export type DrillType =
   | 'clock'
   | 'reading-comprehension'
   | 'homophone'
-  | 'listening-story';
+  | 'listening-story'
+  | 'video-comprehension';
 
 export type Zone = 'a1' | 'a1plus' | 'a2' | 'b1' | 'b2';
 
@@ -41,6 +42,8 @@ export interface Drill {
   topic?: string;               // e.g. 'cars', 'superheroes', 'space'
   wordCount?: number;
   rcQuestions?: RCQuestion[];   // sub-questions for reading comp
+  videoId?: string;             // YouTube video ID for video-comprehension drills
+  videoDuration?: string;       // e.g. '3:24' shown to student
 }
 
 export interface Lesson {

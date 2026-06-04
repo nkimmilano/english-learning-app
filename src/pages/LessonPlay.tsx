@@ -61,6 +61,7 @@ const DRILL_TYPE_NAMES: Record<string, string> = {
   'reading-comprehension': 'Reading',
   'homophone':     'Homophones',
   'listening-story': 'Listening Story',
+  'video-comprehension': '🎬 Watch & Answer',
 };
 
 // Zone → neon color map

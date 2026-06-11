@@ -16,6 +16,7 @@ import ReadingComprehension from '../components/drills/ReadingComprehension';
 import HomophoneDrill from '../components/drills/HomophoneDrill';
 import ListeningStory from '../components/drills/ListeningStory';
 import VideoComprehension from '../components/drills/VideoComprehension';
+import MemoryMashup from '../components/drills/MemoryMashup';
 import Confetti from '../components/layout/Confetti';
 import LevelUpModal from '../components/ui/LevelUpModal';
 
@@ -45,6 +46,7 @@ function DrillRenderer({
     case 'homophone':      return <HomophoneDrill drill={drill} onAnswer={onAnswer} />;
     case 'listening-story': return <ListeningStory drill={drill} onAnswer={onAnswer} />;
     case 'video-comprehension': return <VideoComprehension drill={drill} onAnswer={onAnswer} />;
+    case 'memory-mashup':      return <MemoryMashup drill={drill} onAnswer={onAnswer} />;
     default:               return null;
   }
 }
@@ -62,6 +64,7 @@ const DRILL_TYPE_NAMES: Record<string, string> = {
   'homophone':     'Homophones',
   'listening-story': 'Listening Story',
   'video-comprehension': '🎬 Watch & Answer',
+  'memory-mashup':       '🧠 Memory Mashup',
 };
 
 // Zone → neon color map

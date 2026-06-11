@@ -10,7 +10,8 @@ export type DrillType =
   | 'reading-comprehension'
   | 'homophone'
   | 'listening-story'
-  | 'video-comprehension';
+  | 'video-comprehension'
+  | 'memory-mashup';
 
 export type Zone = 'a1' | 'a1plus' | 'a2' | 'b1' | 'b2';
 
